@@ -11,6 +11,8 @@ class Real
 {
 public:
 
+    double value;
+
     Real();
     virtual ~Real();
 };

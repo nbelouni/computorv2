@@ -10,6 +10,9 @@
 class Complex
 {
 public:
+    double  real_part;
+    int     complex_part;
+
     Complex();
     ~Complex();
 };

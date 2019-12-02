@@ -7,10 +7,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(SOURCES
         src/main.cpp
         src/Computor.cpp
+        src/IOperand.cpp
         )
 
 set(HEADERS
         inc/Computor.hpp
+        inc/IOperand.hpp
         )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")

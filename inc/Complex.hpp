@@ -7,14 +7,29 @@
 
 #include <iostream>
 
-class Complex
+class Complex: class Operand
 {
-public:
-    double  real_part;
-    int     complex_part;
+	private:
+	    double  _real_part;
+	    double	_complex_part;
 
-    Complex();
-    ~Complex();
+	public:
+		Complex();
+		Complex(double real_part, double real_part);
+		Complex(Complex &cmp);
+		~Complex();
+
+		Operand const * operator=( Operand const & rhs ); // Sum
+		Operand const * operator+( Operand const & rhs ); // Sum
+		Operand const * operator-( Operand const & rhs ); // Difference
+		Operand const * operator*( Operand const & rhs ); // Product
+		Operand const * operator/( Operand const & rhs ); // Quotient
+		Operand const * operator%( Operand const & rhs ); // Modulo
+
+		void	setRealPart(double n);
+		double	getRealPart();
+		void	setComplexPart(double n);
+		double	getComplexPart();
 };
 
 #endif //COMPUTERV2_COMPLEX_HPP

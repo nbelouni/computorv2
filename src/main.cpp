@@ -6,8 +6,6 @@
 int main(int argc, char *argv[])
 {
     Computor cp;
-    Real r;
-    Complex c;
 
     return 0;
 }

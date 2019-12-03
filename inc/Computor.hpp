@@ -6,6 +6,7 @@
 #define COMPUTERV2_COMPUTOR_HPP
 
 #include <iostream>
+#include "Real.hpp"
 
 class Computor
 {

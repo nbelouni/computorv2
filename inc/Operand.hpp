@@ -1,7 +1,7 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 
-#include "Computor.hpp"
+#include <iostream>
 
 typedef enum	e_op
 {
@@ -19,12 +19,12 @@ class Operand
 		Operand();
 		Operand(t_op type);
 		Operand(Operand &op);
-		~Operand();
+		virtual ~Operand();
 
 		void		setType(const t_op type);
 		const t_op  getType() const;
 	
-		virtual Operand const * operator=( Operand const & rhs ) const = 0; // Sum
+//		virtual Operand const * operator=( Operand const & rhs ) const = 0; // Sum
 //		virtual Operand const * operator+( Operand const & rhs ) const = 0; // Sum
 //		virtual Operand const * operator-( Operand const & rhs ) const = 0; // Difference
 //		virtual Operand const * operator*( Operand const & rhs ) const = 0; // Product

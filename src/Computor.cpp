@@ -7,6 +7,7 @@
 Computor::Computor()
 {
     std::cerr << "Computor constructed." << std::endl;
+    Real a;
 }
 
 Computor::~Computor()

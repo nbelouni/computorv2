@@ -10,7 +10,7 @@ set(SOURCES
 #        src/IOperand.cpp
         src/Operand.cpp
         src/Real.cpp
-        src/Complex.cpp
+#        src/Complex.cpp
         )
 
 set(HEADERS
@@ -18,7 +18,7 @@ set(HEADERS
 #        inc/IOperand.hpp
         inc/Operand.hpp
         inc/Real.hpp
-        inc/Complex.hpp
+#        inc/Complex.hpp
         )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")

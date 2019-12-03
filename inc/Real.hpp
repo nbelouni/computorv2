@@ -19,9 +19,9 @@ class Real: Operand
 		Real(double value); // power == 1
 		Real(double value, int power);
 		Real(Real &real);
-		~Real();
+		virtual ~Real();
 
-		Real operator=(Operand const & rhs ); // Sum
+//		Operand const * operator=(Operand const & rhs ); // Sum
 //		Operand const * operator+( Operand const & rhs ); // Sum
 //		Operand const * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product

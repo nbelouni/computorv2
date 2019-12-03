@@ -6,8 +6,9 @@
 #define COMPUTERV2_REAL_HPP
 
 #include "Computor.hpp"
+#include "Operand.hpp"
 
-class Real: class Operand
+class Real: Operand
 {
 	private:
 	    double	_value;

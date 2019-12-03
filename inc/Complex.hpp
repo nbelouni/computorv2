@@ -6,8 +6,9 @@
 #define COMPUTERV2_COMPLEX_HPP
 
 #include <iostream>
+#include "Operand.hpp"
 
-class Complex: class Operand
+class Complex: Operand
 {
 	private:
 	    double  _real_part;
@@ -15,7 +16,7 @@ class Complex: class Operand
 
 	public:
 		Complex();
-		Complex(double real_part, double real_part);
+		Complex(double real_part, double complex_part);
 		Complex(Complex &cmp);
 		~Complex();
 

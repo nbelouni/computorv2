@@ -7,14 +7,16 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(SOURCES
         src/main.cpp
         src/Computor.cpp
-        src/IOperand.cpp
+#        src/IOperand.cpp
+#        src/Operand.cpp
         src/Real.cpp
         src/Complex.cpp
         )
 
 set(HEADERS
         inc/Computor.hpp
-        inc/IOperand.hpp
+#        inc/IOperand.hpp
+        inc/Operand.hpp
         inc/Real.hpp
         inc/Complex.hpp
         )

@@ -21,11 +21,11 @@ class Complex: Operand
 		~Complex();
 
 		Operand const * operator=( Operand const & rhs ); // Sum
-		Operand const * operator+( Operand const & rhs ); // Sum
-		Operand const * operator-( Operand const & rhs ); // Difference
-		Operand const * operator*( Operand const & rhs ); // Product
-		Operand const * operator/( Operand const & rhs ); // Quotient
-		Operand const * operator%( Operand const & rhs ); // Modulo
+//		Operand const * operator+( Operand const & rhs ); // Sum
+//		Operand const * operator-( Operand const & rhs ); // Difference
+//		Operand const * operator*( Operand const & rhs ); // Product
+//		Operand const * operator/( Operand const & rhs ); // Quotient
+//		Operand const * operator%( Operand const & rhs ); // Modulo
 
 		void	setRealPart(double n);
 		double	getRealPart();

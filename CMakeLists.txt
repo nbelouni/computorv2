@@ -8,7 +8,7 @@ set(SOURCES
         src/main.cpp
         src/Computor.cpp
 #        src/IOperand.cpp
-#        src/Operand.cpp
+        src/Operand.cpp
         src/Real.cpp
         src/Complex.cpp
         )

@@ -13,3 +13,13 @@ Real::~Real()
 {
     std::cerr << "Real destroyed." << std::endl;
 }
+
+
+Real Real::operator=(Operand const &rhs)
+{
+    if (this != &rhs)
+    {
+        const t_op type = rhs.getType();
+    }
+    return (*this);
+}

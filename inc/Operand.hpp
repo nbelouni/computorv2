@@ -24,7 +24,7 @@ class Operand
 		void		setType(const t_op type);
 		const t_op  getType() const;
 	
-//		virtual Operand const * operator=( Operand const & rhs ) const = 0; // Sum
+//		virtual Operand const * operator=( Operand const & rhs ) const = 0; // Equal
 //		virtual Operand const * operator+( Operand const & rhs ) const = 0; // Sum
 //		virtual Operand const * operator-( Operand const & rhs ) const = 0; // Difference
 //		virtual Operand const * operator*( Operand const & rhs ) const = 0; // Product

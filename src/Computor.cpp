@@ -18,6 +18,11 @@ Computor::Computor()
     a.setPower(2);
     a.setValue(321);
     std::cout << a << std::endl;
+    a = b + c;
+    a + a;
+    std::cout << a << std::endl;
+    a = c;
+    std::cout << a << std::endl;
 }
 
 Computor::~Computor()

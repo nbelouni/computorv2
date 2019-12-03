@@ -5,10 +5,9 @@
 #ifndef COMPUTERV2_REAL_HPP
 #define COMPUTERV2_REAL_HPP
 
-#include "Computor.hpp"
 #include "Operand.hpp"
 
-class Real: Operand
+class Real: public Operand
 {
 	private:
 	    double	_value;
@@ -21,8 +20,8 @@ class Real: Operand
 		Real(Real &real);
 		virtual ~Real();
 
-//		Operand const * operator=(Operand const & rhs ); // Sum
-//		Operand const * operator+( Operand const & rhs ); // Sum
+		Operand const * operator=( Operand const & rhs ); // Equal
+		Operand const * operator+( Operand const & rhs ); // Sum
 //		Operand const * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient

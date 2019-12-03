@@ -52,6 +52,30 @@ int Real::getPower() const
     return _power;
 }
 
+Operand const *Real::operator=(Operand const &rhs)
+{
+    if (this != &rhs)
+    {
+        std::cout << "PAWEFJAOWJFAWOEF" << std::endl;
+        this->_value = 0;
+        this->_power = 0;
+    }
+    return (dynamic_cast<Operand const *>(this));
+//    return nullptr;
+}
+
+Operand const *Real::operator+(Operand const &rhs)
+{
+    if (this != &rhs)
+    {
+        std::cout << "PAWEFJAOWJFAWOEF" << std::endl;
+        this->_value = 0;
+        this->_power = 0;
+    }
+    return (dynamic_cast<Operand const *>(this));
+//    return nullptr;
+}
+
 std::ostream &operator<<(std::ostream &o, Real const &i)
 {
     o << "Real: " << i.getValue() << "^" << i.getPower();

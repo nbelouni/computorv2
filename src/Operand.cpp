@@ -35,4 +35,3 @@ const t_op Operand::getType() const
 {
     return _type;
 }
-

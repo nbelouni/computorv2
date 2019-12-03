@@ -29,9 +29,11 @@ class Real: Operand
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
 		void		setValue(double value);
-		double		getValue();
+		double		getValue() const;
 		void		setPower(int power);
-		int			getPower();
+		int			getPower() const;
 };
+
+std::ostream &operator<<(std::ostream &o, Real const &i);
 
 #endif //COMPUTERV2_REAL_HPP

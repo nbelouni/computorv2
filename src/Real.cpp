@@ -37,7 +37,7 @@ void Real::setValue(double value)
     this->_value = value;
 }
 
-double Real::getValue()
+double Real::getValue() const
 {
     return _value;
 }
@@ -47,11 +47,16 @@ void Real::setPower(int power)
     this->_power = power;
 }
 
-int Real::getPower()
+int Real::getPower() const
 {
     return _power;
 }
 
+std::ostream &operator<<(std::ostream &o, Real const &i)
+{
+    o << "Real: " << i.getValue() << "^" << i.getPower();
+	return (o);
+}
 
 //Operand const *
 //Real::operator+(Operand const &rhs)

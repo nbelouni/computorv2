@@ -8,6 +8,16 @@ Computor::Computor()
 {
     std::cerr << "Computor constructed." << std::endl;
     Real a;
+    std::cout << a << std::endl;
+    Real b(2.4, 4);
+    std::cout << b << std::endl;
+    Real c(1.345);
+    std::cout << c << std::endl;
+    Real d(b);
+    std::cout << d << std::endl;
+    a.setPower(2);
+    a.setValue(321);
+    std::cout << a << std::endl;
 }
 
 Computor::~Computor()

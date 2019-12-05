@@ -107,6 +107,11 @@ Operand const *Real::operator+(Operand const &rhs)
     return (dynamic_cast<Operand const *>(this));
 }
 
+double Real::computePower() const
+{
+    return pow(this->value_, this->power_);
+}
+
 std::ostream &operator<<(std::ostream &o, Real const &i)
 {
     o << "Real: " << i.getValue() << "^" << i.getPower();

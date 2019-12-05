@@ -14,9 +14,9 @@ Computor::~Computor()
     std::cerr << "Computor destroyed." << std::endl;
 }
 
-void Computor::test()
+void Computor::testComplex()
 {
-    Real r_a;
+    Real r_a(42, 2);
     Complex c_a;
     Complex c_b(0.23);
     Complex c_c(32, 0.23);
@@ -27,12 +27,13 @@ void Computor::test()
     std::cout << "c_d= " << c_d << std::endl;
 //    c_a = r_a;
     c_a = c_c;
-    c_a = c_b + c_d;
+    c_a = c_b + r_a;
     std::cout << "c_a= " << c_a << std::endl;
 }
 
-/*
 
+void Computor::testReal()
+{
     Real a;
     std::cout << "a = " << a << std::endl;
     Real b(2.4, 4);
@@ -52,5 +53,4 @@ void Computor::test()
     std::cout << "a = " << a << std::endl;
     a = c;
     std::cout << "a = " << a << std::endl;
-
-*/
+}

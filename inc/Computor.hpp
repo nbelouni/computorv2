@@ -14,7 +14,8 @@ public:
 
     ~Computor();
 
-    void test();
+    void testReal();
+    void testComplex();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

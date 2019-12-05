@@ -1,6 +1,7 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 
+#include <cmath>
 #include "Operand.hpp"
 
 typedef enum	e_op

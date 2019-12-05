@@ -100,6 +100,11 @@ const Operand *Complex::operator+(const Operand &rhs)
             this->real_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->real_part_;
             this->complex_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->complex_part_;
         }
+        else if (rhs.getType() == REAL)
+        {
+            const Real *tmp = dynamic_cast<const Real *>(rhs.getSelf());
+            this->real_part_ += tmp->computePower();;
+        }
         else
         {
             throw std::invalid_argument("in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex");

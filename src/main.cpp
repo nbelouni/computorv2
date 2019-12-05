@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     try
     {
-        cp.test();
+        cp.testComplex();
     }
     catch (const std::invalid_argument &e)
     {

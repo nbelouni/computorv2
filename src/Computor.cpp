@@ -31,6 +31,7 @@ void Computor::test()
 //    a = b;
 //    a + a;
     a = d + b;
+//    a = d + comp;
     std::cout << "a = " << a << std::endl;
     a = c;
     std::cout << "a = " << a << std::endl;

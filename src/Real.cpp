@@ -47,7 +47,7 @@ Real::Real(const Operand *op)
     }
     else
     {
-        throw std::invalid_argument("rhs is not Real");
+        throw std::invalid_argument("in 'Real::Real(const Operand *op)' op is not Real");
     }
 }
 
@@ -80,7 +80,6 @@ Operand const *Real::operator=(Operand const &rhs)
         this->_power = 0;
     }
     return (dynamic_cast<Operand const *>(this));
-//    return nullptr;
 }
 
 Operand const *Real::operator+(Operand const &rhs)
@@ -95,11 +94,10 @@ Operand const *Real::operator+(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("rhs is not Real");
+            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real");
         }
     }
     return (dynamic_cast<Operand const *>(this));
-//    return nullptr;
 }
 
 std::ostream &operator<<(std::ostream &o, Real const &i)

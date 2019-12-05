@@ -4,7 +4,7 @@
 #include <iostream>
 
 //#include "Operand.hpp"
-//#include "Complex.hpp"
+#include "Complex.hpp"
 //#include "LexerParser.hpp"
 #include "Real.hpp"
 #include "Computor.hpp"

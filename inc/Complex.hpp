@@ -5,6 +5,7 @@
 #ifndef COMPUTERV2_COMPLEX_HPP
 #define COMPUTERV2_COMPLEX_HPP
 
+#include "Operand.hpp"
 #include "Computorv2.hpp"
 
 class Complex: public Operand

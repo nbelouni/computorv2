@@ -6,6 +6,9 @@
 
 Real::Real()
 {
+    this->setType(REAL);
+    this->_value = 0;
+    this->_power = 0;
     std::cerr << "Real constructed." << std::endl;
 }
 
@@ -38,6 +41,10 @@ Real::Real(const Operand *op)
     {
         this->_value = dynamic_cast<Real const *>(op)->_value;
         this->_power = dynamic_cast<Real const *>(op)->_power;
+    }
+    else
+    {
+        throw std::invalid_argument("rhs is not Real");
     }
 }
 
@@ -85,7 +92,7 @@ Operand const *Real::operator+(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument( "rhs is not Real" );
+            throw std::invalid_argument("rhs is not Real");
         }
     }
     return (dynamic_cast<Operand const *>(this));
@@ -95,7 +102,7 @@ Operand const *Real::operator+(Operand const &rhs)
 std::ostream &operator<<(std::ostream &o, Real const &i)
 {
     o << "Real: " << i.getValue() << "^" << i.getPower();
-	return (o);
+    return (o);
 }
 
 //Operand const *

@@ -6,6 +6,7 @@
 
 Complex::Complex()
 {
+    this->setType(COMPLEX);
     std::cerr << "Complex constructed." << std::endl;
 }
 

@@ -16,8 +16,10 @@ class Complex: public Operand
 
 	public:
 		Complex();
+		Complex(double complex_part);
 		Complex(double real_part, double complex_part);
 		Complex(Complex &cmp);
+        Complex(const Operand *op);
 		~Complex();
 
 		Operand const * operator=( Operand const & rhs ); // Sum
@@ -28,9 +30,11 @@ class Complex: public Operand
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
 		void	setRealPart(double n);
-		double	getRealPart();
+		double	getRealPart() const;
 		void	setComplexPart(double n);
-		double	getComplexPart();
+		double	getComplexPart() const;
 };
+
+std::ostream &operator<<(std::ostream &o, Complex const &i);
 
 #endif //COMPUTERV2_COMPLEX_HPP

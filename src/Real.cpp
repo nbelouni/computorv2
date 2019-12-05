@@ -7,7 +7,7 @@
 Real::Real()
 {
     this->setType(REAL);
-    this->value_ = 0;
+    this->value_ = 0.0;
     this->power_ = 0;
     std::cerr << "Real constructed." << std::endl;
 }
@@ -58,7 +58,7 @@ void Real::setValue(double value)
 
 double Real::getValue() const
 {
-    return value_;
+    return this->value_;
 }
 
 void Real::setPower(int power)
@@ -68,7 +68,7 @@ void Real::setPower(int power)
 
 int Real::getPower() const
 {
-    return power_;
+    return this->power_;
 }
 
 Operand const *Real::operator=(Operand const &rhs)

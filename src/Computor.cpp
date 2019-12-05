@@ -17,6 +17,8 @@ Computor::~Computor()
 void Computor::test()
 {
     Complex comp;
+    Complex pouet(0.23);
+    std::cout << "pouet= " << pouet<< std::endl;
     Real a;
     std::cout << "a = " << a << std::endl;
     Real b(2.4, 4);

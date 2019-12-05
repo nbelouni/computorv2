@@ -16,9 +16,23 @@ Computor::~Computor()
 
 void Computor::test()
 {
-    Complex comp;
-    Complex pouet(0.23);
-    std::cout << "pouet= " << pouet<< std::endl;
+    Real r_a;
+    Complex c_a;
+    Complex c_b(0.23);
+    Complex c_c(32, 0.23);
+    Complex c_d(c_c);
+    std::cout << "c_a= " << c_a << std::endl;
+    std::cout << "c_b= " << c_b << std::endl;
+    std::cout << "c_c= " << c_c << std::endl;
+    std::cout << "c_d= " << c_d << std::endl;
+//    c_a = r_a;
+    c_a = c_c;
+    c_a = c_b + c_d;
+    std::cout << "c_a= " << c_a << std::endl;
+}
+
+/*
+
     Real a;
     std::cout << "a = " << a << std::endl;
     Real b(2.4, 4);
@@ -39,4 +53,4 @@ void Computor::test()
     a = c;
     std::cout << "a = " << a << std::endl;
 
-}
+*/

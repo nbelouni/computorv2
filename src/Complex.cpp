@@ -7,6 +7,8 @@
 Complex::Complex()
 {
     this->setType(COMPLEX);
+    this->real_part_ = 0.0;
+    this->complex_part_ = 0.0;
     std::cerr << "Complex constructed." << std::endl;
 }
 
@@ -68,6 +70,42 @@ void Complex::setComplexPart(double n)
 double Complex::getComplexPart() const
 {
     return this->complex_part_;
+}
+
+Operand const *Complex::operator=(Operand const &rhs)
+{
+    std::cout << "___ Op = ___" << std::endl;
+    if (this != &rhs)
+    {
+        if (rhs.getType() == COMPLEX)
+        {
+            this->real_part_ = dynamic_cast<const Complex *>(rhs.getSelf())->real_part_;
+            this->complex_part_ = dynamic_cast<const Complex *>(rhs.getSelf())->complex_part_;
+        }
+        else
+        {
+            throw std::invalid_argument("in 'const Operand *Complex::operator=(const Operand &rhs)' rhs is not Complex");
+        }
+    }
+    return (dynamic_cast<Operand const *>(this));
+}
+
+const Operand *Complex::operator+(const Operand &rhs)
+{
+    std::cout << "___ Op + ___" << std::endl;
+    if (this != &rhs)
+    {
+        if (rhs.getType() == COMPLEX)
+        {
+            this->real_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->real_part_;
+            this->complex_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->complex_part_;
+        }
+        else
+        {
+            throw std::invalid_argument("in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex");
+        }
+    }
+    return (dynamic_cast<Operand const *>(this));
 }
 
 std::ostream &operator<<(std::ostream &o, Complex const &i)

@@ -11,7 +11,11 @@ int main(int argc, char *argv[])
     }
     catch (const std::invalid_argument &e)
     {
-        std::cerr << "ERROR INVALID ARGUMENT: " << e.what() << std::endl;
+        std::cerr << "INVALID ARGUMENT: " << e.what() << std::endl;
+    }
+    catch (const std::logic_error &e)
+    {
+        std::cerr << "LOGIC ERROR: " << e.what() << std::endl;
     }
     return 0;
 }

@@ -81,9 +81,21 @@ Operand const *Real::operator=(Operand const &rhs)
             this->value_ = dynamic_cast<const Real *>(rhs.getSelf())->value_;
             this->power_ = dynamic_cast<const Real *>(rhs.getSelf())->power_;
         }
+        else if (rhs.getType() == COMPLEX)
+        {
+            if (dynamic_cast<const Complex *>(rhs.getSelf())->getComplexPart() == 0.0)
+            {
+                this->value_ = dynamic_cast<const Complex *>(rhs.getSelf())->getRealPart();
+                this->power_ = 1;
+            }
+            else
+            {
+                throw std::logic_error("in 'Operand const *Real::operator=(Operand const &rhs)' rhs is Complex with complex_part_ != 0.0.");
+            }
+        }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand const *Real::operator=(Operand const &rhs)' rhs is not Real.");
         }
     }
     return (dynamic_cast<Operand const *>(this));

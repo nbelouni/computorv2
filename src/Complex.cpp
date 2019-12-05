@@ -84,7 +84,7 @@ Operand const *Complex::operator=(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'const Operand *Complex::operator=(const Operand &rhs)' rhs is not Complex");
+            throw std::invalid_argument("in 'const Operand *Complex::operator=(const Operand &rhs)' rhs is not Complex.");
         }
     }
     return (dynamic_cast<Operand const *>(this));
@@ -107,7 +107,7 @@ const Operand *Complex::operator+(const Operand &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex");
+            throw std::invalid_argument("in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex or inferior.");
         }
     }
     return (dynamic_cast<Operand const *>(this));

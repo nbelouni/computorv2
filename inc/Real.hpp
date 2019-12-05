@@ -29,7 +29,7 @@ class Real: public Operand
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
-        double      computePower() const;
+        const double      computePower() const;
 
 		void		setValue(double value);
 		double		getValue() const;

@@ -83,7 +83,7 @@ Operand const *Real::operator=(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real");
+            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
         }
     }
     return (dynamic_cast<Operand const *>(this));
@@ -101,13 +101,13 @@ Operand const *Real::operator+(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real");
+            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
         }
     }
     return (dynamic_cast<Operand const *>(this));
 }
 
-double Real::computePower() const
+const double Real::computePower() const
 {
     return pow(this->value_, this->power_);
 }

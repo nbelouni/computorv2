@@ -6,6 +6,7 @@
 #define COMPUTERV2_REAL_HPP
 
 #include "Operand.hpp"
+#include "Computorv2.hpp"
 
 class Real: public Operand
 {

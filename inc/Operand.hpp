@@ -1,7 +1,7 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 
-#include <iostream>
+#include "Computorv2.hpp"
 
 typedef enum	e_op
 {

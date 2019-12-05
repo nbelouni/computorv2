@@ -5,6 +5,8 @@
 #ifndef COMPUTERV2_IOPERAND_HPP
 #define COMPUTERV2_IOPERAND_HPP
 
+#include "Computorv2.hpp"
+
 class Real;
 class Complex;
 class Matrix;

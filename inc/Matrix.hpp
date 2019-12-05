@@ -1,11 +1,11 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include "Computor.hpp"
+#include "Computorv2.hpp"
 
 typedef std::vector<std::vector<double>> t_matrix;
 
-class Matrix: class Operand
+class Matrix: public Operand
 {
 	private:
 	    t_matrix	_values;

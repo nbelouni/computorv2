@@ -5,10 +5,9 @@
 #ifndef COMPUTERV2_COMPLEX_HPP
 #define COMPUTERV2_COMPLEX_HPP
 
-#include <iostream>
-#include "Operand.hpp"
+#include "Computorv2.hpp"
 
-class Complex: Operand
+class Complex: public Operand
 {
 	private:
 	    double  _real_part;

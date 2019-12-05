@@ -18,6 +18,7 @@ set(HEADERS
 #        inc/IOperand.hpp
         inc/Operand.hpp
         inc/Real.hpp
+        inc/Computorv2.hpp
 #        inc/Complex.hpp
         )
 

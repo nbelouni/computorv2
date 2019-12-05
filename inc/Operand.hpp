@@ -5,7 +5,7 @@
 
 typedef enum	e_op
 {
-    UNDIFINED,
+    UNDEFINED,
 	REAL,
 	COMPLEX,
 	MATRIX

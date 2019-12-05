@@ -19,18 +19,21 @@ Real::~Real()
 
 Real::Real(double value)
 {
+    this->setType(REAL);
     this->_value = value;
     this->_power = 1;
 }
 
 Real::Real(double value, int power)
 {
+    this->setType(REAL);
     this->_value = value;
     this->_power = power;
 }
 
 Real::Real(Real &real)
 {
+    this->setType(REAL);
     this->_value = real.getValue();
     this->_power = real.getPower();
 }

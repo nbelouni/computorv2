@@ -6,7 +6,7 @@
 
 Operand::Operand()
 {
-    this->_type = UNDIFINED;
+    this->_type = UNDEFINED;
     std::cerr << "Operand constructed." << std::endl;
 }
 

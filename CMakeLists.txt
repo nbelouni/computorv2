@@ -10,6 +10,7 @@ set(SOURCES
 #        src/IOperand.cpp
         src/Operand.cpp
         src/Real.cpp
+        src/LexerParser.cpp
 #        src/Complex.cpp
         )
 
@@ -19,6 +20,7 @@ set(HEADERS
         inc/Operand.hpp
         inc/Real.hpp
         inc/Computorv2.hpp
+        inc/LexerParser.hpp
 #        inc/Complex.hpp
         )
 

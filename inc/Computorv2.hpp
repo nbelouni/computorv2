@@ -5,7 +5,7 @@
 
 //#include "Operand.hpp"
 //#include "Complex.hpp"
-//#include "LexerParser.hpp"
+#include "LexerParser.hpp"
 #include "Real.hpp"
 #include "Computor.hpp"
 //#include "Matrix.hpp"

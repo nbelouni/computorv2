@@ -3,10 +3,24 @@
 
 int main(int argc, char *argv[])
 {
-    Computor cp;
+   // Computor cp;
 
-//	for (std::string line; std::getline(std::cin, line);) {
-//        std::cout << line << std::endl;
-//    }
+	LexerParser lp;
+	std::cout << "$>";
+	for (std::string line; std::getline(std::cin, line);)
+	{
+		try
+		{
+			std::cout << line << std::endl;
+			lp.lineToLexems(line);
+			line.clear();
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+		std::cout << "$>";
+		lp.clear();
+    }
     return 0;
 }

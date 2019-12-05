@@ -5,8 +5,13 @@ int main(int argc, char *argv[])
 {
     Computor cp;
 
-//	for (std::string line; std::getline(std::cin, line);) {
-//        std::cout << line << std::endl;
-//    }
+    try
+    {
+        cp.test();
+    }
+    catch (const std::invalid_argument &e)
+    {
+        std::cerr << &e << std::endl;
+    }
     return 0;
 }

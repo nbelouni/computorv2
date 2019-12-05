@@ -2,23 +2,21 @@ cmake_minimum_required(VERSION 3.5)
 project(computerv2)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+#set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 set(SOURCES
         src/main.cpp
         src/Computor.cpp
-#        src/IOperand.cpp
         src/Operand.cpp
         src/Real.cpp
 #        src/Complex.cpp
         )
 
 set(HEADERS
+        inc/Computorv2.hpp
         inc/Computor.hpp
-#        inc/IOperand.hpp
         inc/Operand.hpp
         inc/Real.hpp
-        inc/Computorv2.hpp
 #        inc/Complex.hpp
         )
 

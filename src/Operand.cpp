@@ -35,3 +35,8 @@ const t_op Operand::getType() const
 {
     return _type;
 }
+
+const Operand * Operand::getSelf() const
+{
+    return this;
+}

@@ -11,7 +11,7 @@
 class Real: public Operand
 {
 	private:
-	    double	_value;
+        double	_value;
 		int		_power;
 
 	public:
@@ -19,6 +19,7 @@ class Real: public Operand
 		Real(double value); // power == 1
 		Real(double value, int power);
 		Real(Real &real);
+        Real(const Operand *op);
 		virtual ~Real();
 
 		Operand const * operator=( Operand const & rhs ); // Equal
@@ -32,6 +33,7 @@ class Real: public Operand
 		double		getValue() const;
 		void		setPower(int power);
 		int			getPower() const;
+
 };
 
 std::ostream &operator<<(std::ostream &o, Real const &i);

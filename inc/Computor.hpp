@@ -13,6 +13,8 @@ public:
     Computor();
 
     ~Computor();
+
+    void test();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

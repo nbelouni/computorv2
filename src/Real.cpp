@@ -7,8 +7,8 @@
 Real::Real()
 {
     this->setType(REAL);
-    this->_value = 0;
-    this->_power = 0;
+    this->value_ = 0;
+    this->power_ = 0;
     std::cerr << "Real constructed." << std::endl;
 }
 
@@ -20,30 +20,30 @@ Real::~Real()
 Real::Real(double value)
 {
     this->setType(REAL);
-    this->_value = value;
-    this->_power = 1;
+    this->value_ = value;
+    this->power_ = 1;
 }
 
 Real::Real(double value, int power)
 {
     this->setType(REAL);
-    this->_value = value;
-    this->_power = power;
+    this->value_ = value;
+    this->power_ = power;
 }
 
 Real::Real(Real &real)
 {
     this->setType(REAL);
-    this->_value = real.getValue();
-    this->_power = real.getPower();
+    this->value_ = real.getValue();
+    this->power_ = real.getPower();
 }
 
 Real::Real(const Operand *op)
 {
     if (op->getType() == REAL)
     {
-        this->_value = dynamic_cast<Real const *>(op)->_value;
-        this->_power = dynamic_cast<Real const *>(op)->_power;
+        this->value_ = dynamic_cast<Real const *>(op)->value_;
+        this->power_ = dynamic_cast<Real const *>(op)->power_;
     }
     else
     {
@@ -53,31 +53,38 @@ Real::Real(const Operand *op)
 
 void Real::setValue(double value)
 {
-    this->_value = value;
+    this->value_ = value;
 }
 
 double Real::getValue() const
 {
-    return _value;
+    return value_;
 }
 
 void Real::setPower(int power)
 {
-    this->_power = power;
+    this->power_ = power;
 }
 
 int Real::getPower() const
 {
-    return _power;
+    return power_;
 }
 
 Operand const *Real::operator=(Operand const &rhs)
 {
+    std::cout << "___ Op = ___" << std::endl;
     if (this != &rhs)
     {
-        std::cout << "___ Op = ___" << std::endl;
-        this->_value = 0;
-        this->_power = 0;
+        if (rhs.getType() == REAL)
+        {
+            this->value_ = dynamic_cast<const Real *>(rhs.getSelf())->value_;
+            this->power_ = dynamic_cast<const Real *>(rhs.getSelf())->power_;
+        }
+        else
+        {
+            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real");
+        }
     }
     return (dynamic_cast<Operand const *>(this));
 }
@@ -89,8 +96,8 @@ Operand const *Real::operator+(Operand const &rhs)
     {
         if (rhs.getType() == REAL)
         {
-            this->_value += dynamic_cast<const Real *>(rhs.getSelf())->_value;
-            this->_power += dynamic_cast<const Real *>(rhs.getSelf())->_power;
+            this->value_ += dynamic_cast<const Real *>(rhs.getSelf())->value_;
+            this->power_ += dynamic_cast<const Real *>(rhs.getSelf())->power_;
         }
         else
         {
@@ -116,8 +123,8 @@ std::ostream &operator<<(std::ostream &o, Real const &i)
 //        {
 //            Real *r;
 //            r = dynamic_cast<Real*>(rhs);
-//            _value += r->_value;
-//            _power += r->_power;
+//            value_ += r->value_;
+//            power_ += r->power_;
 //        }
 //    }
 //    return (dynamic_cast<Operand*>(this));

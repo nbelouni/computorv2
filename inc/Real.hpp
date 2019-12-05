@@ -11,8 +11,8 @@
 class Real: public Operand
 {
 	private:
-        double	_value;
-		int		_power;
+        double	value_;
+		int		power_;
 
 	public:
 		Real();

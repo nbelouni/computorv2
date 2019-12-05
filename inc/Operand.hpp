@@ -14,7 +14,7 @@ typedef enum	e_op
 class Operand
 {
 	private:
-		t_op	_type;
+		t_op	type_;
 	
 	public:
 		Operand();

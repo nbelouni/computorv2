@@ -6,19 +6,19 @@
 
 Operand::Operand()
 {
-    this->_type = UNDEFINED;
+    this->type_ = UNDEFINED;
     std::cerr << "Operand constructed." << std::endl;
 }
 
 Operand::Operand(t_op type)
 {
-    this->_type = type;
+    this->type_ = type;
     std::cerr << "Operand constructed: " << type << std::endl;
 }
 
 Operand::Operand(Operand &op)
 {
-    this->_type = op.getType();
+    this->type_ = op.getType();
 }
 
 Operand::~Operand()
@@ -28,12 +28,12 @@ Operand::~Operand()
 
 void Operand::setType(const t_op type)
 {
-    this->_type = type;
+    this->type_ = type;
 }
 
 const t_op Operand::getType() const
 {
-    return _type;
+    return type_;
 }
 
 const Operand * Operand::getSelf() const

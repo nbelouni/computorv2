@@ -16,7 +16,7 @@ Computor::~Computor()
 
 void Computor::test()
 {
-//    Complex comp;
+    Complex comp;
     Real a;
     std::cout << "a = " << a << std::endl;
     Real b(2.4, 4);
@@ -28,7 +28,8 @@ void Computor::test()
     a.setPower(2);
     a.setValue(321);
     std::cout << "a = " << a << std::endl;
-//    a = b;
+//    a = comp;
+    a = b;
 //    a + a;
     a = d + b;
 //    a = d + comp;

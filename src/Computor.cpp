@@ -40,23 +40,36 @@ void Computor::testComplex()
 
 void Computor::testReal()
 {
-    Real a;
-    std::cout << "a = " << a << std::endl;
-    Real b(2.4, 4);
-    std::cout << "b = " << b << std::endl;
-    Real c(1.345);
-    std::cout << "c = " << c << std::endl;
-    Real d(b);
-    std::cout << "d = " << d << std::endl;
-    a.setPower(2);
-    a.setValue(321);
-    std::cout << "a = " << a << std::endl;
-//    a = comp;
-    a = b;
-//    a + a;
-    a = d + b;
-//    a = d + comp;
-    std::cout << "a = " << a << std::endl;
-    a = c;
-    std::cout << "a = " << a << std::endl;
+    Complex c_a;
+    Real r_a;
+    Real r_b(2.4, 4);
+    Real r_c(1.345);
+    Real r_d(r_b);
+    std::cout << "r_a = " << r_a << std::endl;
+    std::cout << "r_b = " << r_b << std::endl;
+    std::cout << "r_c = " << r_c << std::endl;
+    std::cout << "r_d = " << r_d << std::endl;
+    r_a.setPower(2);
+    r_a.setValue(321);
+    std::cout << "r_a = " << r_a << std::endl;
+
+    // THIS !=
+    r_a = r_b;
+    std::cout << "r_a = " << &r_a << std::endl;
+    std::cout << "r_b = " << &r_b << std::endl;
+    r_a = r_d - r_b;
+    std::cout << "r_a = r_d - r_b : " << r_a << std::endl;
+    r_a = r_d + r_b;
+    std::cout << "r_a = r_d + r_b : " << r_a << std::endl;
+
+    // THAT
+    r_a = r_b;
+    std::cout << "r_a = " << r_a << std::endl;
+    r_a = r_d + r_b;
+    std::cout << "r_a = r_d + r_b : " << r_a << std::endl;
+    r_a = r_d - r_b;
+    std::cout << "r_a = r_d - r_b : " << r_a << std::endl;
+
+    r_a = r_c;
+    std::cout << "r_a = " << r_a << std::endl;
 }

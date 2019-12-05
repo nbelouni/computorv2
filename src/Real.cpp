@@ -119,6 +119,24 @@ Operand const *Real::operator+(Operand const &rhs)
     return (dynamic_cast<Operand const *>(this));
 }
 
+Operand const *Real::operator-(Operand const &rhs)
+{
+    std::cout << "___ Op - ___" << std::endl;
+    if (this != &rhs)
+    {
+        if (rhs.getType() == REAL)
+        {
+            this->value_ -= dynamic_cast<const Real *>(rhs.getSelf())->value_;
+            this->power_ -= dynamic_cast<const Real *>(rhs.getSelf())->power_;
+        }
+        else
+        {
+            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
+        }
+    }
+    return (dynamic_cast<Operand const *>(this));
+}
+
 const double Real::computePower() const
 {
     return pow(this->value_, this->power_);

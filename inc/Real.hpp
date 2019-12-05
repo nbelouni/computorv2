@@ -24,7 +24,7 @@ class Real: public Operand
 
 		Operand const * operator=( Operand const & rhs ); // Equal
 		Operand const * operator+( Operand const & rhs ); // Sum
-//		Operand const * operator-( Operand const & rhs ); // Difference
+		Operand const * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo

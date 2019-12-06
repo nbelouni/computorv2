@@ -111,6 +111,6 @@ const Operand *Complex::operator+(const Operand &rhs)
 
 std::ostream &operator<<(std::ostream &o, Complex const &i)
 {
-    o << "Complex: " << i.getRealPart()<< " + " << i.getComplexPart() << "i";
+    o << "[ COMPLEX | " << i.getRealPart()<< " + " << i.getComplexPart() << "i | " << i.getSelf() << " ]";
     return (o);
 }

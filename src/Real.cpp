@@ -127,7 +127,7 @@ Operand const *Real::operator-(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand const *Real::operator-(Operand const &rhs)' rhs is not Real.");
         }
     }
     return (dynamic_cast<Operand const *>(this));
@@ -140,7 +140,7 @@ const double Real::computePower() const
 
 std::ostream &operator<<(std::ostream &o, Real const &i)
 {
-    o << "Real: " << i.getValue() << "^" << i.getPower();
+    o << "[ REAL | " << i.getValue() << "^" << i.getPower() << " | " << i.getSelf() << " ]";
     return (o);
 }
 

@@ -35,7 +35,6 @@ class Real: public Operand
 		double		getValue() const;
 		void		setPower(int power);
 		int			getPower() const;
-
 };
 
 std::ostream &operator<<(std::ostream &o, Real const &i);

@@ -104,8 +104,12 @@ Operand const *Real::operator+(Operand const &rhs)
     {
         if (rhs.getType() == REAL)
         {
-            this->value_ += dynamic_cast<const Real *>(rhs.getSelf())->value_;
-            this->power_ += dynamic_cast<const Real *>(rhs.getSelf())->power_;
+            Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue(),
+                                 getPower() + dynamic_cast<const Real *>(&rhs)->getPower());
+//            this->value_ += dynamic_cast<const Real *>(rhs)->value_;
+//            this->power_ += dynamic_cast<const Real *>(rhs)->power_;
+            std::cout << *tmp << std::endl;
+            return dynamic_cast<Operand const *>(tmp);
         }
         else
         {

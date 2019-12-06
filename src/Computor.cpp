@@ -34,6 +34,7 @@ void Computor::testComplex()
 
 void Computor::testReal()
 {
+/*
 //    Real *ptr_a;
 //    Real *ptr_b;
 
@@ -79,4 +80,20 @@ void Computor::testReal()
 
     r_a = r_c;
     std::cout << "r_a = " << r_a << std::endl;
+    */
+    Real real_a(111111, 1);
+    Real real_b(222222, 2);
+    Real real_c(333333, 3);
+
+    std::cout << "real_a" << real_a << std::endl;
+    std::cout << "real_b" << real_b << std::endl;
+    std::cout << "real_c" << real_c << std::endl;
+    real_a = real_b + real_c;
+    std::cout << "real_a" << real_a << std::endl;
+    std::cout << "real_b" << real_b << std::endl;
+    std::cout << "real_c" << real_c << std::endl;
+//    real_a = real_c - real_b;
+//    std::cout << "real_a" << real_a << std::endl;
+//    std::cout << "real_b" << real_b << std::endl;
+//    std::cout << "real_c" << real_c << std::endl;
 }

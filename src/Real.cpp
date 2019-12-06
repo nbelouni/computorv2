@@ -67,7 +67,7 @@ int Real::getPower() const
     return this->power_;
 }
 
-Operand const *Real::operator=(Operand const &rhs)
+Operand *Real::operator=(Operand const &rhs)
 {
     std::cout << "___ Op = ___" << std::endl;
     if (this != &rhs)
@@ -86,18 +86,18 @@ Operand const *Real::operator=(Operand const &rhs)
             }
             else
             {
-                throw std::logic_error("in 'Operand const *Real::operator=(Operand const &rhs)' rhs is Complex with complex_part_ != 0.0.");
+                throw std::logic_error("in 'Operand *Real::operator=(Operand const &rhs)' rhs is Complex with complex_part_ != 0.0.");
             }
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator=(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand *Real::operator=(Operand const &rhs)' rhs is not Real.");
         }
     }
-    return (dynamic_cast<Operand const *>(this));
+    return (dynamic_cast<Operand *>(this));
 }
 
-Operand const *Real::operator+(Operand const &rhs)
+Operand *Real::operator+(Operand const &rhs)
 {
     std::cout << "___ Op + ___" << std::endl;
     if (this != &rhs)
@@ -106,35 +106,33 @@ Operand const *Real::operator+(Operand const &rhs)
         {
             Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue(),
                                  getPower() + dynamic_cast<const Real *>(&rhs)->getPower());
-//            this->value_ += dynamic_cast<const Real *>(rhs)->value_;
-//            this->power_ += dynamic_cast<const Real *>(rhs)->power_;
-            std::cout << *tmp << std::endl;
-            return dynamic_cast<Operand const *>(tmp);
+            return dynamic_cast<Operand *>(tmp);
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator+(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Real.");
         }
     }
-    return (dynamic_cast<Operand const *>(this));
+    return (dynamic_cast<Operand *>(this));
 }
 
-Operand const *Real::operator-(Operand const &rhs)
+Operand *Real::operator-(Operand const &rhs)
 {
     std::cout << "___ Op - ___" << std::endl;
     if (this != &rhs)
     {
         if (rhs.getType() == REAL)
         {
-            this->value_ -= dynamic_cast<const Real *>(rhs.getSelf())->value_;
-            this->power_ -= dynamic_cast<const Real *>(rhs.getSelf())->power_;
+            Real *tmp = new Real(getValue() - dynamic_cast<const Real *>(&rhs)->getValue(),
+                                 getPower() - dynamic_cast<const Real *>(&rhs)->getPower());
+            return dynamic_cast<Operand *>(tmp);
         }
         else
         {
-            throw std::invalid_argument("in 'Operand const *Real::operator-(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is not Real.");
         }
     }
-    return (dynamic_cast<Operand const *>(this));
+    return (dynamic_cast<Operand *>(this));
 }
 
 const double Real::computePower() const

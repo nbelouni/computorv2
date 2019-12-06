@@ -22,9 +22,9 @@ class Real: public Operand
         Real(const Operand *op);
 		virtual ~Real();
 
-		Operand const * operator=( Operand const & rhs ); // Equal
-		Operand const * operator+( Operand const & rhs ); // Sum
-		Operand const * operator-( Operand const & rhs ); // Difference
+		Operand * operator=( Operand const & rhs ); // Equal
+		Operand * operator+( Operand const & rhs ); // Sum
+		Operand * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo

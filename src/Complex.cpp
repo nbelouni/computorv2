@@ -9,13 +9,9 @@ Complex::Complex()
     this->setType(COMPLEX);
     this->real_part_ = 0.0;
     this->complex_part_ = 0.0;
-    std::cerr << "Complex constructed." << std::endl;
 }
 
-Complex::~Complex()
-{
-    std::cerr << "Complex destroyed." << std::endl;
-}
+Complex::~Complex(){}
 
 Complex::Complex(double complex_part)
 {

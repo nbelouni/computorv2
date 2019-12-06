@@ -7,13 +7,11 @@
 Operand::Operand()
 {
     this->type_ = UNDEFINED;
-    std::cerr << "Operand constructed." << std::endl;
 }
 
 Operand::Operand(t_op type)
 {
     this->type_ = type;
-    std::cerr << "Operand constructed: " << type << std::endl;
 }
 
 Operand::Operand(Operand &op)
@@ -21,10 +19,7 @@ Operand::Operand(Operand &op)
     this->type_ = op.getType();
 }
 
-Operand::~Operand()
-{
-    std::cerr << "Operand destroyed." << std::endl;
-}
+Operand::~Operand(){}
 
 void Operand::setType(const t_op type)
 {

@@ -4,15 +4,9 @@
 
 #include "../inc/Computor.hpp"
 
-Computor::Computor()
-{
-    std::cerr << "Computor constructed." << std::endl;
-}
+Computor::Computor(){}
 
-Computor::~Computor()
-{
-    std::cerr << "Computor destroyed." << std::endl;
-}
+Computor::~Computor(){}
 
 void Computor::testComplex()
 {
@@ -64,7 +58,8 @@ void Computor::testReal()
 
     // THAT
     r_a = r_b;
-    std::cout << "r_a = " << r_a << std::endl;
+    std::cout << "r_a = " << &r_a << std::endl;
+    std::cout << "r_b = " << &r_b << std::endl;
     r_a = r_d + r_b;
     std::cout << "r_a = r_d + r_b : " << r_a << std::endl;
     r_a = r_d - r_b;

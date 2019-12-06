@@ -9,13 +9,9 @@ Real::Real()
     this->setType(REAL);
     this->value_ = 0.0;
     this->power_ = 0;
-    std::cerr << "Real constructed." << std::endl;
 }
 
-Real::~Real()
-{
-    std::cerr << "Real destroyed." << std::endl;
-}
+Real::~Real(){}
 
 Real::Real(double value)
 {

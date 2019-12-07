@@ -103,7 +103,7 @@ Operand *Complex::operator+(Operand const &rhs)
     else
     {
         throw std::invalid_argument(
-                "in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex or inferior.");
+                "in 'Operand *Complex::operator+(Operand const &rhs)' rhs is not Complex or inferior.");
     }
 }
 
@@ -124,7 +124,7 @@ Operand *Complex::operator-(Operand const &rhs)
     else
     {
         throw std::invalid_argument(
-                "in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex or inferior.");
+                "in 'Operand *Complex::operator-(Operand const &rhs)' rhs is not Complex or inferior.");
     }
 }
 

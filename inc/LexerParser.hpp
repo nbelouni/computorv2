@@ -41,24 +41,24 @@ class LexerParser
 	{
 	//	OPERATORS
 
-		O_PAR,		//	(
-		C_PAR,		//	)
-		MUL,		//	*
-		POW,		//	^
-		SUM,		//	+
-		DIV,		//	/
-		SUB,		//	-
-		MOD,		//	%
-		DOUBLE_MUL,	//	**
+		O_PAR,		//	(	OK
+		C_PAR,		//	)		OK
+		MUL,		//	*	OK
+		POW,		//	^	OK
+		SUM,		//	+	OK
+		DIV,		//	/	OK
+		SUB,		//	-	OK
+		MOD,		//	%	OK
+		DOUBLE_MUL,	//	**	OK
 
 	//	NAN
 
 		POWER,		//	POW_L[-\+]?[\d]+
 		MATRIX_ROW,	//	O_BRACKET_L NUMBER (COMMA_L NUMBER)* C_BRACKET_L
-		O_BRACKET,	//	[
-		C_BRACKET,	//	]
-		COMMA,		//	,
-		SEMICOL,	//	;
+		O_BRACKET,	//	[	OK
+		C_BRACKET,	//	]	OK
+		COMMA,		//	,	OK
+		SEMICOL,	//	;	OK
 		
 
 	//	OPERANDS
@@ -68,14 +68,15 @@ class LexerParser
 		REAL, 		//	NUMBER (POWER)?
 		COMPLEX,	//	(NUMBER [AND_L OR_L])? (NUMBER)?i (POWER)?
 		MATRIX,	//	O_BRACKET_L MATRIX_ROW (SEMICOL_L MATRIX_ROW)+ C_BRACKET_L
-		UNKNOWN,	//	[a-z] (POWER)?
+		UNKNOWN,	//	[a-z] (POWER)?	OK
 
 	//	OTHERS
 
-		ASSIGN,		//	EQUAL_L
-		VAR,		//	OK 
+		ASSIGN,		//	EQUAL_L	OK
+		VAR,		//	OK 	OK
 		FUNCTION,	//	VAR O_PAR_L (VAR|UNKNOWN) C_PAR_L
-		GET_RESULT,	//	EQUAL_L INT_POINT_L
+		GET_RESULT,	//	EQUAL_L INT_POINT_L	OK
+
 		EQUATION,	//	(O_PAR_L)? OPERAND (C_PAR_L)? ((OPERATOR)? EQUATION)? (C_PAR_L if O_PAR_L == true)
 		NONE,
 		ERROR
@@ -90,7 +91,7 @@ class LexerParser
 		t_token_def (LexerParser::*f)(t_char &);
 	}				t_s_lexem;
 
-	typedef	struct	s_token_ref
+	typedef	struct	s_token
 	{
 		t_token_def	type;
 		size_t		size;

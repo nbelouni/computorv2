@@ -292,14 +292,6 @@ LexerParser::t_token_def			LexerParser::isIntPoint(LexerParser::t_char &lexem)
 	return ERROR;
 }
 
-bool								LexerParser::isOperator(LexerParser::t_token_def t)
-{
-	if (t == SUM || t == SUB || t == MUL || t == DIV || t == MOD || t == DOUBLE_MUL)
-		return true;
-	return false;
-}
-
-
 LexerParser::t_token_def			LexerParser::setLiteral(t_char &lexem)
 {
 	switch (lexem)
@@ -331,6 +323,13 @@ LexerParser::t_token_def			LexerParser::setLiteral(t_char &lexem)
 		default:
 			return ERROR;
 	}
+}
+
+bool								LexerParser::isOperator(LexerParser::t_token_def t)
+{
+	if (t == SUM || t == SUB || t == MUL || t == DIV || t == MOD || t == DOUBLE_MUL)
+		return true;
+	return false;
 }
 
 bool								LexerParser::isLogicSequence(LexerParser::t_token_def first, LexerParser::t_token_def next)
@@ -396,18 +395,12 @@ void								LexerParser::lineToTokens(std::string &s)
 		if (*it != ' ' && *it !='\t')
 		{
 			tmp_lexem = setLexem(*it);
+
 			if (tmp_lexem != UNDEFINED)
 			{
-				if (this->lexems_ref_[tmp_lexem].f != nullptr)
-				{
-					state_ = (this->*lexems_ref_[tmp_lexem].f)(tmp_lexem);
-				}
-				else
-				{
-					tmp_lexem = UNDEFINED;
-				}
+				state_ = (this->*lexems_ref_[tmp_lexem].f)(tmp_lexem);
 			}
-			if (tmp_lexem == UNDEFINED)
+			else
 			{
 				unknown_char.append("\'");
 				unknown_char.append(1, *it);
@@ -443,6 +436,7 @@ void								LexerParser::lineToTokens(std::string &s)
 	{
 		tokens_.push_back(LexerParser::t_token{std::string(current_token), state_});
 	}
+
 	if (!unknown_char.empty())
 	{
 		try

@@ -11,7 +11,8 @@ Real::Real()
     this->power_ = 0;
 }
 
-Real::~Real(){}
+Real::~Real()
+{}
 
 Real::Real(double value)
 {
@@ -86,7 +87,8 @@ Operand *Real::operator=(Operand const &rhs)
             }
             else
             {
-                throw std::logic_error("in 'Operand *Real::operator=(Operand const &rhs)' rhs is Complex with imaginary_part_ != 0.0.");
+                throw std::logic_error(
+                        "in 'Operand *Real::operator=(Operand const &rhs)' rhs is Complex with imaginary_part_ != 0.0.");
             }
         }
         else
@@ -100,73 +102,65 @@ Operand *Real::operator=(Operand const &rhs)
 Operand *Real::operator+(Operand const &rhs)
 {
     std::cout << "___ Op + ___" << std::endl;
-    if (this != &rhs)
+    if (rhs.getType() == REAL)
     {
-        if (rhs.getType() == REAL)
+        Real *tmp = new Real(computePower() + dynamic_cast<const Real *>(&rhs)->computePower(), 1);
+        return (dynamic_cast<Operand *>(tmp));
+    }
+    else if (rhs.getType() == COMPLEX)
+    {
+        // Complex can be -> Real
+        if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue(),
-                                 getPower() + dynamic_cast<const Real *>(&rhs)->getPower());
-            return dynamic_cast<Operand *>(tmp);
+            this->value_ = computePower();
+            this->power_ = 1;
+            this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            return (dynamic_cast<Operand *>(this));
         }
-        else if (rhs.getType() == COMPLEX)
-        {
-            // Complex can be -> Real
-            if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
-            {
-                this->value_ = computePower();
-                this->power_ = 1;
-                this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
-            }
             // Must stay Complex
-            else
-            {
-                Complex *tmp = new Complex(computePower() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                                           dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-                return dynamic_cast<Operand *>(tmp);
-            }
-        }
         else
         {
-            throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Invalid.");
+            Complex *tmp = new Complex(computePower() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
     }
-    return (dynamic_cast<Operand *>(this));
+    else
+    {
+        throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Invalid.");
+    }
 }
 
 Operand *Real::operator-(Operand const &rhs)
 {
     std::cout << "___ Op - ___" << std::endl;
-    if (this != &rhs)
+    if (rhs.getType() == REAL)
     {
-        if (rhs.getType() == REAL)
+        Real *tmp = new Real(computePower() - dynamic_cast<const Real *>(&rhs)->computePower(), 1);
+        return (dynamic_cast<Operand *>(tmp));
+    }
+    else if (rhs.getType() == COMPLEX)
+    {
+        // Complex can be -> Real
+        if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            Real *tmp = new Real(getValue() - dynamic_cast<const Real *>(&rhs)->getValue(),
-                                 getPower() - dynamic_cast<const Real *>(&rhs)->getPower());
-            return dynamic_cast<Operand *>(tmp);
+            this->value_ = computePower();
+            this->power_ = 1;
+            this->value_ -= dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            return (dynamic_cast<Operand *>(this));
         }
-        else if (rhs.getType() == COMPLEX)
-        {
-            // Complex can be -> Real
-            if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
-            {
-                this->value_ = computePower();
-                this->power_ = 1;
-                this->value_ -= dynamic_cast<const Complex *>(&rhs)->getRealPart();
-            }
-                // Must stay Complex
-            else
-            {
-                Complex *tmp = new Complex(computePower() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                                           dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-                return dynamic_cast<Operand *>(tmp);
-            }
-        }
+            // Must stay Complex
         else
         {
-            throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is not Real.");
+            Complex *tmp = new Complex(computePower() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
     }
-    return (dynamic_cast<Operand *>(this));
+    else
+    {
+        throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is not Real.");
+    }
 }
 
 const double Real::computePower() const

@@ -122,6 +122,8 @@ void Computor::testReal()
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
 */
+    real_d = static_cast<Real *>(real_b + real_b);
+    std::cout << "real_d" << *real_d << std::endl;
 
     op = real_b - cp_a;
     real_d = static_cast<Real *>(op);

@@ -12,12 +12,12 @@ class Complex: public Operand
 {
 	private:
 	    double  real_part_;
-	    double	complex_part_;
+	    double	imaginary_part_;
 
 	public:
 		Complex();
-		Complex(double complex_part);
-		Complex(double real_part, double complex_part);
+		Complex(double imaginary_part);
+		Complex(double real_part, double imaginary_part);
 		Complex(Complex &cmp);
         Complex(const Operand *op);
 		~Complex();
@@ -31,8 +31,8 @@ class Complex: public Operand
 
 		void	setRealPart(double n);
 		double	getRealPart() const;
-		void	setComplexPart(double n);
-		double	getComplexPart() const;
+		void	setImaginaryPart(double n);
+		double	getImaginaryPart() const;
 };
 
 std::ostream &operator<<(std::ostream &o, Complex const &i);

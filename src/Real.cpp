@@ -79,14 +79,14 @@ Operand *Real::operator=(Operand const &rhs)
         }
         else if (rhs.getType() == COMPLEX)
         {
-            if (dynamic_cast<const Complex *>(&rhs)->getComplexPart() == 0.0)
+            if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
             {
                 this->value_ = dynamic_cast<const Complex *>(&rhs)->getRealPart();
                 this->power_ = 1;
             }
             else
             {
-                throw std::logic_error("in 'Operand *Real::operator=(Operand const &rhs)' rhs is Complex with complex_part_ != 0.0.");
+                throw std::logic_error("in 'Operand *Real::operator=(Operand const &rhs)' rhs is Complex with imaginary_part_ != 0.0.");
             }
         }
         else
@@ -111,7 +111,7 @@ Operand *Real::operator+(Operand const &rhs)
         else if (rhs.getType() == COMPLEX)
         {
             // Complex can be -> Real
-            if (dynamic_cast<const Complex *>(&rhs)->getComplexPart() == 0.0)
+            if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
             {
                 this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
                 ////
@@ -121,7 +121,7 @@ Operand *Real::operator+(Operand const &rhs)
             else
             {
                 Complex *tmp = new Complex(computePower() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                                           dynamic_cast<const Complex *>(&rhs)->getComplexPart());
+                                           dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
                 return dynamic_cast<Operand *>(tmp);
             }
         }

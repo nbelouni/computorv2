@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
 	{
 		try
 		{
-			std::cout << line << std::endl;
-			lp.lineToLexems(line);
+//			std::cout << line << std::endl;
+			lp.lineToTokens(line);
 			line.clear();
 		}
 		catch (std::exception &e)

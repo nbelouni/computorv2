@@ -2,6 +2,8 @@
 # define COMPUTOR_V2_HPP
 
 #include <iostream>
+#include <list>
+#include <string>
 
 //#include "Operand.hpp"
 //#include "Complex.hpp"

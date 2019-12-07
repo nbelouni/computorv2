@@ -81,19 +81,25 @@ void Computor::testReal()
     r_a = r_c;
     std::cout << "r_a = " << r_a << std::endl;
     */
+    ///////////////////////////////////////
+    /// NE PAS REUTILISER LES VARIABLES ///
+    ///////////////////////////////////////
+
     Operand *op = new Operand();
     Real real_a(1, 1);
     Real real_b(2, 2);
     Real real_c(3, 3);
+    Real real_e(2, 4);
     Real *real_d = new Real();
-    Complex cp_a(12, 0);
-    Complex cp_b(65, 4);
+    Complex cp_a(2, 0);
+    Complex cp_b(3, 4);
     Complex *cp_c = new Complex();
 
     std::cout << "real_a" << real_a << std::endl;
     std::cout << "real_b" << real_b << std::endl;
     std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
+    std::cout << "real_e" << real_e << std::endl;
     std::cout << "op" << *op << std::endl;
 /*
 
@@ -122,6 +128,31 @@ void Computor::testReal()
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
 */
+/*
+    real_d = static_cast<Real *>(real_b * real_e);
+    std::cout << "real_d" << *real_d << std::endl;
+
+    real_d = static_cast<Real *>(real_b * real_b);
+    std::cout << "real_d" << *real_d << std::endl;
+
+    real_d = static_cast<Real *>(real_a * real_c);
+    std::cout << "real_d" << *real_d << std::endl;
+    real_d->reset();
+*/
+
+    op = real_b * cp_a;
+    real_d = static_cast<Real *>(op);
+    real_d->reset();
+
+    std::cout << "op" << *op << std::endl;
+    std::cout << "real_d" << *real_d << std::endl;
+
+    op = real_c * cp_b;
+    cp_c = static_cast<Complex *>(op);
+
+    std::cout << "op" << *op << std::endl;
+    std::cout << "cp_c" << *cp_c << std::endl;
+/*
     real_d = static_cast<Real *>(real_b + real_b);
     std::cout << "real_d" << *real_d << std::endl;
 
@@ -136,4 +167,5 @@ void Computor::testReal()
 
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
+*/
 }

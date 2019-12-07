@@ -163,9 +163,56 @@ Operand *Real::operator-(Operand const &rhs)
     }
 }
 
+Operand *Real::operator*(Operand const &rhs)
+{
+    std::cout << "___ Op * ___" << std::endl;
+    if (rhs.getType() == REAL)
+    {
+        // if value == value
+        if (getValue() == dynamic_cast<const Real *>(&rhs)->getValue())
+        {
+            this->power_ += dynamic_cast<const Real *>(&rhs)->getPower();
+            return (dynamic_cast<Operand *>(this));
+        }
+        else
+        {
+            Real *tmp = new Real(computePower() * dynamic_cast<const Real *>(&rhs)->computePower(), 1);
+            return (dynamic_cast<Operand *>(tmp));
+        }
+    }
+    else if (rhs.getType() == COMPLEX)
+    {
+        // Complex can be -> Real
+        if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
+        {
+            this->value_ = computePower();
+            this->power_ = 1;
+            this->value_ *= dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            return (dynamic_cast<Operand *>(this));
+        }
+            // Must stay Complex
+        else
+        {
+            Complex *tmp = new Complex(computePower() * dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                       computePower() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+            return (dynamic_cast<Operand *>(tmp));
+        }
+    }
+    else
+    {
+        throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is not Real.");
+    }
+}
+
 const double Real::computePower() const
 {
     return pow(this->value_, this->power_);
+}
+
+void Real::reset()
+{
+    value_ = 0.0;
+    power_ = 0;
 }
 
 std::ostream &operator<<(std::ostream &o, Real const &i)

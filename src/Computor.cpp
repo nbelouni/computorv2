@@ -10,25 +10,33 @@ Computor::~Computor(){}
 
 void Computor::testComplex()
 {
-    Real r_a(42);
+    Operand *tmp;
+    Complex *cp;
+    Complex res;
+
     Complex c_a;
     Complex c_b(0.23);
     Complex c_c(32, 0.23);
     Complex c_d(c_c);
-    Complex c_e(23, 0.0);
-    std::cout << "c_a= " << c_a << std::endl;
-    std::cout << "c_b= " << c_b << std::endl;
-    std::cout << "c_c= " << c_c << std::endl;
-    std::cout << "c_d= " << c_d << std::endl;
-    std::cout << "c_e= " << c_e << std::endl;
-//    c_a = r_a;
-    c_a = c_c;
-    c_a = c_b + r_a;
-    std::cout << "c_a= " << c_a << std::endl;
-    r_a = c_e;
-    std::cout << "r_a= " << r_a << std::endl;
-    r_a = c_c;
-    std::cout << "r_a= " << r_a << std::endl;
+    Complex c_e(23, 0.012);
+
+    std::cout << "c_a " << c_a << std::endl;
+    std::cout << "c_b " << c_b << std::endl;
+    std::cout << "c_c " << c_c << std::endl;
+    std::cout << "c_d " << c_d << std::endl;
+    std::cout << "c_e " << c_e << std::endl;
+    std::cout << std::endl;
+
+    res = c_e + c_c;
+    std::cout << "c_e + c_c = " << c_e << " + " << c_c << " = " << res << std::endl;
+    std::cout << std::endl;
+
+    tmp = c_e + c_c;
+    std::cout << "c_e + c_c = " << c_e << " + " << c_c << " = " << *tmp << std::endl;
+    cp = dynamic_cast<Complex *>(tmp);
+    std::cout << std::endl;
+    std::cout << *cp << std::endl;
+    std::cout << std::endl;
 }
 
 

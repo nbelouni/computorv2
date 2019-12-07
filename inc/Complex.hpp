@@ -22,8 +22,8 @@ class Complex: public Operand
         Complex(const Operand *op);
 		~Complex();
 
-		Operand const * operator=( Operand const & rhs ); // Equal
-		Operand const * operator+( Operand const & rhs ); // Sum
+		Operand * operator=( Operand const & rhs ); // Equal
+		Operand * operator+( Operand const & rhs ); // Sum
 //		Operand const * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient

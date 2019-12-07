@@ -31,7 +31,7 @@ class Real: public Operand
 		void		setValue(double value);
 		double		getValue() const;
 
-        bool const isInteger() const;
+        bool const  isInteger() const;
         void        reset();
 };
 

@@ -11,7 +11,8 @@ Complex::Complex()
     this->imaginary_part_ = 0.0;
 }
 
-Complex::~Complex(){}
+Complex::~Complex()
+{}
 
 Complex::Complex(double imaginary_part)
 {
@@ -68,49 +69,46 @@ double Complex::getImaginaryPart() const
     return this->imaginary_part_;
 }
 
-Operand const *Complex::operator=(Operand const &rhs)
+Operand *Complex::operator=(Operand const &rhs)
 {
-    std::cout << "___ Op = ___" << std::endl;
     if (this != &rhs)
     {
         if (rhs.getType() == COMPLEX)
         {
-            this->real_part_ = dynamic_cast<const Complex *>(rhs.getSelf())->real_part_;
-            this->imaginary_part_ = dynamic_cast<const Complex *>(rhs.getSelf())->imaginary_part_;
+            real_part_ = dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            imaginary_part_ = dynamic_cast<const Complex *>(&rhs)->getImaginaryPart();
         }
         else
         {
-            throw std::invalid_argument("in 'const Operand *Complex::operator=(const Operand &rhs)' rhs is not Complex.");
+            throw std::invalid_argument("in 'Operand *Real::operator=(Operand const &rhs)' rhs is not Invalid.");
         }
     }
-    return (dynamic_cast<Operand const *>(this));
+    return (dynamic_cast<Operand *>(this));
 }
 
-const Operand *Complex::operator+(const Operand &rhs)
+Operand *Complex::operator+(Operand const &rhs)
 {
-    std::cout << "___ Op + ___" << std::endl;
-    if (this != &rhs)
+    if (rhs.getType() == COMPLEX)
     {
-        if (rhs.getType() == COMPLEX)
-        {
-            this->real_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->real_part_;
-            this->imaginary_part_ += dynamic_cast<const Complex *>(rhs.getSelf())->imaginary_part_;
-        }
-        else if (rhs.getType() == REAL)
-        {
-            const Real *tmp = dynamic_cast<const Real *>(rhs.getSelf());
-            this->real_part_ += tmp->getValue();
-        }
-        else
-        {
-            throw std::invalid_argument("in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex or inferior.");
-        }
+        Complex *tmp = new Complex(this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                   this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+        return (dynamic_cast<Operand *>(tmp));
     }
-    return (dynamic_cast<Operand const *>(this));
+    else if (rhs.getType() == REAL)
+    {
+        Complex *tmp = new Complex(this->getRealPart() + dynamic_cast<const Real *>(&rhs)->getValue(),
+                                   this->getImaginaryPart());
+        return (dynamic_cast<Operand *>(tmp));
+    }
+    else
+    {
+        throw std::invalid_argument(
+                "in 'const Operand *Complex::operator+(const Operand &rhs)' rhs is not Complex or inferior.");
+    }
 }
 
 std::ostream &operator<<(std::ostream &o, Complex const &i)
 {
-    o << "[ COMPLEX | " << i.getRealPart()<< " + " << i.getImaginaryPart() << "i | " << i.getSelf() << " ]";
+    o << "[ COMPLEX | " << i.getRealPart() << " + " << i.getImaginaryPart() << "i | " << i.getSelf() << " ]";
     return (o);
 }

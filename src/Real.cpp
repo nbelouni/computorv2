@@ -55,7 +55,6 @@ double Real::getValue() const
 
 Operand *Real::operator=(Operand const &rhs)
 {
-    std::cout << "___ Op = ___" << std::endl;
     if (this != &rhs)
     {
         if (rhs.getType() == REAL)
@@ -84,7 +83,6 @@ Operand *Real::operator=(Operand const &rhs)
 
 Operand *Real::operator+(Operand const &rhs)
 {
-    std::cerr << "___ Op + ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue());
@@ -114,7 +112,6 @@ Operand *Real::operator+(Operand const &rhs)
 
 Operand *Real::operator-(Operand const &rhs)
 {
-    std::cerr << "___ Op - ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() - dynamic_cast<const Real *>(&rhs)->getValue());
@@ -144,7 +141,6 @@ Operand *Real::operator-(Operand const &rhs)
 
 Operand *Real::operator*(Operand const &rhs)
 {
-    std::cerr << "___ Op * ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() * dynamic_cast<const Real *>(&rhs)->getValue());
@@ -174,7 +170,6 @@ Operand *Real::operator*(Operand const &rhs)
 
 Operand *Real::operator/(Operand const &rhs)
 {
-    std::cerr << "___ Op / ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         if (dynamic_cast<const Real *>(&rhs)->getValue() != 0.0)
@@ -222,7 +217,6 @@ Operand *Real::operator/(Operand const &rhs)
 
 Operand *Real::operator%(Operand const &rhs)
 {
-    std::cerr << "___ Op % ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         if (dynamic_cast<const Real *>(&rhs)->getValue() != 0.0)

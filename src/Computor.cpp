@@ -27,16 +27,21 @@ void Computor::testComplex()
     std::cout << "c_e " << c_e << std::endl;
     std::cout << std::endl;
 
-    res = c_e + c_c;
-    std::cout << "c_e + c_c = " << c_e << " + " << c_c << " = " << res << std::endl;
-    std::cout << std::endl;
-
     tmp = c_e + c_c;
     std::cout << "c_e + c_c = " << c_e << " + " << c_c << " = " << *tmp << std::endl;
     cp = dynamic_cast<Complex *>(tmp);
     std::cout << std::endl;
     std::cout << *cp << std::endl;
     std::cout << std::endl;
+
+    res = c_e + c_c;
+    std::cout << "c_e + c_c = " << c_e << " + " << c_c << " = " << res << std::endl;
+    std::cout << std::endl;
+
+    res = c_e - c_c;
+    std::cout << "c_e - c_c = " << c_e << " - " << c_c << " = " << res << std::endl;
+    std::cout << std::endl;
+
 }
 
 

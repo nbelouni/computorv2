@@ -58,7 +58,8 @@ class LexerParser
 
 	//	OPERANDS
 
-		NUMBER,		//	OK
+		INT_NUMBER,		//	OK
+		DEC_NUMBER,		//	OK
 		REAL, 		//	NUMBER (POWER)?
 		COMPLEX,	//	(NUMBER [AND_L OR_L])? (NUMBER)?i (POWER)?
 		MATRIX,	//	O_BRACKET_L MATRIX_ROW (SEMICOL_L MATRIX_ROW)+ C_BRACKET_L
@@ -81,7 +82,7 @@ class LexerParser
 	{
 		std::string	value;
 		t_char		type;
-		t_token_def (LexerParser::*f)(std::vector<t_char> &);
+		t_token_def (LexerParser::*f)(t_char &);
 	}				t_s_lexem;
 
 	typedef	struct	s_token_ref
@@ -89,6 +90,7 @@ class LexerParser
 		t_token_def	type;
 		size_t		size;
 	}				t_s_token;
+
 	private:
 		std::vector<t_s_lexem>	lexems_ref_;
 		std::vector<t_lexem>	lexems_;
@@ -116,11 +118,18 @@ class LexerParser
 
 		void					lineToTokens(std::string &s);
 
-		t_token_def				isNumber(std::vector<t_char> &l);
-		t_token_def				isDecimal(std::vector<t_char> &l);
-		t_token_def				isVar(std::vector<t_char> &l);
-		t_token_def				isSum(std::vector<t_char> &l);
-		t_token_def				isDiv(std::vector<t_char> &l);
+		t_token_def				isNumber(t_char &l);
+		t_token_def				isDecimal(t_char &l);
+		t_token_def				isVar(t_char &l);
+		t_token_def				isSum(t_char &l);
+		t_token_def				isDiv(t_char &l);
+		t_token_def				isSub(t_char &l);
+		t_token_def				isMod(t_char &l);
+		t_token_def				isMul(t_char &l);
+		t_token_def				isPow(t_char &l);
+
+		bool					isLogicSequence(t_token_def first, t_token_def next);
+		bool					isOperator(t_token_def t);
 
 		class	InvalidLineException : public std::exception
 		{

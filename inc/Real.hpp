@@ -30,6 +30,8 @@ class Real: public Operand
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
         const double      computePower() const;
+//        void        add(Real &lhs, Real &rhs);
+//        void        add(Complex &lhs, Real &rhs);
 
 		void		setValue(double value);
 		double		getValue() const;

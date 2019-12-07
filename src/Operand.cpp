@@ -35,3 +35,21 @@ const Operand * Operand::getSelf() const
 {
     return this;
 }
+
+std::ostream &operator<<(std::ostream &o, Operand const &i)
+{
+    t_op type;
+
+    o << "[ OPERAND of type: ";
+    type = i.getType();
+    if (type == UNDEFINED)
+        o << "UNDEFINED";
+    else if (type == REAL)
+        o << "REAL";
+    else if (type == COMPLEX)
+        o << "COMPLEX";
+    else if (type == MATRIX)
+        o << "MATRIX";
+    o <<  " " << i.getSelf() << " ]";
+    return (o);
+}

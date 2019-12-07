@@ -2,6 +2,7 @@
 # define OPERAND_HPP
 
 #include <cmath>
+#include <iostream>
 #include "Operand.hpp"
 
 typedef enum	e_op
@@ -34,5 +35,7 @@ class Operand
 //		virtual Operand const * operator/( Operand const & rhs ) const = 0; // Quotient
 //		virtual Operand const * operator%( Operand const & rhs ) const = 0; // Modulo
 };
+
+std::ostream &operator<<(std::ostream &o, Operand const &i);
 
 #endif

@@ -85,15 +85,30 @@ void Computor::testReal()
     Real real_b(222222, 2);
     Real real_c(333333, 3);
     Real *real_d = new Real();
+    Operand *op = new Operand();
 
     std::cout << "real_a" << real_a << std::endl;
     std::cout << "real_b" << real_b << std::endl;
     std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
+    std::cout << "op" << *op << std::endl;
 
-    real_d = dynamic_cast<Real *>(real_b + real_c);
+//    real_d = dynamic_cast<Real *>(real_b + real_c);
+    op = real_a + real_b;
+
     std::cout << "real_a" << real_a << std::endl;
     std::cout << "real_b" << real_b << std::endl;
     std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
+    std::cout << "op" << *op << std::endl;
+
+    real_d = static_cast<Real *>(op);
+
+    std::cout << "real_a" << real_a << std::endl;
+    std::cout << "real_b" << real_b << std::endl;
+    std::cout << "real_c" << real_c << std::endl;
+    std::cout << "real_d" << *real_d << std::endl;
+    std::cout << "op" << *op << std::endl;
+
+
 }

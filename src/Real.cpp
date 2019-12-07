@@ -91,7 +91,7 @@ Operand *Real::operator=(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'Operand *Real::operator=(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand *Real::operator=(Operand const &rhs)' rhs is not Invalid.");
         }
     }
     return (dynamic_cast<Operand *>(this));
@@ -127,7 +127,7 @@ Operand *Real::operator+(Operand const &rhs)
         }
         else
         {
-            throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Real.");
+            throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Invalid.");
         }
     }
     return (dynamic_cast<Operand *>(this));
@@ -143,6 +143,23 @@ Operand *Real::operator-(Operand const &rhs)
             Real *tmp = new Real(getValue() - dynamic_cast<const Real *>(&rhs)->getValue(),
                                  getPower() - dynamic_cast<const Real *>(&rhs)->getPower());
             return dynamic_cast<Operand *>(tmp);
+        }
+        else if (rhs.getType() == COMPLEX)
+        {
+            // Complex can be -> Real
+            if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
+            {
+                this->value_ = computePower();
+                this->power_ = 1;
+                this->value_ -= dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            }
+                // Must stay Complex
+            else
+            {
+                Complex *tmp = new Complex(computePower() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                           dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+                return dynamic_cast<Operand *>(tmp);
+            }
         }
         else
         {
@@ -162,30 +179,3 @@ std::ostream &operator<<(std::ostream &o, Real const &i)
     o << "[ REAL | " << i.getValue() << "^" << i.getPower() << " | " << i.getSelf() << " ]";
     return (o);
 }
-
-//Operand const *
-//Real::operator+(Operand const &rhs)
-//{
-//    if (this != &rhs)
-//    {
-//        const t_op type = rhs.getType();
-//        if (type == REAL)
-//        {
-//            Real *r;
-//            r = dynamic_cast<Real*>(rhs);
-//            value_ += r->value_;
-//            power_ += r->power_;
-//        }
-//    }
-//    return (dynamic_cast<Operand*>(this));
-//}
-/*
-
-
-Operand const *Real::operator=(Operand const &rhs)
-{
-    if (this != &rhs)
-    {}
-    return (dynamic_cast<Operand *>(this));
-}
-*/

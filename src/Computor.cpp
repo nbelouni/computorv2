@@ -109,6 +109,7 @@ void Computor::testReal()
     std::cout << "op" << *op << std::endl;
 */
 
+/*
     op = real_b + cp_a;
     real_d = static_cast<Real *>(op);
 
@@ -116,6 +117,19 @@ void Computor::testReal()
     std::cout << "real_d" << *real_d << std::endl;
 
     op = real_c + cp_b;
+    cp_c = static_cast<Complex *>(op);
+
+    std::cout << "op" << *op << std::endl;
+    std::cout << "cp_c" << *cp_c << std::endl;
+*/
+
+    op = real_b - cp_a;
+    real_d = static_cast<Real *>(op);
+
+    std::cout << "op" << *op << std::endl;
+    std::cout << "real_d" << *real_d << std::endl;
+
+    op = real_c - cp_b;
     cp_c = static_cast<Complex *>(op);
 
     std::cout << "op" << *op << std::endl;

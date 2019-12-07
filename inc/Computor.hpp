@@ -16,6 +16,7 @@ public:
 
     void testReal();
     void testComplex();
+    void testModulo();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

@@ -128,7 +128,12 @@ void Computor::testReal()
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
 */
+/*
     real_d = static_cast<Real *>(real_b * real_e);
+    std::cout << "real_d" << *real_d << std::endl;
+*/
+
+    real_d = static_cast<Real *>(real_c % real_e);
     std::cout << "real_d" << *real_d << std::endl;
 /*
 
@@ -140,6 +145,7 @@ void Computor::testReal()
     real_d->reset();
 */
 
+/*
     op = real_b * cp_a;
     real_d = static_cast<Real *>(op);
     real_d->reset();
@@ -152,6 +158,7 @@ void Computor::testReal()
 
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
+*/
 /*
     real_d = static_cast<Real *>(real_b + real_b);
     std::cout << "real_d" << *real_d << std::endl;
@@ -169,3 +176,40 @@ void Computor::testReal()
     std::cout << "cp_c" << *cp_c << std::endl;
 */
 }
+
+void Computor::testModulo()
+{
+//    double lhs = 0.999999999999999;
+    double lhs = 3.00;
+//    double lhs = 3.2;
+    double rhs = 5.0;
+
+
+    if (floor(lhs) == lhs)
+    {
+        std::cout << lhs << "CAN BE INTEGER" <<std::endl;
+    }
+    else
+    {
+        std::cout << lhs << "NIQUE TOI" <<std::endl;
+    }
+    std::cout << floor(lhs) << std::endl;
+
+    int yo = static_cast<int>(lhs);
+    std::cout << yo << std::endl;
+
+    int pouet = (int) std::round(lhs);
+    std::cout << pouet << std::endl;
+
+    int wefawe = static_cast<int>(std::round(lhs));
+    std::cout << wefawe << std::endl;
+
+//    int ndty = const_cast<int>(std::round(3.0));
+//    std::cout << ndty << std::endl;
+//
+//    int iojs = (int) std::round(3.0);
+//    std::cout << iojs << std::endl;
+
+}
+
+

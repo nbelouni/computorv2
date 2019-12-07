@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     {
         cp.testReal();
 //        cp.testComplex();
+//        cp.testModulo();
     }
     catch (const std::invalid_argument &e)
     {

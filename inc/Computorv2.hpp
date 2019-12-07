@@ -2,6 +2,7 @@
 # define COMPUTOR_V2_HPP
 
 #include <iostream>
+#include <math.h>
 
 //#include "Operand.hpp"
 #include "Complex.hpp"

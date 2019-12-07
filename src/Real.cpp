@@ -174,7 +174,7 @@ Operand *Real::operator*(Operand const &rhs)
 
 Operand *Real::operator/(Operand const &rhs)
 {
-    std::cout << "___ Op / ___" << std::endl;
+    std::cerr << "___ Op / ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         if (dynamic_cast<const Real *>(&rhs)->getValue() != 0.0)
@@ -222,7 +222,7 @@ Operand *Real::operator/(Operand const &rhs)
 
 Operand *Real::operator%(Operand const &rhs)
 {
-    std::cout << "___ Op % ___" << std::endl;
+    std::cerr << "___ Op % ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         if (dynamic_cast<const Real *>(&rhs)->getValue() != 0.0)

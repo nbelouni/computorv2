@@ -16,6 +16,7 @@ class Real: public Operand
 	public:
 		Real();
 		Real(double value);
+        Real(int value);
 		Real(Real &real);
         Real(const Operand *op);
 		virtual ~Real();

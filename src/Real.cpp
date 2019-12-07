@@ -19,6 +19,12 @@ Real::Real(double value)
     this->value_ = value;
 }
 
+Real::Real(int value)
+{
+    this->setType(REAL);
+    this->value_ = value;
+}
+
 Real::Real(Real &real)
 {
     this->setType(REAL);
@@ -78,7 +84,7 @@ Operand *Real::operator=(Operand const &rhs)
 
 Operand *Real::operator+(Operand const &rhs)
 {
-    std::cout << "___ Op + ___" << std::endl;
+    std::cerr << "___ Op + ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue());
@@ -86,11 +92,11 @@ Operand *Real::operator+(Operand const &rhs)
     }
     else if (rhs.getType() == COMPLEX)
     {
-        // Complex can be -> Real
+            // Complex can be -> Real
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
-            return (dynamic_cast<Operand *>(this));
+            Real *tmp = new Real(getValue() + dynamic_cast<const Complex *>(&rhs)->getRealPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
             // Must stay Complex
         else
@@ -102,13 +108,13 @@ Operand *Real::operator+(Operand const &rhs)
     }
     else
     {
-        throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is not Invalid.");
+        throw std::invalid_argument("in 'Operand *Real::operator+(Operand const &rhs)' rhs is Invalid.");
     }
 }
 
 Operand *Real::operator-(Operand const &rhs)
 {
-    std::cout << "___ Op - ___" << std::endl;
+    std::cerr << "___ Op - ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() - dynamic_cast<const Real *>(&rhs)->getValue());
@@ -116,11 +122,11 @@ Operand *Real::operator-(Operand const &rhs)
     }
     else if (rhs.getType() == COMPLEX)
     {
-        // Complex can be -> Real
+            // Complex can be -> Real
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            this->value_ -= dynamic_cast<const Complex *>(&rhs)->getRealPart();
-            return (dynamic_cast<Operand *>(this));
+            Real *tmp = new Real(getValue() - dynamic_cast<const Complex *>(&rhs)->getRealPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
             // Must stay Complex
         else
@@ -132,13 +138,13 @@ Operand *Real::operator-(Operand const &rhs)
     }
     else
     {
-        throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is not Real.");
+        throw std::invalid_argument("in 'Operand *Real::operator-(Operand const &rhs)' rhs is Invalid.");
     }
 }
 
 Operand *Real::operator*(Operand const &rhs)
 {
-    std::cout << "___ Op * ___" << std::endl;
+    std::cerr << "___ Op * ___" << std::endl;
     if (rhs.getType() == REAL)
     {
         Real *tmp = new Real(getValue() * dynamic_cast<const Real *>(&rhs)->getValue());
@@ -146,11 +152,11 @@ Operand *Real::operator*(Operand const &rhs)
     }
     else if (rhs.getType() == COMPLEX)
     {
-        // Complex can be -> Real
+            // Complex can be -> Real
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            this->value_ *= dynamic_cast<const Complex *>(&rhs)->getRealPart();
-            return (dynamic_cast<Operand *>(this));
+            Real *tmp = new Real(getValue() * dynamic_cast<const Complex *>(&rhs)->getRealPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
             // Must stay Complex
         else
@@ -162,7 +168,7 @@ Operand *Real::operator*(Operand const &rhs)
     }
     else
     {
-        throw std::invalid_argument("in 'Operand *Real::operator*(Operand const &rhs)' rhs is not Real.");
+        throw std::invalid_argument("in 'Operand *Real::operator*(Operand const &rhs)' rhs is Invalid.");
     }
 }
 
@@ -183,13 +189,13 @@ Operand *Real::operator/(Operand const &rhs)
     }
     else if (rhs.getType() == COMPLEX)
     {
-        // Complex can be -> Real
+            // Complex can be -> Real
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
             if (dynamic_cast<const Complex *>(&rhs)->getRealPart() != 0.0)
             {
-                this->value_ /= dynamic_cast<const Complex *>(&rhs)->getRealPart();
-                return (dynamic_cast<Operand *>(this));
+                Real *tmp = new Real(getValue() / dynamic_cast<const Complex *>(&rhs)->getRealPart());
+                return (dynamic_cast<Operand *>(tmp));
             }
             else
             {
@@ -198,6 +204,7 @@ Operand *Real::operator/(Operand const &rhs)
 
         }
             // Must stay Complex
+/*
         else
         {
             /// LA CA DEVIENS CHAUD https://www.youtube.com/watch?v=FGGC3mF0rOc
@@ -205,14 +212,13 @@ Operand *Real::operator/(Operand const &rhs)
 //                                       getValue() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
 //            return (dynamic_cast<Operand *>(tmp));
         }
+*/
     }
     else
     {
-        throw std::invalid_argument("in 'Operand *Real::operator/(Operand const &rhs)' rhs is not Real.");
+        throw std::invalid_argument("in 'Operand *Real::operator/(Operand const &rhs)' rhs is Invalid.");
     }
 }
-
-// TODO allouer des pointeur Real partout !
 
 Operand *Real::operator%(Operand const &rhs)
 {
@@ -223,8 +229,8 @@ Operand *Real::operator%(Operand const &rhs)
         {
             if (isInteger() && dynamic_cast<const Real *>(&rhs)->isInteger())
             {
-                value_ = static_cast<double>(static_cast<int>(value_) % static_cast<int>(dynamic_cast<const Real *>(&rhs)->value_));
-                return (dynamic_cast<Operand *>(this));
+                Real *tmp = new Real(static_cast<int>(value_) % static_cast<int>(dynamic_cast<const Real *>(&rhs)->value_));
+                return (dynamic_cast<Operand *>(tmp));
             }
             else
             {

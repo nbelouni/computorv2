@@ -34,13 +34,12 @@ void Computor::testComplex()
 
 void Computor::testReal()
 {
-/*
 //    Real *ptr_a;
 //    Real *ptr_b;
 
     Complex c_a;
     Real r_a;
-    Real r_b(2.4, 4);
+    Real r_b(4.0);
     Real r_c(1.345);
     Real r_d(r_b);
 
@@ -50,7 +49,6 @@ void Computor::testReal()
     std::cout << "r_b = " << r_b << std::endl;
     std::cout << "r_c = " << r_c << std::endl;
     std::cout << "r_d = " << r_d << std::endl;
-    r_a.setPower(2);
     r_a.setValue(321);
     std::cout << "r_a = " << r_a << std::endl;
 
@@ -80,16 +78,15 @@ void Computor::testReal()
 
     r_a = r_c;
     std::cout << "r_a = " << r_a << std::endl;
-    */
     ///////////////////////////////////////
     /// NE PAS REUTILISER LES VARIABLES ///
     ///////////////////////////////////////
 
     Operand *op = new Operand();
-    Real real_a(1);
-    Real real_b(2);
-    Real real_c(3);
-    Real real_e(2);
+    Real real_a(13);
+    Real real_b(26);
+    Real real_c(34);
+    Real real_e(7);
     Real *real_d = new Real();
     Complex cp_a(2, 0);
     Complex cp_b(3, 4);
@@ -101,9 +98,8 @@ void Computor::testReal()
     std::cout << "real_d" << *real_d << std::endl;
     std::cout << "real_e" << real_e << std::endl;
     std::cout << "op" << *op << std::endl;
-/*
 
-//    real_d = dynamic_cast<Real *>(real_b + real_c);
+    real_d = dynamic_cast<Real *>(real_b + real_c);
     op = real_a + real_b;
 
     std::cout << "real_d" << *real_d << std::endl;
@@ -113,9 +109,7 @@ void Computor::testReal()
 
     std::cout << "real_d" << *real_d << std::endl;
     std::cout << "op" << *op << std::endl;
-*/
 
-/*
     op = real_b + cp_a;
     real_d = static_cast<Real *>(op);
 
@@ -127,7 +121,6 @@ void Computor::testReal()
 
     std::cout << "op" << *op << std::endl;
     std::cout << "cp_c" << *cp_c << std::endl;
-*/
 /*
     real_d = static_cast<Real *>(real_b * real_e);
     std::cout << "real_d" << *real_d << std::endl;
@@ -185,6 +178,12 @@ void Computor::testModulo()
     double rhs = 5.0;
 
 
+    double trux;
+    int yo = 12;
+
+    trux = static_cast<double>(yo);
+
+/*
     if (floor(lhs) == lhs)
     {
         std::cout << lhs << "CAN BE INTEGER" <<std::endl;
@@ -204,6 +203,7 @@ void Computor::testModulo()
     int wefawe = static_cast<int>(std::round(lhs));
     std::cout << wefawe << std::endl;
 
+*/
 //    int ndty = const_cast<int>(std::round(3.0));
 //    std::cout << ndty << std::endl;
 //

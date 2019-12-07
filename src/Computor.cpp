@@ -86,29 +86,31 @@ void Computor::testReal()
     Real real_c(333333, 3);
     Real *real_d = new Real();
     Operand *op = new Operand();
+    Complex cp_a(12, 0);
+    Complex cp_b(65, 4);
 
     std::cout << "real_a" << real_a << std::endl;
     std::cout << "real_b" << real_b << std::endl;
     std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
     std::cout << "op" << *op << std::endl;
+/*
 
 //    real_d = dynamic_cast<Real *>(real_b + real_c);
     op = real_a + real_b;
 
-    std::cout << "real_a" << real_a << std::endl;
-    std::cout << "real_b" << real_b << std::endl;
-    std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
     std::cout << "op" << *op << std::endl;
 
     real_d = static_cast<Real *>(op);
 
-    std::cout << "real_a" << real_a << std::endl;
-    std::cout << "real_b" << real_b << std::endl;
-    std::cout << "real_c" << real_c << std::endl;
     std::cout << "real_d" << *real_d << std::endl;
     std::cout << "op" << *op << std::endl;
+*/
 
+    op = real_b + cp_a;
+    real_d = static_cast<Real *>(op);
 
+    std::cout << "real_d" << *real_d << std::endl;
+    std::cout << "op" << *op << std::endl;
 }

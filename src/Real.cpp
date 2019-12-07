@@ -74,14 +74,14 @@ Operand *Real::operator=(Operand const &rhs)
     {
         if (rhs.getType() == REAL)
         {
-            this->value_ = dynamic_cast<const Real *>(rhs.getSelf())->value_;
-            this->power_ = dynamic_cast<const Real *>(rhs.getSelf())->power_;
+            this->value_ = dynamic_cast<const Real *>(&rhs)->value_;
+            this->power_ = dynamic_cast<const Real *>(&rhs)->power_;
         }
         else if (rhs.getType() == COMPLEX)
         {
-            if (dynamic_cast<const Complex *>(rhs.getSelf())->getComplexPart() == 0.0)
+            if (dynamic_cast<const Complex *>(&rhs)->getComplexPart() == 0.0)
             {
-                this->value_ = dynamic_cast<const Complex *>(rhs.getSelf())->getRealPart();
+                this->value_ = dynamic_cast<const Complex *>(&rhs)->getRealPart();
                 this->power_ = 1;
             }
             else
@@ -107,6 +107,23 @@ Operand *Real::operator+(Operand const &rhs)
             Real *tmp = new Real(getValue() + dynamic_cast<const Real *>(&rhs)->getValue(),
                                  getPower() + dynamic_cast<const Real *>(&rhs)->getPower());
             return dynamic_cast<Operand *>(tmp);
+        }
+        else if (rhs.getType() == COMPLEX)
+        {
+            // Complex can be -> Real
+            if (dynamic_cast<const Complex *>(&rhs)->getComplexPart() == 0.0)
+            {
+                this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
+                ////
+                /// MUST have imaginary power and real power....
+            }
+            // Must stay Complex
+            else
+            {
+                Complex *tmp = new Complex(computePower() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                                           dynamic_cast<const Complex *>(&rhs)->getComplexPart());
+                return dynamic_cast<Operand *>(tmp);
+            }
         }
         else
         {

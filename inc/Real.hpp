@@ -12,12 +12,10 @@ class Real: public Operand
 {
 	private:
         double	value_;
-		int		power_;
 
 	public:
 		Real();
-		Real(double value); // power == 1
-		Real(double value, int power);
+		Real(double value);
 		Real(Real &real);
         Real(const Operand *op);
 		virtual ~Real();
@@ -29,14 +27,8 @@ class Real: public Operand
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
-        const double      computePower() const;
-//        void        add(Real &lhs, Real &rhs);
-//        void        add(Complex &lhs, Real &rhs);
-
 		void		setValue(double value);
 		double		getValue() const;
-		void		setPower(int power);
-		int			getPower() const;
 
         void        reset();
 };

@@ -99,7 +99,7 @@ const Operand *Complex::operator+(const Operand &rhs)
         else if (rhs.getType() == REAL)
         {
             const Real *tmp = dynamic_cast<const Real *>(rhs.getSelf());
-            this->real_part_ += tmp->computePower();;
+            this->real_part_ += tmp->getValue();
         }
         else
         {

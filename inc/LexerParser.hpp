@@ -22,7 +22,7 @@ class LexerParser
 		DIV_L,		//	/
 		SUB_L,		//	-
 		MOD_L,		//	%
-		ASSIGN_L,	//	=
+		EQUAL_L,	//	=
 		ALPHA_L,	//	[a-z_]
 		DIGIT_L,	//	[0-9]
 		INT_POINT_L,//	?
@@ -55,6 +55,11 @@ class LexerParser
 
 		POWER,		//	POW_L[-\+]?[\d]+
 		MATRIX_ROW,	//	O_BRACKET_L NUMBER (COMMA_L NUMBER)* C_BRACKET_L
+		O_BRACKET,	//	[
+		C_BRACKET,	//	]
+		COMMA,		//	,
+		SEMICOL,	//	;
+		
 
 	//	OPERANDS
 
@@ -97,6 +102,8 @@ class LexerParser
 		std::vector<t_s_token>	tokens_ref_;
 		std::vector<t_token>	tokens_;
 		t_token_def				state_;
+		int						brackets_;
+		int						par_;
 		
 		LexerParser(LexerParser &lp);
 		
@@ -117,16 +124,24 @@ class LexerParser
 		void					printStates(std::vector<t_char> s);
 
 		void					lineToTokens(std::string &s);
+		t_char					setLexem(const char c);
 
 		t_token_def				isNumber(t_char &l);
 		t_token_def				isDecimal(t_char &l);
 		t_token_def				isVar(t_char &l);
-		t_token_def				isSum(t_char &l);
-		t_token_def				isDiv(t_char &l);
-		t_token_def				isSub(t_char &l);
-		t_token_def				isMod(t_char &l);
+//		t_token_def				isSum(t_char &l);
+//		t_token_def				isDiv(t_char &l);
+//		t_token_def				isSub(t_char &l);
+//		t_token_def				isMod(t_char &l);
 		t_token_def				isMul(t_char &l);
-		t_token_def				isPow(t_char &l);
+//		t_token_def				isPow(t_char &l);
+//		t_token_def				isEqual(t_char &l);
+		t_token_def				isIntPoint(t_char &l);
+		t_token_def				setLiteral(t_char &lexem);
+//		t_token_def				isOPar(t_char &l);
+//		t_token_def				isCPar(t_char &l);
+//		t_token_def				isOBracket(t_char &l);
+//		t_token_def				isCBracket(t_char &l);
 
 		bool					isLogicSequence(t_token_def first, t_token_def next);
 		bool					isOperator(t_token_def t);

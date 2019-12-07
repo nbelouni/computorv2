@@ -3,22 +3,25 @@
 LexerParser::LexerParser()
 {
 	state_ = NONE;
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"[", O_BRACKET_L, nullptr});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"]", C_BRACKET_L, nullptr});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"(", O_PAR_L, nullptr});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{")", C_PAR_L, nullptr});
+	brackets_ = 0;
+	par_ = 0;
+
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"[", O_BRACKET_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"]", C_BRACKET_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"(", O_PAR_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{")", C_PAR_L, &LexerParser::setLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"*", MUL_L, &LexerParser::isMul});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"^", POW_L, &LexerParser::isPow});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"+", SUM_L, &LexerParser::isSum});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"/", DIV_L, &LexerParser::isDiv});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"-", SUB_L, &LexerParser::isSub});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"%", MOD_L, &LexerParser::isMod});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"=", ASSIGN_L, nullptr});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"^", POW_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"+", SUM_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"/", DIV_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"-", SUB_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"%", MOD_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"=", EQUAL_L, &LexerParser::setLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"[a-z_]", ALPHA_L, &LexerParser::isVar});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"[0-9]", DIGIT_L, &LexerParser::isNumber});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"?", INT_POINT_L, nullptr});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{",", COMMA_L, nullptr});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{";", SEMICOL_L, nullptr});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"?", INT_POINT_L, &LexerParser::isIntPoint});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{",", COMMA_L, &LexerParser::setLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{";", SEMICOL_L, &LexerParser::setLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{".", POINT_L, &LexerParser::isDecimal});
 
 	tokens_ref_.push_back(LexerParser::t_s_token{O_PAR, 1});
@@ -32,6 +35,10 @@ LexerParser::LexerParser()
 	tokens_ref_.push_back(LexerParser::t_s_token{DOUBLE_MUL, 2});
 	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255});
 	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX_ROW, 255});
+	tokens_ref_.push_back(LexerParser::t_s_token{O_BRACKET, 1});
+	tokens_ref_.push_back(LexerParser::t_s_token{C_BRACKET, 1});
+	tokens_ref_.push_back(LexerParser::t_s_token{COMMA, 1});
+	tokens_ref_.push_back(LexerParser::t_s_token{SEMICOL, 1});
 	tokens_ref_.push_back(LexerParser::t_s_token{INT_NUMBER, 255});
 	tokens_ref_.push_back(LexerParser::t_s_token{DEC_NUMBER, 255});
 	tokens_ref_.push_back(LexerParser::t_s_token{REAL, 255});
@@ -71,9 +78,11 @@ std::vector<LexerParser::t_lexem>	LexerParser::getLexems()
 
 void								LexerParser::clear()
 {
+	state_ = NONE;
+	brackets_ = 0;
+	par_ = 0;
 	lexems_.clear();
 	tokens_.clear();
-	state_ = NONE;
 }
 
 const char							*LexerParser::charToString(t_char l)
@@ -100,8 +109,8 @@ const char							*LexerParser::charToString(t_char l)
 			return "SUB_L";
 		case MOD_L:
 			return "MOD_L";
-		case ASSIGN_L:
-			return "ASSIGN_L";
+		case EQUAL_L:
+			return "EQUAL_L";
 		case ALPHA_L:
 			return "ALPHA_L";
 		case DIGIT_L:
@@ -155,6 +164,14 @@ const char							*LexerParser::tokenToString(LexerParser::t_token_def t)
 			return "COMPLEX";
 		case MATRIX:
 			return "MATRIX";
+		case O_BRACKET:
+			return "O_BRACKET";
+		case COMMA:
+			return "COMMA";
+		case SEMICOL:
+			return "SEMICOL";
+		case C_BRACKET:
+			return "C_BRACKET";
 		case UNKNOWN:
 			return "UNKNOWN";
 		case ASSIGN:
@@ -204,8 +221,6 @@ void								LexerParser::printTokens()
 		std::cout << std::endl;
 	}
 }
-
-# define	IS_END(x, y)	(x != y.end())
 
 LexerParser::t_token_def			LexerParser::isNumber(LexerParser::t_char &lexem)
 {
@@ -257,8 +272,6 @@ LexerParser::t_token_def			LexerParser::isVar(LexerParser::t_char &lexem)
 	
 }
 
-//	isOperator
-
 LexerParser::t_token_def			LexerParser::isMul(LexerParser::t_char &lexem)
 {
 	std::cout << "isMul()" << std::endl;
@@ -271,42 +284,11 @@ LexerParser::t_token_def			LexerParser::isMul(LexerParser::t_char &lexem)
 	}
 	return ERROR;
 }
-LexerParser::t_token_def			LexerParser::isPow(LexerParser::t_char &lexem)
-{
-	if (lexem == POW_L)
-		return POW;
-	return ERROR;
-}
 
-LexerParser::t_token_def			LexerParser::isSum(LexerParser::t_char &lexem)
+LexerParser::t_token_def			LexerParser::isIntPoint(LexerParser::t_char &lexem)
 {
-	// SUM : +
-	std::cout << "isSum()" << std::endl;
-	if (lexem == SUM_L)
-		return SUM;
-	return ERROR;
-}
-
-LexerParser::t_token_def			LexerParser::isDiv(LexerParser::t_char &lexem)
-{
-	std::cout << "isDiv()" << std::endl;
-
-	if (lexem == DIV_L)
-		return DIV;
-	return ERROR;
-}
-
-LexerParser::t_token_def			LexerParser::isSub(LexerParser::t_char &lexem)
-{
-	if (lexem == SUB_L)
-		return SUB;
-	return ERROR;
-}
-
-LexerParser::t_token_def			LexerParser::isMod(LexerParser::t_char &lexem)
-{
-	if (lexem == MOD_L)
-		return MOD;
+	if (state_ == ASSIGN && lexem == INT_POINT_L)
+		return GET_RESULT;
 	return ERROR;
 }
 
@@ -315,6 +297,40 @@ bool								LexerParser::isOperator(LexerParser::t_token_def t)
 	if (t == SUM || t == SUB || t == MUL || t == DIV || t == MOD || t == DOUBLE_MUL)
 		return true;
 	return false;
+}
+
+
+LexerParser::t_token_def			LexerParser::setLiteral(t_char &lexem)
+{
+	switch (lexem)
+	{
+		case POW_L:
+			return POW;
+		case SUM_L:
+			return SUM;
+		case DIV_L:
+			return DIV;
+		case SUB_L:
+			return SUB;
+		case MOD_L:
+			return MOD;
+		case EQUAL_L:
+			return ASSIGN;
+		case O_PAR_L:
+			return O_PAR;
+		case C_PAR_L:
+			return C_PAR;
+		case O_BRACKET_L:
+			return O_BRACKET;
+		case C_BRACKET_L:
+			return C_BRACKET;
+		case COMMA_L:
+			return COMMA;
+		case SEMICOL_L:
+			return SEMICOL;
+		default:
+			return ERROR;
+	}
 }
 
 bool								LexerParser::isLogicSequence(LexerParser::t_token_def first, LexerParser::t_token_def next)
@@ -335,7 +351,34 @@ bool								LexerParser::isLogicSequence(LexerParser::t_token_def first, LexerPa
 	if (first == MUL && next == DOUBLE_MUL)
 		return true;
 
+	// EQUAL : assign to get_result
+	if (first == ASSIGN && next == GET_RESULT)
+		return true;
+
 	return false;
+}
+
+LexerParser::t_char					LexerParser::setLexem(const char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+	{
+		return ALPHA_L;
+	}
+	else if (c >= '0' && c <= '9')
+	{
+		return DIGIT_L;
+	}
+	else
+	{
+		for (int i = 0; i < lexems_ref_.size(); ++i)
+		{
+			if (c == lexems_ref_[i].value[0])
+			{
+				return static_cast<LexerParser::t_char>(i);
+			}
+		}
+	}
+	return UNDEFINED;
 }
 
 void								LexerParser::lineToTokens(std::string &s)
@@ -352,36 +395,15 @@ void								LexerParser::lineToTokens(std::string &s)
 		old_state = state_;
 		if (*it != ' ' && *it !='\t')
 		{
-			if ((*it >= 'a' && *it <= 'z') || (*it >= 'A' && *it <= 'Z') || *it == '_')
-			{
-				tmp_lexem = ALPHA_L;
-			}
-
-			else if (*it >= '0' && *it <= '9')
-			{
-				tmp_lexem = DIGIT_L;
-			}
-			else
-			{
-				for (int j = 0; j < lexems_ref_.size(); ++j)
-				{
-					if (*it == lexems_ref_[j].value[0])
-					{
-						tmp_lexem = static_cast<LexerParser::t_char>(j);
-						break;
-					}
-				}
-			}
+			tmp_lexem = setLexem(*it);
 			if (tmp_lexem != UNDEFINED)
 			{
-				std::cout << "tmp_lexem : " << charToString(tmp_lexem)  << std::endl;
 				if (this->lexems_ref_[tmp_lexem].f != nullptr)
 				{
 					state_ = (this->*lexems_ref_[tmp_lexem].f)(tmp_lexem);
 				}
 				else
 				{
-					std::cout << "function for " << charToString(tmp_lexem) << " not implemented yet." << std::endl;
 					tmp_lexem = UNDEFINED;
 				}
 			}
@@ -393,21 +415,15 @@ void								LexerParser::lineToTokens(std::string &s)
 			}
 			if (state_ == ERROR)
 			{
-				std::cerr << "ERROR" << std::endl;
-				return;
+				unknown_char.append("Should never happen.");
 			}
 			
-			std::cout << "state_ : " << tokenToString(state_) << std::endl;
-			std::cout << "old_state : " << tokenToString(old_state) << std::endl;
-
 			if (state_ != ERROR && state_ != NONE)
 			{
 				if (!current_token.empty() && !isLogicSequence(old_state, state_))
 				{
-					std::cout << "_________1" << std::endl;
 					tokens_.push_back(LexerParser::t_token{std::string(current_token), old_state});
 					current_token.clear();
-					printTokens();
 				}
 				current_token.append(1, *it);
 			}
@@ -416,11 +432,8 @@ void								LexerParser::lineToTokens(std::string &s)
 		{ 
 			if (!current_token.empty())
 			{
-					std::cout << "_________2" << std::endl;
-				std::cout << "token size : " << current_token.size() << std::endl;
 				tokens_.push_back(LexerParser::t_token{std::string(current_token), old_state});
 				current_token.clear();
-				printTokens();
 			}
 			state_ = NONE;
 		}
@@ -428,7 +441,6 @@ void								LexerParser::lineToTokens(std::string &s)
 	}
 	if (!current_token.empty())
 	{
-					std::cout << "_________3" << std::endl;
 		tokens_.push_back(LexerParser::t_token{std::string(current_token), state_});
 	}
 	if (!unknown_char.empty())
@@ -441,11 +453,9 @@ void								LexerParser::lineToTokens(std::string &s)
 		{
 			std::rethrow_exception(std::current_exception());
 		}
-
 	}
 	else
 	{
-		std::cout << "print tokens ?" << std::endl;
 		printTokens();
 	}
 }

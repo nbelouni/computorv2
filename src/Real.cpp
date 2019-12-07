@@ -113,9 +113,9 @@ Operand *Real::operator+(Operand const &rhs)
             // Complex can be -> Real
             if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
             {
+                this->value_ = computePower();
+                this->power_ = 1;
                 this->value_ += dynamic_cast<const Complex *>(&rhs)->getRealPart();
-                ////
-                /// MUST have imaginary power and real power....
             }
             // Must stay Complex
             else

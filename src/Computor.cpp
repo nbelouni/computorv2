@@ -81,13 +81,14 @@ void Computor::testReal()
     r_a = r_c;
     std::cout << "r_a = " << r_a << std::endl;
     */
-    Real real_a(111111, 1);
-    Real real_b(222222, 2);
-    Real real_c(333333, 3);
-    Real *real_d = new Real();
     Operand *op = new Operand();
+    Real real_a(1, 1);
+    Real real_b(2, 2);
+    Real real_c(3, 3);
+    Real *real_d = new Real();
     Complex cp_a(12, 0);
     Complex cp_b(65, 4);
+    Complex *cp_c = new Complex();
 
     std::cout << "real_a" << real_a << std::endl;
     std::cout << "real_b" << real_b << std::endl;
@@ -111,6 +112,12 @@ void Computor::testReal()
     op = real_b + cp_a;
     real_d = static_cast<Real *>(op);
 
-    std::cout << "real_d" << *real_d << std::endl;
     std::cout << "op" << *op << std::endl;
+    std::cout << "real_d" << *real_d << std::endl;
+
+    op = real_c + cp_b;
+    cp_c = static_cast<Complex *>(op);
+
+    std::cout << "op" << *op << std::endl;
+    std::cout << "cp_c" << *cp_c << std::endl;
 }

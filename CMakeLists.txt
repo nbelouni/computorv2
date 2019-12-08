@@ -5,23 +5,30 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 set(SOURCES
-        src/main.cpp
-        src/Computor.cpp
-#        src/IOperand.cpp
         src/Operand.cpp
         src/Real.cpp
+        src/Complex.cpp
+		src/Matrix.cpp
+		src/Variable.cpp
+		src/Token.cpp
+		src/Function.cpp
+        src/Computor.cpp
         src/LexerParser.cpp
-#        src/Complex.cpp
+        src/main.cpp
+#        src/IOperand.cpp
         )
 
 set(HEADERS
-        inc/Computor.hpp
-#        inc/IOperand.hpp
         inc/Operand.hpp
         inc/Real.hpp
-        inc/Computorv2.hpp
+        inc/Complex.hpp
+		inc/Matrix.hpp
+		inc/Variable.hpp
+		inc/Function.hpp
+		inc/Token.hpp
+        inc/Computor.hpp
         inc/LexerParser.hpp
-#        inc/Complex.hpp
+#        inc/IOperand.hpp
         )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")

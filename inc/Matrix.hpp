@@ -3,14 +3,12 @@
 
 #include "Computorv2.hpp"
 
-typedef std::vector<std::vector<double>> t_matrix;
-
 class Matrix: public Operand
 {
 	private:
-	    t_matrix	_values;
-		size_t		_columns;
-		size_t		_rows;
+	    t_matrix	values_;
+		size_t		columns_;
+		size_t		rows_;
 
 	public:
 		Matrix();

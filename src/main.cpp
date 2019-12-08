@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 		{
 //			std::cout << line << std::endl;
 			lp.lineToTokens(line);
+			lp.parse();
 			line.clear();
 		}
 		catch (std::exception &e)

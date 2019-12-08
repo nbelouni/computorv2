@@ -33,6 +33,8 @@ class Complex: public Operand
 		double	getRealPart() const;
 		void	setImaginaryPart(double n);
 		double	getImaginaryPart() const;
+
+        Complex *solveMul(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
 };
 
 std::ostream &operator<<(std::ostream &o, Complex const &i);

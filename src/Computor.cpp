@@ -52,8 +52,16 @@ void Computor::testComplex()
     std::cout << std::endl;
 */
 
+/*
     res = c_e * r_a;
     std::cout << "c_e * r_a = " << c_e << " * " << r_a << " = " << res << std::endl;
+    std::cout << std::endl;
+*/
+    Complex ab(-2, 5);
+    Complex cd(1, -3);
+
+    res = ab * cd;
+    std::cout << "ab * cd = " << ab << " * " << cd << " = " << res << std::endl;
     std::cout << std::endl;
 
 }

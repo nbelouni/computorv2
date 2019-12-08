@@ -132,10 +132,12 @@ Operand *Complex::operator*(Operand const &rhs)
 {
     if (rhs.getType() == COMPLEX)
     {
-        /// Truc complique
-//        Complex *tmp = new Complex(this->getRealPart() * dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-//                                   this->getImaginaryPart() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-//        return (dynamic_cast<Operand *>(tmp));
+        Complex *tmp;
+        tmp = solveMul(this->getRealPart(),
+                       this->getImaginaryPart(),
+                       dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+        return (dynamic_cast<Operand *>(tmp));
     }
     else if (rhs.getType() == REAL)
     {
@@ -148,6 +150,14 @@ Operand *Complex::operator*(Operand const &rhs)
         throw std::invalid_argument(
                 "in 'Operand *Complex::operator*(Operand const &rhs)' rhs is not Complex or inferior.");
     }
+}
+
+Complex *Complex::solveMul(double a, double b, double c, double d)
+{
+    Complex *tmp = new Complex(
+            a * c - b * d, a * d + b * c
+    );
+    return tmp;
 }
 
 std::ostream &operator<<(std::ostream &o, Complex const &i)

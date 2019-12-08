@@ -21,7 +21,6 @@ void Computor::testComplex()
     Complex c_c(32, 0.23);
     Complex c_d(c_c);
     Complex c_e(23, 0.012);
-/*
 
     std::cout << "c_a " << c_a << std::endl;
     std::cout << "c_b " << c_b << std::endl;
@@ -44,19 +43,21 @@ void Computor::testComplex()
     res = c_e - c_c;
     std::cout << "c_e - c_c = " << c_e << " - " << c_c << " = " << res << std::endl;
     std::cout << std::endl;
-*/
 
-/*
+    Complex asd(42, -23);
+    Complex qwe(42, 23);
+
+    tmp = asd + qwe;
+    std::cout << "asd - qwe = " << asd << " - " << qwe << " = " << *tmp << std::endl;
+    std::cout << std::endl;
+
     res = c_e * c_c;
     std::cout << "c_e * c_c = " << c_e << " * " << c_c << " = " << res << std::endl;
     std::cout << std::endl;
-*/
 
-/*
     res = c_e * r_a;
     std::cout << "c_e * r_a = " << c_e << " * " << r_a << " = " << res << std::endl;
     std::cout << std::endl;
-*/
 /*
     Complex ab(-2, 5);
     Complex cd(1, -3);
@@ -83,18 +84,23 @@ void Computor::testComplex()
     std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
     std::cout << std::endl;
 */
+/*
     Complex ab(1, -3);
     Rational cd(4);
 
     res = ab / cd;
     std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
     std::cout << std::endl;
+*/
 }
 
 
 void Computor::testReal()
 {
-    Rational res;
+    Operand *res;
+
+    Operand pouet;
+    std::cout << "pouet " << pouet << std::endl;
 
     Rational r_a;
     Rational r_b(3.123);
@@ -112,43 +118,48 @@ void Computor::testReal()
     std::cout << std::endl;
 
     res = r_a + r_b;
-    std::cout << "r_a + r_b = " << r_a << " + " << r_b << " = " << res << std::endl;
+
+    res = r_a + r_b;
+    std::cout << "r_a + r_b = " << r_a << " + " << r_b << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_c + r_c;
-    std::cout << "r_c + r_c = " << r_c << " + " << r_c << " = " << res << std::endl;
+    std::cout << "r_c + r_c = " << r_c << " + " << r_c << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_d + r_b;
-    std::cout << "r_d + r_b = " << r_d << " + " << r_b << " = " << res << std::endl;
+    std::cout << "r_d + r_b = " << r_d << " + " << r_b << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_a - r_c;
-    std::cout << "r_a - r_c = " << r_a << " - " << r_c << " = " << res << std::endl;
+    std::cout << "r_a - r_c = " << r_a << " - " << r_c << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_a * r_c;
-    std::cout << "r_a * r_c = " << r_a << " * " << r_c << " = " << res << std::endl;
+    std::cout << "r_a * r_c = " << r_a << " * " << r_c << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_a / r_c;
-    std::cout << "r_a / r_c = " << r_a << " / " << r_c << " = " << res << std::endl;
+    std::cout << "r_a / r_c = " << r_a << " / " << r_c << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_c % r_e;
-    std::cout << "r_c / r_e = " << r_c << " % " << r_e << " = " << res << std::endl;
+    std::cout << "r_c / r_e = " << r_c << " % " << r_e << " = " << *res << std::endl;
     std::cout << std::endl;
 
     Rational ab(4);
     Complex cd(2, -4);
-    Complex cres;
 
-    cres = ab / cd;
-    std::cout << "ab / cd = " << ab << " / " << cd << " = " << cres << std::endl;
+    res = ab / cd;
+    std::cout << "ab / cd = " << ab << " / " << cd << " = " << *res << std::endl;
+    std::cout << std::endl;
+
+    res = ab % cd;
+    std::cout << "ab % cd = " << ab << " % " << cd << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_a / r_f;
-    std::cout << "r_a / r_f = " << r_a << " / " << r_f << " = " << res << std::endl;
+    std::cout << "r_a / r_f = " << r_a << " / " << r_f << " = " << *res << std::endl;
     std::cout << std::endl;
 
 }

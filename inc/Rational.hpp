@@ -33,6 +33,7 @@ class Rational: public Operand
 
         bool const  isInteger() const;
         void        reset();
+        static std::ostream &print(std::ostream &o, Operand const &i);
 };
 
 std::ostream &operator<<(std::ostream &o, Rational const &i);

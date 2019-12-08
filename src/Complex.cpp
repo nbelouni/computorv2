@@ -90,9 +90,18 @@ Operand *Complex::operator+(Operand const &rhs)
 {
     if (rhs.getType() == COMPLEX)
     {
-        Complex *tmp = new Complex(this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                                   this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        double a;
+        double b;
+        Operand *tmp;
+
+        a = this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart();
+        b = this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart();
+
+        if (b == 0.0)
+            tmp = new Rational(a);
+        else
+            tmp = new Complex(a, b);
+        return (tmp);
     }
     else if (rhs.getType() == RATIONAL)
     {
@@ -179,6 +188,12 @@ Operand *Complex::operator/(Operand const &rhs)
     }
 }
 
+Operand *Complex::operator%(Operand const &rhs)
+{
+    throw std::invalid_argument("in 'Operand *Complex::operator%(Operand const &rhs)' cannot % with Complex.");
+}
+
+
 Complex *Complex::solveMul(double a, double b, double c, double d)
 {
     Complex *tmp = new Complex(
@@ -196,8 +211,15 @@ Complex *Complex::solveDiv(double a, double b, double c, double d)
     return tmp;
 }
 
+std::ostream &Complex::print(std::ostream &o, Operand const &i)
+{
+    o << "[COMPLEX | " << dynamic_cast<const Complex *>(&i)->getRealPart() << " + "
+      << dynamic_cast<const Complex *>(&i)->getImaginaryPart() << "i | " << i.getSelf() << "]";
+    return (o);
+}
+
 std::ostream &operator<<(std::ostream &o, Complex const &i)
 {
-    o << "[ COMPLEX | " << i.getRealPart() << " + " << i.getImaginaryPart() << "i | " << i.getSelf() << " ]";
+    Complex::print(o, i);
     return (o);
 }

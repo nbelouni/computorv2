@@ -40,16 +40,16 @@ std::ostream &operator<<(std::ostream &o, Operand const &i)
 {
     t_op type;
 
-    o << "[ OPERAND of type: ";
+    o << "{OPERAND of type: ";
     type = i.getType();
     if (type == UNDEFINED)
-        o << "UNDEFINED";
+        o << "UNDEFINED | " << i.getSelf() << "}";
     else if (type == RATIONAL)
-        o << "RATIONAL";
+        Rational::print(o , i);
     else if (type == COMPLEX)
-        o << "COMPLEX";
+        Complex::print(o , i);
     else if (type == MATRIX)
         o << "MATRIX";
-    o <<  " " << i.getSelf() << " ]";
+    o << "}";
     return (o);
 }

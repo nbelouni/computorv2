@@ -7,8 +7,8 @@ int main(int argc, char *argv[])
 
     try
     {
-        cp.testReal();
         cp.testComplex();
+        cp.testReal();
 //        cp.testModulo();
     }
     catch (const std::invalid_argument &e)

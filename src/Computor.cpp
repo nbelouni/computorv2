@@ -139,7 +139,16 @@ void Computor::testReal()
     std::cout << "r_c / r_e = " << r_c << " % " << r_e << " = " << res << std::endl;
     std::cout << std::endl;
 
+    Real ab(4);
+    Complex cd(2, -4);
+    Complex cres;
+
+    cres = ab / cd;
+    std::cout << "ab / cd = " << ab << " / " << cd << " = " << cres << std::endl;
+    std::cout << std::endl;
+
     res = r_a / r_f;
     std::cout << "r_a / r_f = " << r_a << " / " << r_f << " = " << res << std::endl;
     std::cout << std::endl;
+
 }

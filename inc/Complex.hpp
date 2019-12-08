@@ -35,7 +35,7 @@ class Complex: public Operand
 		double	getImaginaryPart() const;
 
         Complex *solveMul(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
-        Complex *solveDiv(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
+        static Complex *solveDiv(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
 };
 
 std::ostream &operator<<(std::ostream &o, Complex const &i);

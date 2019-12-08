@@ -199,15 +199,15 @@ Operand *Real::operator/(Operand const &rhs)
 
         }
             // Must stay Complex
-/*
         else
         {
-            /// LA CA DEVIENS CHAUD https://www.youtube.com/watch?v=FGGC3mF0rOc
-//            Complex *tmp = new Complex(getValue() * dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-//                                       getValue() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-//            return (dynamic_cast<Operand *>(tmp));
+            Complex *tmp;
+            tmp = Complex::solveDiv(this->getValue(),
+                           0.0,
+                           dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                           dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+            return (dynamic_cast<Operand *>(tmp));
         }
-*/
     }
     else
     {

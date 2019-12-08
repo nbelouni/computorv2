@@ -2,7 +2,6 @@
 # define LEXER_PARSER_HPP
 
 #include "Computorv2.hpp"
-#include "Token.hpp"
 
 #include <vector>
 
@@ -132,13 +131,12 @@ class LexerParser
 		t_token_def				isDecimal(t_char &l);
 		t_token_def				isVar(t_char &l);
 		t_token_def				isMul(t_char &l);
-		t_token_def				isIntPoint(t_char &l);
 		t_token_def				isLiteral(t_char &lexem);
 
 		bool					isLogicSequence(t_token_def first, t_token_def next);
 		bool					isOperator(t_token_def t);
 
-		std::vector<Token>		parse();
+//		std::vector<Token>		parse();
 
 		class	InvalidLineException : public std::exception
 		{

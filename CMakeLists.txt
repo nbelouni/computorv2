@@ -9,9 +9,6 @@ set(SOURCES
         src/Real.cpp
         src/Complex.cpp
 		src/Matrix.cpp
-		src/Variable.cpp
-		src/Token.cpp
-		src/Function.cpp
         src/Computor.cpp
         src/LexerParser.cpp
         src/main.cpp
@@ -23,9 +20,6 @@ set(HEADERS
         inc/Real.hpp
         inc/Complex.hpp
 		inc/Matrix.hpp
-		inc/Variable.hpp
-		inc/Function.hpp
-		inc/Token.hpp
         inc/Computor.hpp
         inc/LexerParser.hpp
 #        inc/IOperand.hpp

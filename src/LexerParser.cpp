@@ -1,5 +1,4 @@
 #include "../inc/LexerParser.hpp"
-#include "../inc/Token.hpp"
 
 LexerParser::LexerParser()
 {
@@ -20,7 +19,7 @@ LexerParser::LexerParser()
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"=", EQUAL_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"[a-z_]", ALPHA_L, &LexerParser::isVar});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"[0-9]", DIGIT_L, &LexerParser::isNumber});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"?", INT_POINT_L, &LexerParser::isIntPoint});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"?", INT_POINT_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{",", COMMA_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{";", SEMICOL_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{".", POINT_L, &LexerParser::isDecimal});
@@ -244,13 +243,11 @@ LexerParser::t_token_def			LexerParser::isDecimal(t_char &lexem)
 
 LexerParser::t_token_def			LexerParser::isVar(LexerParser::t_char &lexem)
 {
-	if (state_ != UNKNOWN && state_ != VAR)
-		return UNKNOWN;
-	else if (state_ == UNKNOWN)
+	if (state_ != VAR)
 		return VAR;
-	else
+	else if (state_ == VAR && lexem == DIGIT_L)
 		return state_;
-	if (state_ == VAR && lexem == DIGIT_L)
+	else
 		return state_;
 	return ERROR;
 	
@@ -261,13 +258,6 @@ LexerParser::t_token_def			LexerParser::isMul(LexerParser::t_char &lexem)
 	if (state_ == MUL)
 		return DOUBLE_MUL;
 	return MUL;
-}
-
-LexerParser::t_token_def			LexerParser::isIntPoint(LexerParser::t_char &lexem)
-{
-	if (state_ == ASSIGN && lexem == INT_POINT_L)
-		return GET_RESULT;
-	return ERROR;
 }
 
 LexerParser::t_token_def			LexerParser::isLiteral(t_char &lexem)
@@ -298,6 +288,8 @@ LexerParser::t_token_def			LexerParser::isLiteral(t_char &lexem)
 			return COMMA;
 		case SEMICOL_L:
 			return SEMICOL;
+		case INT_POINT_L:
+			return GET_RESULT;
 		default:
 			return ERROR;
 	}
@@ -419,6 +411,7 @@ void								LexerParser::lineToTokens(std::string &s)
 	{
 		std::rethrow_exception(std::current_exception());
 	}
+	printTokens();
 }
 
 bool								LexerParser::isOperator(LexerParser::t_token_def t)
@@ -429,21 +422,21 @@ bool								LexerParser::isOperator(LexerParser::t_token_def t)
 }
 
 
-std::vector<Token>		LexerParser::parse()
-{
-	std::vector<Token>	equation;
-	std::vector<LexerParser::t_token>::iterator it;
-
-	printTokens();
-	for (it = tokens_.begin(); it != tokens_.end(); ++it)
-	{
-		if (isOperator(it->second))
-		{
-			std::cout << "operator" << std::endl;
-		}
-	}
-	return equation;
-}
+//std::vector<Token>		LexerParser::parse()
+//{
+//	std::vector<Token>	equation;
+//	std::vector<LexerParser::t_token>::iterator it;
+//
+//	printTokens();
+//	for (it = tokens_.begin(); it != tokens_.end(); ++it)
+//	{
+//		if (isOperator(it->second))
+//		{
+//			std::cout << "operator" << std::endl;
+//		}
+//	}
+//	return equation;
+//}
 
 LexerParser::InvalidLineException::InvalidLineException(std::string errors)
 {

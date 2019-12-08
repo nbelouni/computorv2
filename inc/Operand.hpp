@@ -8,7 +8,7 @@
 typedef enum	e_op
 {
     UNDEFINED,
-	REAL,
+	RATIONAL,
 	COMPLEX,
 	MATRIX
 }				t_op;

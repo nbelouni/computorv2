@@ -8,7 +8,7 @@ set(SOURCES
         src/main.cpp
         src/Computor.cpp
         src/Operand.cpp
-        src/Real.cpp
+        src/Rational.cpp
         src/Complex.cpp
         )
 
@@ -16,7 +16,7 @@ set(HEADERS
         inc/Computorv2.hpp
         inc/Computor.hpp
         inc/Operand.hpp
-        inc/Real.hpp
+        inc/Rational.hpp
         inc/Complex.hpp
         )
 

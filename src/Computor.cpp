@@ -14,7 +14,7 @@ void Computor::testComplex()
     Complex *cp;
     Complex res;
 
-    Real r_a(42);
+    Rational r_a(42);
 
     Complex c_a;
     Complex c_b(0.23);
@@ -84,7 +84,7 @@ void Computor::testComplex()
     std::cout << std::endl;
 */
     Complex ab(1, -3);
-    Real cd(4);
+    Rational cd(4);
 
     res = ab / cd;
     std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
@@ -94,14 +94,14 @@ void Computor::testComplex()
 
 void Computor::testReal()
 {
-    Real res;
+    Rational res;
 
-    Real r_a;
-    Real r_b(3.123);
-    Real r_c(5);
-    Real r_d(r_b);
-    Real r_e(3);
-    Real r_f(0.0);
+    Rational r_a;
+    Rational r_b(3.123);
+    Rational r_c(5);
+    Rational r_d(r_b);
+    Rational r_e(3);
+    Rational r_f(0.0);
 
     std::cout << "r_a " << r_a << std::endl;
     r_a.setValue(42.42);
@@ -139,7 +139,7 @@ void Computor::testReal()
     std::cout << "r_c / r_e = " << r_c << " % " << r_e << " = " << res << std::endl;
     std::cout << std::endl;
 
-    Real ab(4);
+    Rational ab(4);
     Complex cd(2, -4);
     Complex cres;
 

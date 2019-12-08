@@ -8,18 +8,18 @@
 #include "Operand.hpp"
 #include "Computorv2.hpp"
 
-class Real: public Operand
+class Rational: public Operand
 {
 	private:
         double	value_;
 
 	public:
-		Real();
-		Real(double value);
-        Real(int value);
-		Real(Real &real);
-        Real(const Operand *op);
-		virtual ~Real();
+		Rational();
+		Rational(double value);
+        Rational(int value);
+		Rational(Rational &real);
+        Rational(const Operand *op);
+		virtual ~Rational();
 
 		Operand * operator=( Operand const & rhs ); // Equal
 		Operand * operator+( Operand const & rhs ); // Sum
@@ -35,6 +35,6 @@ class Real: public Operand
         void        reset();
 };
 
-std::ostream &operator<<(std::ostream &o, Real const &i);
+std::ostream &operator<<(std::ostream &o, Rational const &i);
 
 #endif //COMPUTERV2_REAL_HPP

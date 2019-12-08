@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     try
     {
-//        cp.testReal();
+        cp.testReal();
         cp.testComplex();
 //        cp.testModulo();
     }

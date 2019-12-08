@@ -44,8 +44,8 @@ std::ostream &operator<<(std::ostream &o, Operand const &i)
     type = i.getType();
     if (type == UNDEFINED)
         o << "UNDEFINED";
-    else if (type == REAL)
-        o << "REAL";
+    else if (type == RATIONAL)
+        o << "RATIONAL";
     else if (type == COMPLEX)
         o << "COMPLEX";
     else if (type == MATRIX)

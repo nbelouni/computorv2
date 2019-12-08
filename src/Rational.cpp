@@ -94,14 +94,14 @@ Operand *Rational::operator+(Operand const &rhs)
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
             Rational *tmp = new Rational(getValue() + dynamic_cast<const Complex *>(&rhs)->getRealPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
             // Must stay Complex
         else
         {
             Complex *tmp = new Complex(getValue() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                                        dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
     }
     else
@@ -115,7 +115,7 @@ Operand *Rational::operator-(Operand const &rhs)
     if (rhs.getType() == RATIONAL)
     {
         Rational *tmp = new Rational(getValue() - dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else if (rhs.getType() == COMPLEX)
     {
@@ -123,14 +123,14 @@ Operand *Rational::operator-(Operand const &rhs)
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
             Rational *tmp = new Rational(getValue() - dynamic_cast<const Complex *>(&rhs)->getRealPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
             // Must stay Complex
         else
         {
             Complex *tmp = new Complex(getValue() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                                        dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
     }
     else
@@ -144,7 +144,7 @@ Operand *Rational::operator*(Operand const &rhs)
     if (rhs.getType() == RATIONAL)
     {
         Rational *tmp = new Rational(getValue() * dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else if (rhs.getType() == COMPLEX)
     {
@@ -152,14 +152,14 @@ Operand *Rational::operator*(Operand const &rhs)
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
             Rational *tmp = new Rational(getValue() * dynamic_cast<const Complex *>(&rhs)->getRealPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
             // Must stay Complex
         else
         {
             Complex *tmp = new Complex(getValue() * dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                                        getValue() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
     }
     else
@@ -175,7 +175,7 @@ Operand *Rational::operator/(Operand const &rhs)
         if (dynamic_cast<const Rational *>(&rhs)->getValue() != 0.0)
         {
             Rational *tmp = new Rational(getValue() / dynamic_cast<const Rational *>(&rhs)->getValue());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
         else
         {
@@ -190,7 +190,7 @@ Operand *Rational::operator/(Operand const &rhs)
             if (dynamic_cast<const Complex *>(&rhs)->getRealPart() != 0.0)
             {
                 Rational *tmp = new Rational(getValue() / dynamic_cast<const Complex *>(&rhs)->getRealPart());
-                return (dynamic_cast<Operand *>(tmp));
+                return (tmp);
             }
             else
             {
@@ -206,7 +206,7 @@ Operand *Rational::operator/(Operand const &rhs)
                                     0.0,
                                     dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                                     dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (dynamic_cast<Operand *>(tmp));
+            return (tmp);
         }
     }
     else
@@ -225,7 +225,7 @@ Operand *Rational::operator%(Operand const &rhs)
             {
                 Rational *tmp = new Rational(
                         static_cast<int>(value_) % static_cast<int>(dynamic_cast<const Rational *>(&rhs)->value_));
-                return (dynamic_cast<Operand *>(tmp));
+                return (tmp);
             }
             else
             {

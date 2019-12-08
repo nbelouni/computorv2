@@ -107,7 +107,7 @@ Operand *Complex::operator+(Operand const &rhs)
     {
         Complex *tmp = new Complex(this->getRealPart() + dynamic_cast<const Rational *>(&rhs)->getValue(),
                                    this->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else
     {
@@ -122,13 +122,13 @@ Operand *Complex::operator-(Operand const &rhs)
     {
         Complex *tmp = new Complex(this->getRealPart() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                                    this->getImaginaryPart() - dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else if (rhs.getType() == RATIONAL)
     {
         Complex *tmp = new Complex(this->getRealPart() - dynamic_cast<const Rational *>(&rhs)->getValue(),
                                    this->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else
     {
@@ -146,13 +146,13 @@ Operand *Complex::operator*(Operand const &rhs)
                        this->getImaginaryPart(),
                        dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                        dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else if (rhs.getType() == RATIONAL)
     {
         Complex *tmp = new Complex(this->getRealPart() * dynamic_cast<const Rational *>(&rhs)->getValue(),
                                    this->getImaginaryPart() * dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else
     {
@@ -170,7 +170,7 @@ Operand *Complex::operator/(Operand const &rhs)
                        this->getImaginaryPart(),
                        dynamic_cast<const Complex *>(&rhs)->getRealPart(),
                        dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else if (rhs.getType() == RATIONAL)
     {
@@ -179,7 +179,7 @@ Operand *Complex::operator/(Operand const &rhs)
                        this->getImaginaryPart(),
                        dynamic_cast<const Rational *>(&rhs)->getValue(),
                        0.0);
-        return (dynamic_cast<Operand *>(tmp));
+        return (tmp);
     }
     else
     {

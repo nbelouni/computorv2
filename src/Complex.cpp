@@ -152,10 +152,46 @@ Operand *Complex::operator*(Operand const &rhs)
     }
 }
 
+Operand *Complex::operator/(Operand const &rhs)
+{
+    if (rhs.getType() == COMPLEX)
+    {
+        Complex *tmp;
+        tmp = solveDiv(this->getRealPart(),
+                       this->getImaginaryPart(),
+                       dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
+        return (dynamic_cast<Operand *>(tmp));
+    }
+    else if (rhs.getType() == REAL)
+    {
+        Complex *tmp;
+        tmp = solveDiv(this->getRealPart(),
+                       this->getImaginaryPart(),
+                       dynamic_cast<const Real *>(&rhs)->getValue(),
+                       0.0);
+        return (dynamic_cast<Operand *>(tmp));
+    }
+    else
+    {
+        throw std::invalid_argument(
+                "in 'Operand *Complex::operator*(Operand const &rhs)' rhs is not Complex or inferior.");
+    }
+}
+
 Complex *Complex::solveMul(double a, double b, double c, double d)
 {
     Complex *tmp = new Complex(
             a * c - b * d, a * d + b * c
+    );
+    return tmp;
+}
+
+Complex *Complex::solveDiv(double a, double b, double c, double d)
+{
+    Complex *tmp = new Complex(
+            ((a * c + b * d) / (c * c + d * d)),
+            ((b * c - a * d) / (c * c + d * d))
     );
     return tmp;
 }

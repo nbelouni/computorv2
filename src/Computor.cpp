@@ -57,6 +57,7 @@ void Computor::testComplex()
     std::cout << "c_e * r_a = " << c_e << " * " << r_a << " = " << res << std::endl;
     std::cout << std::endl;
 */
+/*
     Complex ab(-2, 5);
     Complex cd(1, -3);
 
@@ -64,6 +65,30 @@ void Computor::testComplex()
     std::cout << "ab * cd = " << ab << " * " << cd << " = " << res << std::endl;
     std::cout << std::endl;
 
+*/
+/*
+    Complex ab(3, 2);
+    Complex cd(4, -3);
+
+    res = ab / cd;
+    std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
+    std::cout << std::endl;
+*/
+
+/*
+    Complex ab(4, 0);
+    Complex cd(1, -3);
+
+    res = ab / cd;
+    std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
+    std::cout << std::endl;
+*/
+    Complex ab(1, -3);
+    Real cd(4);
+
+    res = ab / cd;
+    std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
+    std::cout << std::endl;
 }
 
 

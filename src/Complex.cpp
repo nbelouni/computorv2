@@ -90,6 +90,7 @@ Operand *Complex::operator+(Operand const &rhs)
 {
     if (rhs.getType() == COMPLEX)
     {
+        // TODO Solve this problem of down cast to Rational.
         double a;
         double b;
         Operand *tmp;

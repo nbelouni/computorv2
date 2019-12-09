@@ -377,7 +377,6 @@ void								LexerParser::lineToTokens(std::string &s)
 
 	while (it != s.end())
 	{
-		std::cout << *it << std::endl;
 		tmp_lexem = UNDEFINED;
 		old_state = state_;
 		if (*it != ' ' && *it !='\t')

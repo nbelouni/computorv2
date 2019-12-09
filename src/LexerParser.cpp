@@ -281,7 +281,7 @@ LexerParser::t_token_def			LexerParser::isMul(LexerParser::t_char &lexem)
 
 LexerParser::t_token_def			LexerParser::isSub(LexerParser::t_char &lexem)
 {
-	if (state_ == BEGIN || isOperator(tokens_.back().second))
+	if (state_ == BEGIN || (tokens_.size() && isOperator(tokens_.back().second)) || isOperator(state_))
 		return NEG;
 	return SUB;
 }
@@ -377,6 +377,7 @@ void								LexerParser::lineToTokens(std::string &s)
 
 	while (it != s.end())
 	{
+		std::cout << *it << std::endl;
 		tmp_lexem = UNDEFINED;
 		old_state = state_;
 		if (*it != ' ' && *it !='\t')

@@ -385,10 +385,7 @@ void								LexerParser::lineToTokens(std::string &s)
 
 			if (tmp_lexem != UNDEFINED)
 			{
-				
-				std::cout << "tmp_lexem : " << charToString(tmp_lexem) << std::endl;
 				state_ = (this->*lexems_ref_[tmp_lexem].f)(tmp_lexem);
-				std::cout << "set state : " << tokenToString(state_) << std::endl;
 			}
 			else
 			{

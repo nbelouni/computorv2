@@ -2,7 +2,7 @@
 
 LexerParser::LexerParser()
 {
-	state_ = NONE;
+	state_ = BEGIN;
 	brackets_ = 0;
 	par_ = 0;
 
@@ -14,7 +14,7 @@ LexerParser::LexerParser()
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"^", POW_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"+", SUM_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"/", DIV_L, &LexerParser::isLiteral});
-	lexems_ref_.push_back(LexerParser::t_s_lexem{"-", SUB_L, &LexerParser::isLiteral});
+	lexems_ref_.push_back(LexerParser::t_s_lexem{"-", SUB_L, &LexerParser::isSub});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"%", MOD_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"=", EQUAL_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{"[a-z_]", ALPHA_L, &LexerParser::isVar});
@@ -28,12 +28,19 @@ LexerParser::LexerParser()
 	tokens_ref_.push_back(LexerParser::t_s_token{C_PAR, 1, nullptr}); // ADD TOKEN
 	tokens_ref_.push_back(LexerParser::t_s_token{MUL, 1, nullptr}); // ADD OP
 	tokens_ref_.push_back(LexerParser::t_s_token{POW, 1, &LexerParser::powAndNext}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{SUM, 1, &LexerParser::sumAndNext}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{DIV, 1, &LexerParser::divAndNext}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{SUB, 1, &LexerParser::subAndNext}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{MOD, 1, &LexerParser::modAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{SUM, 1, &LexerParser::sumAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{DIV, 1, &LexerParser::divAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{SUB, 1, &LexerParser::subAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{MOD, 1, &LexerParser::modAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{POW, 1, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{SUM, 1, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{DIV, 1, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{SUB, 1, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{MOD, 1, nullptr}); // ADD OP
 	tokens_ref_.push_back(LexerParser::t_s_token{DOUBLE_MUL, 2, nullptr}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255, &LexerParser::powAndNext}); // ADD OP
+//	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255, &LexerParser::powAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{NEG, 255, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255, nullptr}); // ADD OP
 	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX_ROW, 255, nullptr}); //
 	tokens_ref_.push_back(LexerParser::t_s_token{O_BRACKET, 1, nullptr}); //
 	tokens_ref_.push_back(LexerParser::t_s_token{C_BRACKET, 1, nullptr}); //
@@ -64,6 +71,7 @@ LexerParser::~LexerParser()
 {
 	clear();
 	lexems_ref_.clear();
+	
 }
 
 LexerParser							&LexerParser::operator=(LexerParser &rhs)
@@ -79,11 +87,13 @@ std::vector<LexerParser::t_lexem>	LexerParser::getLexems()
 
 void								LexerParser::clear()
 {
-	state_ = NONE;
+	state_ = BEGIN;
 	brackets_ = 0;
 	par_ = 0;
 	lexems_.clear();
 	tokens_.clear();
+	brackets_ = 0;
+	par_ =  0;
 }
 
 const char							*LexerParser::charToString(t_char l)
@@ -147,6 +157,8 @@ const char							*LexerParser::tokenToString(LexerParser::t_token_def t)
 			return "DIV";
 		case SUB:
 			return "SUB";
+		case NEG:
+			return "NEG";
 		case MOD:
 			return "MOD";
 		case DOUBLE_MUL:
@@ -214,14 +226,18 @@ void								LexerParser::printStates(std::vector<LexerParser::t_char> s)
 	}
 }
 
+void								LexerParser::printToken(LexerParser::t_token t)
+{
+	std::cout << "value : " << t.first;
+	std::cout << " - ";
+	std::cout << "type : " << tokenToString(t.second);
+	std::cout << std::endl;
+}
 void								LexerParser::printTokens()
 {
 	for (int i = 0; i < tokens_.size(); ++i)
 	{
-		std::cout << "value : " << tokens_[i].first;
-		std::cout << " - ";
-		std::cout << "type : " << tokenToString(tokens_[i].second);
-		std::cout << std::endl;
+		printToken(tokens_[i]);
 	}
 }
 
@@ -263,6 +279,13 @@ LexerParser::t_token_def			LexerParser::isMul(LexerParser::t_char &lexem)
 	return MUL;
 }
 
+LexerParser::t_token_def			LexerParser::isSub(LexerParser::t_char &lexem)
+{
+	if (state_ == BEGIN || isOperator(tokens_.back().second))
+		return NEG;
+	return SUB;
+}
+
 LexerParser::t_token_def			LexerParser::isLiteral(t_char &lexem)
 {
 	switch (lexem)
@@ -273,8 +296,6 @@ LexerParser::t_token_def			LexerParser::isLiteral(t_char &lexem)
 			return SUM;
 		case DIV_L:
 			return DIV;
-		case SUB_L:
-			return SUB;
 		case MOD_L:
 			return MOD;
 		case EQUAL_L:
@@ -305,7 +326,7 @@ bool								LexerParser::isLogicSequence(LexerParser::t_token_def first, LexerPa
 	// NUMBER : integer to decimal
 	if (first == INT_NUMBER && next == DEC_NUMBER)
 		return true;
-	if (first == SUB && next == INT_NUMBER)
+	if (first == NEG && next == INT_NUMBER)
 		return true;
 
 	// VAR : unknown to var
@@ -364,7 +385,10 @@ void								LexerParser::lineToTokens(std::string &s)
 
 			if (tmp_lexem != UNDEFINED)
 			{
+				
+				std::cout << "tmp_lexem : " << charToString(tmp_lexem) << std::endl;
 				state_ = (this->*lexems_ref_[tmp_lexem].f)(tmp_lexem);
+				std::cout << "set state : " << tokenToString(state_) << std::endl;
 			}
 			else
 			{
@@ -417,25 +441,31 @@ void								LexerParser::lineToTokens(std::string &s)
 	printTokens();
 }
 
-bool								LexerParser::isEnd()
+bool								LexerParser::nextIsEnd()
 {
 	return (it_ + 1 == tokens_.end());
 }
 void								LexerParser::push()
 {
-	std::cout << "push it <3 " << std::endl;
-	std::cout << tokenToString(it_->second) << std::endl;
+	std::cout << "push it <3 : ";
+
+	fill_it_.push(&(*it_));
+	std::cout << fill_it_.top()->first << std::endl;
 }
 
 void								LexerParser::fill()
 {
+	if (fill_it_.empty())
+		return;
 	std::cout << "fill it <3 " << std::endl;
-	std::cout << "value : " << it_->first << ", type : " << tokenToString(state_)<< std::endl;
-}
-
-void								LexerParser::pop()
-{
-	std::cout << "pop it <3 " << std::endl;
+	printToken(*(fill_it_.top()));
+	std::cout << "state_ : " << tokenToString(state_) << std::endl;
+	while (!fill_it_.empty())
+	{
+		std::cout << "pop : " << fill_it_.top()->first << std::endl;
+		fill_it_.pop();
+	}
+	state_ = NONE;
 }
 
 void								LexerParser::findNext()
@@ -444,7 +474,15 @@ void								LexerParser::findNext()
 	
 	++it_;
 	if (it_ != tokens_.end())
-		(this->*tokens_ref_[it_->second].f)();
+	{
+		if (this->tokens_ref_[it_->second].f != nullptr)
+			(this->*tokens_ref_[it_->second].f)();
+		else
+		{
+			state_ = NONE;
+			std::cout << tokenToString(it_->second) << " not implemented yet." << std::endl;
+		}
+	}
 	else
 		return;
 	
@@ -457,13 +495,21 @@ bool								LexerParser::isOperator(LexerParser::t_token_def t)
 	return false;
 }
 
+bool								LexerParser::isOperand(LexerParser::t_token_def t)
+{
+	if (t == INT_NUMBER || t == DEC_NUMBER || t == VAR ||
+		 state_ == REAL || state_ == UNKNOWN ||  state_ == COMPLEX || state_ == MONOMIAL)
+		return true;
+	return false;
+}
+
 void								LexerParser::subAndNext()
 {
 	std::cout << "subAndNext()" << std::endl;
 	try
 	{
 		push();
-		if (!isEnd())
+		if (!nextIsEnd())
 		{
 			if ((it_ + 1)->second == VAR)
 			{
@@ -474,7 +520,6 @@ void								LexerParser::subAndNext()
 			{
 				findNext();
 				fill();
-				pop();
 				return;
 			}
 		}
@@ -482,6 +527,8 @@ void								LexerParser::subAndNext()
 	}
 	catch(std::exception &e)
 	{
+	
+		std::cout << "EXCEPTION : subAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -492,13 +539,12 @@ void								LexerParser::modAndNext()
 	try
 	{
 		push();
-		if (!isEnd())
+		if (!nextIsEnd())
 		{
 			if ((it_ + 1)->second == VAR || state_ == REAL)
 			{
 				state_ = MOD;
 				fill();
-				pop();
 				return;
 			}
 		}
@@ -506,6 +552,7 @@ void								LexerParser::modAndNext()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : modAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -516,13 +563,12 @@ void								LexerParser::divAndNext()
 	try
 	{
 		push();
-		if (!isEnd())
+		if (!nextIsEnd())
 		{
-			if ((it_ + 1)->second == VAR || state_ == REAL)
+			if (state_ == VAR || state_ == REAL)
 			{
 				state_ = DIV;
 				fill();
-				pop();
 				return;
 			}
 		}
@@ -530,6 +576,7 @@ void								LexerParser::divAndNext()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : divAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -540,13 +587,12 @@ void								LexerParser::sumAndNext()
 	try
 	{
 		push();
-		if (!isEnd())
+		if (!nextIsEnd())
 		{
 			if ((it_ + 1)->second == VAR || state_ == REAL)
 			{
 				state_ = SUM;
 				fill();
-				pop();
 				return;
 			}
 		}
@@ -554,6 +600,7 @@ void								LexerParser::sumAndNext()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : sumAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -564,17 +611,17 @@ void								LexerParser::powAndNext()
 	try
 	{
 		push();
-		if (!isEnd())
+		if (!nextIsEnd())
 		{
 			if ((state_ == COMPLEX || state_ == UNKNOWN) && ((it_ + 1)->second == INT_NUMBER || (it_ + 1)->second == DEC_NUMBER))
 			{
 				findNext();
+				return;
 			}
 			else if ((it_ + 1)->second == VAR || state_ == REAL)
 			{
 				state_ = POW;
 				fill();
-				pop();
 				return;
 			}
 		}
@@ -582,6 +629,7 @@ void								LexerParser::powAndNext()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : powAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -601,12 +649,14 @@ void								LexerParser::varAndNext()
 			// trouver ici si var existe
 			state_ = UNKNOWN;
 		}
-		if (!isEnd() && (it_ + 1)->second == POW)
+		if (!nextIsEnd() && (it_ + 1)->second == POW)
 		{
 			findNext();
+			return;
 		}
-		else if (isEnd() || isOperator((it_ + 1)->second))
+		if (nextIsEnd() || isOperator((it_ + 1)->second))
 		{
+			fill();
 			return;
 		}
 		else
@@ -614,6 +664,7 @@ void								LexerParser::varAndNext()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : varAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -624,7 +675,7 @@ void								LexerParser::realAndNext()
 	try
 	{
 		push();
-		if (!isEnd() && state_ != COMPLEX && state_ != UNKNOWN)
+		if (!nextIsEnd() && state_ != COMPLEX && state_ != UNKNOWN)
 		{
 			if ((it_ + 1)->second == VAR)
 				findNext();
@@ -636,10 +687,10 @@ void								LexerParser::realAndNext()
 		if (state_ != COMPLEX && state_ != UNKNOWN)
 			state_ = REAL;
 		fill();
-		pop();
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : realAndNext()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
 }
@@ -652,7 +703,13 @@ Variable							LexerParser::parse()
 	state_ = NONE;
 	try
 	{
-		(this->*tokens_ref_[it_->second].f)();
+		if (this->tokens_ref_[it_->second].f != nullptr)
+			(this->*tokens_ref_[it_->second].f)();
+		else
+		{
+			state_ = NONE;
+			std::cout << tokenToString(it_->second) << " not implemented yet." << std::endl;
+		}
 		while (it_ != tokens_.end())
 		{
 			std::cout << "parse()" << std::endl;
@@ -661,9 +718,9 @@ Variable							LexerParser::parse()
 	}
 	catch(std::exception &e)
 	{
+		std::cout << "EXCEPTION : parse()" << std::endl;
 		std::rethrow_exception(std::current_exception());
 	}
-	printTokens();
 	return var;
 }
 

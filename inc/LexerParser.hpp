@@ -52,6 +52,7 @@ class LexerParser
 
 	//	NAN
 
+		NEG,		//	-	OK
 		POWER,		//	POW INT_NUMBER
 		MATRIX_ROW,	//	O_BRACKET REAL (COMMA REAL)* C_BRACKET
 		O_BRACKET,	//	[	OK
@@ -82,6 +83,7 @@ class LexerParser
 
 		EQUATION,	//	(O_PAR)? OPERAND (C_PAR)? ((OPERATOR)? EQUATION)? (C_PAR if O_PAR == true)
 		NONE,
+		BEGIN,
 		ERROR
 	}				t_token_def;
 
@@ -110,6 +112,7 @@ class LexerParser
 		int						brackets_;
 		int						par_;
 		std::vector<LexerParser::t_token>::iterator it_;
+		std::stack<t_token *>	fill_it_;
 		
 		LexerParser(LexerParser &lp);
 		
@@ -126,6 +129,7 @@ class LexerParser
 		const char				*charToString(t_char l);
 		const char				*tokenToString(t_token_def t);
 		void					printLexems();
+		void					printToken(t_token t);
 		void					printTokens();
 		void					printStates(std::vector<t_char> s);
 
@@ -136,17 +140,18 @@ class LexerParser
 		t_token_def				isDecimal(t_char &l);
 		t_token_def				isVar(t_char &l);
 		t_token_def				isMul(t_char &l);
+		t_token_def				isSub(t_char &l);
 		t_token_def				isLiteral(t_char &lexem);
 
 		bool					isLogicSequence(t_token_def first, t_token_def next);
 
 		Variable				parse();
 		bool					isOperator(t_token_def t);
+		bool					isOperand(t_token_def t);
 
-		bool					isEnd();
+		bool					nextIsEnd();
 		void					push();
 		void					fill();
-		void					pop();
 		void					findNext();
 		void					subAndNext();
 		void					modAndNext();

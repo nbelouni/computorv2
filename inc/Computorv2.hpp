@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <stack>
 
 typedef std::vector<std::vector<double>> t_matrix;
 /*

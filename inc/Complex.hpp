@@ -6,6 +6,7 @@
 #define COMPUTERV2_COMPLEX_HPP
 
 #include "Computorv2.hpp"
+#include "Operand.hpp"
 
 class Complex: public Operand
 {

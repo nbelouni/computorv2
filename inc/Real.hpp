@@ -5,8 +5,8 @@
 #ifndef COMPUTERV2_REAL_HPP
 #define COMPUTERV2_REAL_HPP
 
-#include "Operand.hpp"
 #include "Computorv2.hpp"
+#include "Operand.hpp"
 
 class Real: public Operand
 {

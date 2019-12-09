@@ -2,7 +2,7 @@
 // Created by Hugo JEANNIN on 12/3/19.
 //
 
-#include "../inc/Computorv2.hpp"
+#include "../inc/Operand.hpp"
 
 Operand::Operand()
 {

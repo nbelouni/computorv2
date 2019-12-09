@@ -2,6 +2,7 @@
 # define MONOMIAL_HPP
 
 #include "Computorv2.hpp"
+#include "Operand.hpp"
 
 class Monomial
 {

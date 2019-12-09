@@ -12,6 +12,7 @@ class Variable
 		std::vector<std::string>	args_;
 
 	public:
+		Variable();
 		Variable(Equation e);
 		Variable(Equation e, std::string n);
 		Variable(Equation e, std::string n, std::vector<std::string> a);

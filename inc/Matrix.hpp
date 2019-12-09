@@ -2,6 +2,7 @@
 #define MATRIX_HPP
 
 #include "Computorv2.hpp"
+#include "Operand.hpp"
 
 class Matrix: public Operand
 {

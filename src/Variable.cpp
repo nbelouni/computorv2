@@ -1,5 +1,9 @@
 #include "../inc/Variable.hpp"
 
+Variable::Variable()
+{
+}
+
 Variable::Variable(Equation e): equation_(e)
 {
 }

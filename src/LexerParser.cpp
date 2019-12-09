@@ -24,34 +24,35 @@ LexerParser::LexerParser()
 	lexems_ref_.push_back(LexerParser::t_s_lexem{";", SEMICOL_L, &LexerParser::isLiteral});
 	lexems_ref_.push_back(LexerParser::t_s_lexem{".", POINT_L, &LexerParser::isDecimal});
 
-	tokens_ref_.push_back(LexerParser::t_s_token{O_PAR, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{C_PAR, 1}); // ADD TOKEN
-	tokens_ref_.push_back(LexerParser::t_s_token{MUL, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{POW, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{SUM, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{DIV, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{SUB, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{MOD, 1}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{DOUBLE_MUL, 2}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255}); // ADD OP
-	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX_ROW, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{O_BRACKET, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{C_BRACKET, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{COMMA, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{SEMICOL, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{INT_NUMBER, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{DEC_NUMBER, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{REAL, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{COMPLEX, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX, 1024}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{UNKNOWN, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{ASSIGN, 1}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{VAR, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{FUNCTION, 255}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{GET_RESULT, 2}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{EQUATION, 4096}); //
-	tokens_ref_.push_back(LexerParser::t_s_token{NONE, 0});
-	tokens_ref_.push_back(LexerParser::t_s_token{ERROR, 0});
+	tokens_ref_.push_back(LexerParser::t_s_token{O_PAR, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{C_PAR, 1, nullptr}); // ADD TOKEN
+	tokens_ref_.push_back(LexerParser::t_s_token{MUL, 1, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{POW, 1, &LexerParser::powAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{SUM, 1, &LexerParser::sumAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{DIV, 1, &LexerParser::divAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{SUB, 1, &LexerParser::subAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{MOD, 1, &LexerParser::modAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{DOUBLE_MUL, 2, nullptr}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{POWER, 255, &LexerParser::powAndNext}); // ADD OP
+	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX_ROW, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{O_BRACKET, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{C_BRACKET, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{COMMA, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{SEMICOL, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{INT_NUMBER, 255, &LexerParser::realAndNext}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{DEC_NUMBER, 255, &LexerParser::realAndNext}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{REAL, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{COMPLEX, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{MATRIX, 1024, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{UNKNOWN, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{MONOMIAL, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{ASSIGN, 1, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{VAR, 255, &LexerParser::varAndNext}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{FUNCTION, 255, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{GET_RESULT, 2, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{EQUATION, 4096, nullptr}); //
+	tokens_ref_.push_back(LexerParser::t_s_token{NONE, 0, nullptr});
+	tokens_ref_.push_back(LexerParser::t_s_token{ERROR, 0, nullptr});
 }
 
 LexerParser::LexerParser(LexerParser &lp)
@@ -174,6 +175,8 @@ const char							*LexerParser::tokenToString(LexerParser::t_token_def t)
 			return "C_BRACKET";
 		case UNKNOWN:
 			return "UNKNOWN";
+		case MONOMIAL:
+			return "MONOMIAL";
 		case ASSIGN:
 			return "ASSIGN";
 		case VAR:
@@ -414,29 +417,255 @@ void								LexerParser::lineToTokens(std::string &s)
 	printTokens();
 }
 
+bool								LexerParser::isEnd()
+{
+	return (it_ + 1 == tokens_.end());
+}
+void								LexerParser::push()
+{
+	std::cout << "push it <3 " << std::endl;
+	std::cout << tokenToString(it_->second) << std::endl;
+}
+
+void								LexerParser::fill()
+{
+	std::cout << "fill it <3 " << std::endl;
+	std::cout << "value : " << it_->first << ", type : " << tokenToString(state_)<< std::endl;
+}
+
+void								LexerParser::pop()
+{
+	std::cout << "pop it <3 " << std::endl;
+}
+
+void								LexerParser::findNext()
+{
+	std::cout << "find next <3 " << std::endl;
+	
+	++it_;
+	if (it_ != tokens_.end())
+		(this->*tokens_ref_[it_->second].f)();
+	else
+		return;
+	
+}
+
 bool								LexerParser::isOperator(LexerParser::t_token_def t)
 {
-	if (t == SUM || t == SUB || t == MUL || t == DIV || t == MOD || t == DOUBLE_MUL)
+	if (t == SUM || t == SUB || t == POW || t == MUL || t == DIV || t == MOD || t == DOUBLE_MUL)
 		return true;
 	return false;
 }
 
+void								LexerParser::subAndNext()
+{
+	std::cout << "subAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd())
+		{
+			if ((it_ + 1)->second == VAR)
+			{
+				findNext();	
+				return;
+			}
+			else if (state_ == REAL)
+			{
+				findNext();
+				fill();
+				pop();
+				return;
+			}
+		}
+		throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
 
-//std::vector<Token>		LexerParser::parse()
-//{
-//	std::vector<Token>	equation;
-//	std::vector<LexerParser::t_token>::iterator it;
-//
-//	printTokens();
-//	for (it = tokens_.begin(); it != tokens_.end(); ++it)
-//	{
-//		if (isOperator(it->second))
-//		{
-//			std::cout << "operator" << std::endl;
-//		}
-//	}
-//	return equation;
-//}
+void								LexerParser::modAndNext()
+{
+	std::cout << "modAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd())
+		{
+			if ((it_ + 1)->second == VAR || state_ == REAL)
+			{
+				state_ = MOD;
+				fill();
+				pop();
+				return;
+			}
+		}
+		throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+void								LexerParser::divAndNext()
+{
+	std::cout << "divAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd())
+		{
+			if ((it_ + 1)->second == VAR || state_ == REAL)
+			{
+				state_ = DIV;
+				fill();
+				pop();
+				return;
+			}
+		}
+		throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+void								LexerParser::sumAndNext()
+{
+	std::cout << "sumAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd())
+		{
+			if ((it_ + 1)->second == VAR || state_ == REAL)
+			{
+				state_ = SUM;
+				fill();
+				pop();
+				return;
+			}
+		}
+		throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+void								LexerParser::powAndNext()
+{
+	std::cout << "powAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd())
+		{
+			if ((state_ == COMPLEX || state_ == UNKNOWN) && ((it_ + 1)->second == INT_NUMBER || (it_ + 1)->second == DEC_NUMBER))
+			{
+				findNext();
+			}
+			else if ((it_ + 1)->second == VAR || state_ == REAL)
+			{
+				state_ = POW;
+				fill();
+				pop();
+				return;
+			}
+		}
+		throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+void								LexerParser::varAndNext()
+{
+	std::cout << "varAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!(it_)->first.compare("i"))
+		{
+			state_ = COMPLEX;
+		}
+		else
+		{
+			// trouver ici si var existe
+			state_ = UNKNOWN;
+		}
+		if (!isEnd() && (it_ + 1)->second == POW)
+		{
+			findNext();
+		}
+		else if (isEnd() || isOperator((it_ + 1)->second))
+		{
+			return;
+		}
+		else
+			throw InvalidLineException("CA MARCHE PAS");
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+void								LexerParser::realAndNext()
+{
+	std::cout << "realAndNext()" << std::endl;
+	try
+	{
+		push();
+		if (!isEnd() && state_ != COMPLEX && state_ != UNKNOWN)
+		{
+			if ((it_ + 1)->second == VAR)
+				findNext();
+			else if (isOperator((it_ + 1)->second))
+				state_ = REAL;
+			else
+				throw InvalidLineException("CA MARCHE PAS");
+		}
+		if (state_ != COMPLEX && state_ != UNKNOWN)
+			state_ = REAL;
+		fill();
+		pop();
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+}
+
+Variable							LexerParser::parse()
+{
+	Variable			var;
+	std::vector<Token>	tokens;
+	it_ = tokens_.begin();
+	state_ = NONE;
+	try
+	{
+		(this->*tokens_ref_[it_->second].f)();
+		while (it_ != tokens_.end())
+		{
+			std::cout << "parse()" << std::endl;
+			findNext();
+		}
+	}
+	catch(std::exception &e)
+	{
+		std::rethrow_exception(std::current_exception());
+	}
+	printTokens();
+	return var;
+}
 
 LexerParser::InvalidLineException::InvalidLineException(std::string errors)
 {

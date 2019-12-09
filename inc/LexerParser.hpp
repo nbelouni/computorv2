@@ -2,8 +2,7 @@
 # define LEXER_PARSER_HPP
 
 #include "Computorv2.hpp"
-
-#include <vector>
+#include "Variable.hpp"
 
 class LexerParser
 {
@@ -39,10 +38,10 @@ class LexerParser
 	*/
 	typedef enum	e_token
 	{
-	//	OPERATORS
+	//	OPERATOR
 
 		O_PAR,		//	(	OK
-		C_PAR,		//	)		OK
+		C_PAR,		//	)	OK
 		MUL,		//	*	OK
 		POW,		//	^	OK
 		SUM,		//	+	OK
@@ -53,8 +52,8 @@ class LexerParser
 
 	//	NAN
 
-		POWER,		//	POW_L[-\+]?[\d]+
-		MATRIX_ROW,	//	O_BRACKET_L NUMBER (COMMA_L NUMBER)* C_BRACKET_L
+		POWER,		//	POW INT_NUMBER
+		MATRIX_ROW,	//	O_BRACKET REAL (COMMA REAL)* C_BRACKET
 		O_BRACKET,	//	[	OK
 		C_BRACKET,	//	]	OK
 		COMMA,		//	,	OK
@@ -63,21 +62,25 @@ class LexerParser
 
 	//	OPERANDS
 
-		INT_NUMBER,		//	OK
-		DEC_NUMBER,		//	OK
-		REAL, 		//	NUMBER (POWER)?
-		COMPLEX,	//	(NUMBER [AND_L OR_L])? (NUMBER)?i (POWER)?
-		MATRIX,	//	O_BRACKET_L MATRIX_ROW (SEMICOL_L MATRIX_ROW)+ C_BRACKET_L
-		UNKNOWN,	//	[a-z] (POWER)?	OK
+		INT_NUMBER,	//	OK
+		DEC_NUMBER,	//	OK
+		REAL, 		//	[INT_NUMBER DEC_NUMBER]
+		COMPLEX,	//	(REAL)?i (POWER)?
+		MATRIX,		//	O_BRACKET MATRIX_ROW (SEMICOL MATRIX_ROW)+ C_BRACKET
+
+	//	MONOMIAL
+
+		UNKNOWN,	//	(SUB)? VAR (POWER)?	OK
+		MONOMIAL,	//	[OPERAND UNKNOWN]
 
 	//	OTHERS
 
-		ASSIGN,		//	EQUAL_L	OK
-		VAR,		//	OK 	OK
-		FUNCTION,	//	VAR O_PAR_L (VAR|UNKNOWN) C_PAR_L
-		GET_RESULT,	//	EQUAL_L INT_POINT_L	OK
+		ASSIGN,		//	OK
+		VAR,		//	OK
+		FUNCTION,	//	VAR O_PAR (VAR|UNKNOWN) C_PAR
+		GET_RESULT,	//	OK
 
-		EQUATION,	//	(O_PAR_L)? OPERAND (C_PAR_L)? ((OPERATOR)? EQUATION)? (C_PAR_L if O_PAR_L == true)
+		EQUATION,	//	(O_PAR)? OPERAND (C_PAR)? ((OPERATOR)? EQUATION)? (C_PAR if O_PAR == true)
 		NONE,
 		ERROR
 	}				t_token_def;
@@ -95,6 +98,7 @@ class LexerParser
 	{
 		t_token_def	type;
 		size_t		size;
+		void (LexerParser::*f)();
 	}				t_s_token;
 
 	private:
@@ -105,6 +109,7 @@ class LexerParser
 		t_token_def				state_;
 		int						brackets_;
 		int						par_;
+		std::vector<LexerParser::t_token>::iterator it_;
 		
 		LexerParser(LexerParser &lp);
 		
@@ -134,9 +139,22 @@ class LexerParser
 		t_token_def				isLiteral(t_char &lexem);
 
 		bool					isLogicSequence(t_token_def first, t_token_def next);
+
+		Variable				parse();
 		bool					isOperator(t_token_def t);
 
-//		std::vector<Token>		parse();
+		bool					isEnd();
+		void					push();
+		void					fill();
+		void					pop();
+		void					findNext();
+		void					subAndNext();
+		void					modAndNext();
+		void					divAndNext();
+		void					sumAndNext();
+		void					powAndNext();
+		void					varAndNext();
+		void					realAndNext();
 
 		class	InvalidLineException : public std::exception
 		{

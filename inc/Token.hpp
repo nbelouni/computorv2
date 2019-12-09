@@ -4,6 +4,8 @@
 #include "Computorv2.hpp"
 #include "Monomial.hpp"
 
+class Monomial;
+
 class Token
 {
 	typedef enum		e_type

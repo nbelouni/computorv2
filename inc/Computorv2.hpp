@@ -7,8 +7,6 @@
 #include <vector>
 #include <math.h>
 
-typedef std::vector<std::vector<double>> t_matrix;
-
 #include "LexerParser.hpp"
 #include "Operand.hpp"
 #include "Rational.hpp"

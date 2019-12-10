@@ -16,6 +16,7 @@ public:
 
     void testRational();
     void testComplex();
+    void testMatrix();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

@@ -4,100 +4,56 @@ Matrix::Matrix()
 {
 }
 
-Matrix::Matrix(t_matrix array, size_t columns, size_t rows): values_(array), columns_(columns), rows_(rows)
+Matrix::Matrix(std::vector<double> values, size_t columns, size_t rows) : values_(std::move(values)), columns_(columns),
+                                                                          rows_(rows)
 {
 }
 
 Matrix::Matrix(Matrix &matrix)
 {
-	*this = matrix;
+    *this = matrix;
 }
 
 Matrix::~Matrix()
 {
-	for (int i = 0; i < values_.size(); ++i)
-	{
-		values_[i].clear();
-	}
-	values_.clear();
 }
 
-Operand const * Matrix::operator=( Operand const & rhs )
+const std::vector<double> Matrix::getValues() const
 {
-	(void)rhs;
-	return this;
+    return this->values_;
 }
 
-Operand const * Matrix::operator+( Operand const & rhs ) // Sum
+size_t Matrix::getColumns() const
 {
-	(void)rhs;
-	return this;
+    return this->columns_;
 }
 
-Operand const * Matrix::operator-( Operand const & rhs ) // Difference
+size_t Matrix::getRows() const
 {
-	(void)rhs;
-	return this;
+    return this->rows_;
 }
 
-Operand const * Matrix::operator*( Operand const & rhs ) // Product
+std::ostream &Matrix::print(std::ostream &o, Operand const &i)
 {
-	(void)rhs;
-	return this;
+    const auto *tmp = dynamic_cast<const Matrix *>(&i);
+    size_t col = tmp->getColumns();
+    size_t row = tmp->getRows();
+    std::vector<double> val = tmp->getValues();
+
+    o << "[MATRIX (" << col << ", " << row << ") | " << i.getSelf() << " | " << std::endl;
+    for (int iter_y = 0; iter_y < col; iter_y++)
+    {
+        for (int iter_x = 0; iter_x < row; iter_x++)
+        {
+            o << "[" << val[row * iter_y + iter_x] << "]";
+        }
+        o << std::endl;
+    }
+    return (o);
 }
 
-Operand const * Matrix::operator/( Operand const & rhs ) // Quotient
+std::ostream &operator<<(std::ostream &o, Matrix const &i)
 {
-	(void)rhs;
-	return this;
-}
-
-Operand const * Matrix::operator%( Operand const & rhs ) // Modulo
-{
-	(void)rhs;
-	return this;
-}
-
-
-void			Matrix::setValues(std::vector<std::vector<double>> array)
-{
-	values_ = array;	
-}
-
-const t_matrix	Matrix::getValues()
-{
-	return values_;
-}
-
-void			Matrix::addValuesRow(std::vector<double> row)
-{
-	values_.push_back(row);
-}
-
-void			Matrix::assignValue(double value, size_t y, size_t x)
-{
-	if (y < values_.size() && x < values_[y].size())
-		values_[y][x] = value;
-}
-
-// voir si d'autres sont necessaires
-
-void			Matrix::setColumns(size_t col)
-{
-	columns_ = col;
-}
-
-size_t			Matrix::getColumns()
-{
-	return columns_;
-}
-
-void			Matrix::setRows(size_t rows)
-{
-	rows_ = rows;
-}
-
-size_t			Matrix::getRows()
-{
-	return rows_;
+    Matrix::print(o, i);
+    return (o);
 }

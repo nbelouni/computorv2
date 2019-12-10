@@ -200,7 +200,6 @@ Operand *Complex::operator%(Operand const &rhs)
     throw std::invalid_argument("in 'Operand *Complex::operator%(Operand const &rhs)' cannot % with Complex.");
 }
 
-
 Complex *Complex::solveMul(double a, double b, double c, double d)
 {
     auto *tmp = new Complex(

@@ -3,6 +3,7 @@
 
 int main(int argc, char *argv[])
 {
+/*
     LexerParser lp;
 
     std::cout << "$>";
@@ -22,14 +23,15 @@ int main(int argc, char *argv[])
         std::cout << "$>";
         lp.clear();
     }
-/*
+*/
 
     Computor cp;
 
     try
     {
-        cp.testComplex();
-        cp.testRational();
+//        cp.testComplex();
+//        cp.testRational();
+        cp.testMatrix();
     }
     catch (const std::invalid_argument &e)
     {
@@ -39,7 +41,6 @@ int main(int argc, char *argv[])
     {
         std::cerr << "LOGIC ERROR: " << e.what() << std::endl;
     }
-*/
 
     return 0;
 }

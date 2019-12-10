@@ -158,3 +158,17 @@ void Computor::testRational()
     std::cout << std::endl;
 
 }
+
+void Computor::testMatrix()
+{
+    Matrix *tmp;
+
+    std::vector<double> pouet = {1, 2, 3, 4, 5, 6};
+    Matrix yo(pouet, 2, 3);
+
+    Matrix tak({1, 2, 3, 4, 5, 6}, 2, 3);
+
+    std::cout << yo << std::endl;
+    std::cout << tak << std::endl;
+
+}

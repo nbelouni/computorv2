@@ -3,7 +3,6 @@
 
 int main(int argc, char *argv[])
 {
-/*
     LexerParser lp;
 
     std::cout << "$>";
@@ -23,7 +22,7 @@ int main(int argc, char *argv[])
         std::cout << "$>";
         lp.clear();
     }
-*/
+/*
 
     Computor cp;
 
@@ -40,6 +39,7 @@ int main(int argc, char *argv[])
     {
         std::cerr << "LOGIC ERROR: " << e.what() << std::endl;
     }
+*/
 
     return 0;
 }

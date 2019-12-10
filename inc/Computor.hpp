@@ -13,6 +13,9 @@ public:
     Computor();
 
     ~Computor();
+
+    void testRational();
+    void testComplex();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

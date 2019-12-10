@@ -6,32 +6,50 @@
 
 Operand::Operand()
 {
-    this->_type = REAL;
-    std::cerr << "Operand constructed." << std::endl;
+    this->type_ = UNDEFINED;
 }
 
 Operand::Operand(t_op type)
 {
-    this->_type = type;
-    std::cerr << "Operand constructed: " << type << std::endl;
+    this->type_ = type;
 }
 
 Operand::Operand(Operand &op)
 {
-    this->_type = op.getType();
+    this->type_ = op.getType();
 }
 
-Operand::~Operand()
-{
-    std::cerr << "Operand destroyed." << std::endl;
-}
+Operand::~Operand(){}
 
 void Operand::setType(const t_op type)
 {
-    this->_type = type;
+    this->type_ = type;
 }
 
 const t_op Operand::getType() const
 {
-    return _type;
+    return type_;
+}
+
+const Operand * Operand::getSelf() const
+{
+    return this;
+}
+
+std::ostream &operator<<(std::ostream &o, Operand const &i)
+{
+    t_op type;
+
+    o << "{OPERAND of type: ";
+    type = i.getType();
+    if (type == UNDEFINED)
+        o << "UNDEFINED | " << i.getSelf() << "}";
+    else if (type == RATIONAL)
+        Rational::print(o , i);
+    else if (type == COMPLEX)
+        Complex::print(o , i);
+    else if (type == MATRIX)
+        o << "MATRIX";
+    o << "}";
+    return (o);
 }

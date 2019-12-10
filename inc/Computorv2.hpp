@@ -5,14 +5,15 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <math.h>
 
 typedef std::vector<std::vector<double>> t_matrix;
 
+#include "LexerParser.hpp"
 #include "Operand.hpp"
-#include "Real.hpp"
+#include "Rational.hpp"
 #include "Complex.hpp"
 #include "Matrix.hpp"
 #include "Computor.hpp"
-#include "LexerParser.hpp"
 
 #endif

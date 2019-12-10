@@ -2,8 +2,8 @@
 // Created by Hugo JEANNIN on 12/2/19.
 //
 
-#ifndef COMPUTERV2_REAL_HPP
-#define COMPUTERV2_REAL_HPP
+#ifndef COMPUTERV2_RATIONAL_HPP
+#define COMPUTERV2_RATIONAL_HPP
 
 #include "Operand.hpp"
 #include "Computorv2.hpp"
@@ -17,7 +17,7 @@ class Rational: public Operand
 		Rational();
 		Rational(double value);
         Rational(int value);
-		Rational(Rational &real);
+		Rational(Rational &rational);
         Rational(const Operand *op);
 		virtual ~Rational();
 
@@ -38,4 +38,4 @@ class Rational: public Operand
 
 std::ostream &operator<<(std::ostream &o, Rational const &i);
 
-#endif //COMPUTERV2_REAL_HPP
+#endif //COMPUTERV2_RATIONAL_HPP

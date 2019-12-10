@@ -90,7 +90,7 @@ void Computor::testComplex()
 }
 
 
-void Computor::testReal()
+void Computor::testRational()
 {
     Operand *res;
 

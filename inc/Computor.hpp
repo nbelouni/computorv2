@@ -14,7 +14,7 @@ public:
 
     ~Computor();
 
-    void testReal();
+    void testRational();
     void testComplex();
     void testModulo();
 };

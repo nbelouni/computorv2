@@ -29,8 +29,8 @@ class Complex: public Operand
 		Operand * operator/( Operand const & rhs ); // Quotient
 		Operand * operator%( Operand const & rhs ); // Modulo
 
-		void	setRealPart(double n);
-		double	getRealPart() const;
+		void	setRationalPart(double n);
+		double	getRationalPart() const;
 		void	setImaginaryPart(double n);
 		double	getImaginaryPart() const;
 
@@ -38,7 +38,6 @@ class Complex: public Operand
         static Complex *solveDiv(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
         static std::ostream &print(std::ostream &o, Operand const &i);
 
-        Operand *endCheck(double a, double b);
         Operand *endCheck(Complex *cp);
 };
 

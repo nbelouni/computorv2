@@ -31,7 +31,7 @@ Complex::Complex(double real_part, double imaginary_part)
 Complex::Complex(Complex &cmp)
 {
     this->setType(COMPLEX);
-    this->real_part_ = cmp.getRealPart();
+    this->real_part_ = cmp.getRationalPart();
     this->imaginary_part_ = cmp.getImaginaryPart();
 }
 
@@ -48,12 +48,12 @@ Complex::Complex(const Operand *op)
     }
 }
 
-void Complex::setRealPart(double n)
+void Complex::setRationalPart(double n)
 {
     this->real_part_ = n;
 }
 
-double Complex::getRealPart() const
+double Complex::getRationalPart() const
 {
     return this->real_part_;
 }
@@ -74,7 +74,7 @@ Operand *Complex::operator=(Operand const &rhs)
     {
         if (rhs.getType() == COMPLEX)
         {
-            real_part_ = dynamic_cast<const Complex *>(&rhs)->getRealPart();
+            real_part_ = dynamic_cast<const Complex *>(&rhs)->getRationalPart();
             imaginary_part_ = dynamic_cast<const Complex *>(&rhs)->getImaginaryPart();
         }
         else
@@ -92,14 +92,14 @@ Operand *Complex::operator+(Operand const &rhs)
     if (rhs.getType() == COMPLEX)
     {
         tmp = new Complex(
-                this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                this->getRationalPart() + dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                 this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
         );
     }
     else if (rhs.getType() == RATIONAL)
     {
         tmp = new Complex(
-                this->getRealPart() + dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getRationalPart() + dynamic_cast<const Rational *>(&rhs)->getValue(),
                 this->getImaginaryPart()
         );
     }
@@ -118,14 +118,14 @@ Operand *Complex::operator-(Operand const &rhs)
     if (rhs.getType() == COMPLEX)
     {
         tmp = new Complex(
-                this->getRealPart() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                this->getRationalPart() - dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                 this->getImaginaryPart() - dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
         );
     }
     else if (rhs.getType() == RATIONAL)
     {
         tmp = new Complex(
-                this->getRealPart() - dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getRationalPart() - dynamic_cast<const Rational *>(&rhs)->getValue(),
                 this->getImaginaryPart()
         );
     }
@@ -144,16 +144,16 @@ Operand *Complex::operator*(Operand const &rhs)
     if (rhs.getType() == COMPLEX)
     {
         tmp = solveMul(
-                this->getRealPart(),
+                this->getRationalPart(),
                 this->getImaginaryPart(),
-                dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                 dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
         );
     }
     else if (rhs.getType() == RATIONAL)
     {
         tmp = new Complex(
-                this->getRealPart() * dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getRationalPart() * dynamic_cast<const Rational *>(&rhs)->getValue(),
                 this->getImaginaryPart() * dynamic_cast<const Rational *>(&rhs)->getValue()
         );
     }
@@ -172,16 +172,16 @@ Operand *Complex::operator/(Operand const &rhs)
     if (rhs.getType() == COMPLEX)
     {
         tmp = solveDiv(
-                this->getRealPart(),
+                this->getRationalPart(),
                 this->getImaginaryPart(),
-                dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                 dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
         );
     }
     else if (rhs.getType() == RATIONAL)
     {
         tmp = solveDiv(
-                this->getRealPart(),
+                this->getRationalPart(),
                 this->getImaginaryPart(),
                 dynamic_cast<const Rational *>(&rhs)->getValue(),
                 0.0
@@ -220,7 +220,7 @@ Complex *Complex::solveDiv(double a, double b, double c, double d)
 
 std::ostream &Complex::print(std::ostream &o, Operand const &i)
 {
-    o << "[COMPLEX | " << dynamic_cast<const Complex *>(&i)->getRealPart() << " + "
+    o << "[COMPLEX | " << dynamic_cast<const Complex *>(&i)->getRationalPart() << " + "
       << dynamic_cast<const Complex *>(&i)->getImaginaryPart() << "i | " << i.getSelf() << "]";
     return (o);
 }
@@ -231,7 +231,7 @@ Operand *Complex::endCheck(Complex *cp)
 
     if (cp->getImaginaryPart() == 0.0)
     {
-        tmp = new Rational(cp->getRealPart());
+        tmp = new Rational(cp->getRationalPart());
         delete cp;
     }
     else

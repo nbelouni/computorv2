@@ -67,31 +67,26 @@ void Computor::testComplex()
     std::cout << std::endl;
 
 */
-/*
     Complex ab(3, 2);
     Complex cd(4, -3);
 
     res = ab / cd;
     std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
     std::cout << std::endl;
-*/
 
-/*
-    Complex ab(4, 0);
-    Complex cd(1, -3);
+    Complex wief(4, 0);
+    Complex gior(1, -3);
 
-    res = ab / cd;
-    std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
+    res = wief / gior;
+    std::cout << "wief / gior = " << wief << " / " << gior << " = " << res << std::endl;
     std::cout << std::endl;
-*/
-/*
-    Complex ab(1, -3);
-    Rational cd(4);
 
-    res = ab / cd;
-    std::cout << "ab / cd = " << ab << " / " << cd << " = " << res << std::endl;
+    Complex wbeicw(1, -3);
+    Rational woehfy(4);
+
+    res = wbeicw / woehfy;
+    std::cout << "wbeicw / woehfy = " << wbeicw << " / " << woehfy << " = " << res << std::endl;
     std::cout << std::endl;
-*/
 }
 
 

@@ -37,6 +37,9 @@ class Complex: public Operand
         Complex *solveMul(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
         static Complex *solveDiv(double lhs_rational, double lhs_imaginary, double rhs_rational, double rhs_imaginary);
         static std::ostream &print(std::ostream &o, Operand const &i);
+
+        Operand *endCheck(double a, double b);
+        Operand *endCheck(Complex *cp);
 };
 
 std::ostream &operator<<(std::ostream &o, Complex const &i);

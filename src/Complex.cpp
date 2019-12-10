@@ -46,7 +46,6 @@ Complex::Complex(const Operand *op)
     {
         throw std::invalid_argument("in 'Complex::Complex(const Operand *op)' op is not Complex");
     }
-
 }
 
 void Complex::setRealPart(double n)
@@ -88,105 +87,112 @@ Operand *Complex::operator=(Operand const &rhs)
 
 Operand *Complex::operator+(Operand const &rhs)
 {
+    Complex *tmp;
+
     if (rhs.getType() == COMPLEX)
     {
-        // TODO Solve this problem of down cast to Rational.
-        double a;
-        double b;
-        Operand *tmp;
-
-        a = this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart();
-        b = this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart();
-
-        if (b == 0.0)
-            tmp = new Rational(a);
-        else
-            tmp = new Complex(a, b);
-        return (tmp);
+        tmp = new Complex(
+                this->getRealPart() + dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                this->getImaginaryPart() + dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
+        );
     }
     else if (rhs.getType() == RATIONAL)
     {
-        Complex *tmp = new Complex(this->getRealPart() + dynamic_cast<const Rational *>(&rhs)->getValue(),
-                                   this->getImaginaryPart());
-        return (tmp);
+        tmp = new Complex(
+                this->getRealPart() + dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getImaginaryPart()
+        );
     }
     else
     {
         throw std::invalid_argument(
                 "in 'Operand *Complex::operator+(Operand const &rhs)' rhs is not Complex or inferior.");
     }
+    return endCheck(tmp);
 }
 
 Operand *Complex::operator-(Operand const &rhs)
 {
+    Complex *tmp;
+
     if (rhs.getType() == COMPLEX)
     {
-        Complex *tmp = new Complex(this->getRealPart() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                                   this->getImaginaryPart() - dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (tmp);
+        tmp = new Complex(
+                this->getRealPart() - dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                this->getImaginaryPart() - dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
+        );
     }
     else if (rhs.getType() == RATIONAL)
     {
-        Complex *tmp = new Complex(this->getRealPart() - dynamic_cast<const Rational *>(&rhs)->getValue(),
-                                   this->getImaginaryPart());
-        return (tmp);
+        tmp = new Complex(
+                this->getRealPart() - dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getImaginaryPart()
+        );
     }
     else
     {
         throw std::invalid_argument(
                 "in 'Operand *Complex::operator-(Operand const &rhs)' rhs is not Complex or inferior.");
     }
+    return endCheck(tmp);
 }
 
 Operand *Complex::operator*(Operand const &rhs)
 {
+    Complex *tmp;
+
     if (rhs.getType() == COMPLEX)
     {
-        Complex *tmp;
-        tmp = solveMul(this->getRealPart(),
-                       this->getImaginaryPart(),
-                       dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (tmp);
+        tmp = solveMul(
+                this->getRealPart(),
+                this->getImaginaryPart(),
+                dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
+        );
     }
     else if (rhs.getType() == RATIONAL)
     {
-        Complex *tmp = new Complex(this->getRealPart() * dynamic_cast<const Rational *>(&rhs)->getValue(),
-                                   this->getImaginaryPart() * dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (tmp);
+        tmp = new Complex(
+                this->getRealPart() * dynamic_cast<const Rational *>(&rhs)->getValue(),
+                this->getImaginaryPart() * dynamic_cast<const Rational *>(&rhs)->getValue()
+        );
     }
     else
     {
         throw std::invalid_argument(
                 "in 'Operand *Complex::operator*(Operand const &rhs)' rhs is not Complex or inferior.");
     }
+    return (endCheck(tmp));
 }
 
 Operand *Complex::operator/(Operand const &rhs)
 {
+    Complex *tmp;
+
     if (rhs.getType() == COMPLEX)
     {
-        Complex *tmp;
-        tmp = solveDiv(this->getRealPart(),
-                       this->getImaginaryPart(),
-                       dynamic_cast<const Complex *>(&rhs)->getRealPart(),
-                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-        return (tmp);
+        tmp = solveDiv(
+                this->getRealPart(),
+                this->getImaginaryPart(),
+                dynamic_cast<const Complex *>(&rhs)->getRealPart(),
+                dynamic_cast<const Complex *>(&rhs)->getImaginaryPart()
+        );
     }
     else if (rhs.getType() == RATIONAL)
     {
-        Complex *tmp;
-        tmp = solveDiv(this->getRealPart(),
-                       this->getImaginaryPart(),
-                       dynamic_cast<const Rational *>(&rhs)->getValue(),
-                       0.0);
-        return (tmp);
+        tmp = solveDiv(
+                this->getRealPart(),
+                this->getImaginaryPart(),
+                dynamic_cast<const Rational *>(&rhs)->getValue(),
+                0.0
+        );
     }
     else
     {
         throw std::invalid_argument(
                 "in 'Operand *Complex::operator*(Operand const &rhs)' rhs is not Complex or inferior.");
     }
+    return (endCheck(tmp));
 }
 
 Operand *Complex::operator%(Operand const &rhs)
@@ -197,7 +203,7 @@ Operand *Complex::operator%(Operand const &rhs)
 
 Complex *Complex::solveMul(double a, double b, double c, double d)
 {
-    Complex *tmp = new Complex(
+    auto *tmp = new Complex(
             a * c - b * d, a * d + b * c
     );
     return tmp;
@@ -205,7 +211,7 @@ Complex *Complex::solveMul(double a, double b, double c, double d)
 
 Complex *Complex::solveDiv(double a, double b, double c, double d)
 {
-    Complex *tmp = new Complex(
+    auto *tmp = new Complex(
             ((a * c + b * d) / (c * c + d * d)),
             ((b * c - a * d) / (c * c + d * d))
     );
@@ -217,6 +223,20 @@ std::ostream &Complex::print(std::ostream &o, Operand const &i)
     o << "[COMPLEX | " << dynamic_cast<const Complex *>(&i)->getRealPart() << " + "
       << dynamic_cast<const Complex *>(&i)->getImaginaryPart() << "i | " << i.getSelf() << "]";
     return (o);
+}
+
+Operand *Complex::endCheck(Complex *cp)
+{
+    Operand *tmp;
+
+    if (cp->getImaginaryPart() == 0.0)
+    {
+        tmp = new Rational(cp->getRealPart());
+        delete cp;
+    }
+    else
+        tmp = cp;
+    return tmp;
 }
 
 std::ostream &operator<<(std::ostream &o, Complex const &i)

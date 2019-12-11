@@ -116,70 +116,71 @@ Operand *Rational::operator+(Operand const &rhs)
 
 Operand *Rational::operator-(Operand const &rhs)
 {
+    Operand *tmp;
+
     if (rhs.getType() == RATIONAL)
     {
-        Rational *tmp = new Rational(getValue() - dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (tmp);
+        tmp = new Rational(getValue() - dynamic_cast<const Rational *>(&rhs)->getValue());
     }
     else if (rhs.getType() == COMPLEX)
     {
         // Complex can be -> Rational
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            Rational *tmp = new Rational(getValue() - dynamic_cast<const Complex *>(&rhs)->getRationalPart());
-            return (tmp);
+            tmp = new Rational(getValue() - dynamic_cast<const Complex *>(&rhs)->getRationalPart());
         }
             // Must stay Complex
         else
         {
-            Complex *tmp = new Complex(getValue() - dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
-                                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (tmp);
+            tmp = new Complex(getValue() - dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
+                              dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
         }
     }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator-(Operand const &rhs)' rhs is Invalid.");
     }
+    return (tmp);
 }
 
 Operand *Rational::operator*(Operand const &rhs)
 {
+    Operand *tmp;
+
     if (rhs.getType() == RATIONAL)
     {
-        Rational *tmp = new Rational(getValue() * dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (tmp);
+        tmp = new Rational(getValue() * dynamic_cast<const Rational *>(&rhs)->getValue());
     }
     else if (rhs.getType() == COMPLEX)
     {
         // Complex can be -> Rational
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            Rational *tmp = new Rational(getValue() * dynamic_cast<const Complex *>(&rhs)->getRationalPart());
-            return (tmp);
+            tmp = new Rational(getValue() * dynamic_cast<const Complex *>(&rhs)->getRationalPart());
         }
             // Must stay Complex
         else
         {
-            Complex *tmp = new Complex(getValue() * dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
-                                       getValue() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (tmp);
+            tmp = new Complex(getValue() * dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
+                              getValue() * dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
         }
     }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator*(Operand const &rhs)' rhs is Invalid.");
     }
+    return (tmp);
 }
 
 Operand *Rational::operator/(Operand const &rhs)
 {
+    Operand *tmp;
+
     if (rhs.getType() == RATIONAL)
     {
         if (dynamic_cast<const Rational *>(&rhs)->getValue() != 0.0)
         {
-            Rational *tmp = new Rational(getValue() / dynamic_cast<const Rational *>(&rhs)->getValue());
-            return (tmp);
+            tmp = new Rational(getValue() / dynamic_cast<const Rational *>(&rhs)->getValue());
         }
         else
         {
@@ -193,8 +194,7 @@ Operand *Rational::operator/(Operand const &rhs)
         {
             if (dynamic_cast<const Complex *>(&rhs)->getRationalPart() != 0.0)
             {
-                Rational *tmp = new Rational(getValue() / dynamic_cast<const Complex *>(&rhs)->getRationalPart());
-                return (tmp);
+                tmp = new Rational(getValue() / dynamic_cast<const Complex *>(&rhs)->getRationalPart());
             }
             else
             {
@@ -205,18 +205,17 @@ Operand *Rational::operator/(Operand const &rhs)
             // Must stay Complex
         else
         {
-            Complex *tmp;
             tmp = Complex::solveDiv(this->getValue(),
                                     0.0,
                                     dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                                     dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (tmp);
         }
     }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator/(Operand const &rhs)' rhs is Invalid.");
     }
+    return (tmp);
 }
 
 Operand *Rational::operator%(Operand const &rhs)
@@ -227,7 +226,7 @@ Operand *Rational::operator%(Operand const &rhs)
         {
             if (isInteger() && dynamic_cast<const Rational *>(&rhs)->isInteger())
             {
-                Rational *tmp = new Rational(
+                Operand *tmp = new Rational(
                         static_cast<int>(value_) % static_cast<int>(dynamic_cast<const Rational *>(&rhs)->value_));
                 return (tmp);
             }
@@ -248,17 +247,9 @@ Operand *Rational::operator%(Operand const &rhs)
     }
 }
 
-void Rational::reset()
-{
-    value_ = 0.0;
-}
-
 bool const Rational::isInteger() const
 {
-    if (floor(value_) == value_)
-        return true;
-    else
-        return false;
+    return floor(value_) == value_;
 }
 
 std::ostream &Rational::print(std::ostream &o, Operand const &i)

@@ -32,7 +32,6 @@ class Rational: public Operand
 		double		getValue() const;
 
         bool const  isInteger() const;
-        void        reset();
         static std::ostream &print(std::ostream &o, Operand const &i);
 };
 

@@ -3,17 +3,19 @@
 Matrix::Matrix()
 {
     this->setType(MATRIX);
+    columns_ = 0;
+    rows_ = 0;
 }
 
 Matrix::Matrix(std::vector<double> values, size_t columns, size_t rows) : values_(std::move(values)), columns_(columns),
                                                                           rows_(rows)
 {
     this->setType(MATRIX);
-//    if (columns * rows != values.size())
-//    {
-//        throw std::logic_error(
-//                "in 'Matrix(std::vector<double> values, size_t columns, size_t rows)' number of values does not match columns * rows.");
-//    }
+    if (columns_ * rows_ != values_.size())
+    {
+        throw std::logic_error(
+                "in 'Matrix(std::vector<double> values, size_t columns, size_t rows)' number of values does not match columns * rows.");
+    }
 }
 
 Matrix::Matrix(Matrix &matrix)

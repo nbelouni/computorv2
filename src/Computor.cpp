@@ -184,5 +184,5 @@ void Computor::testMatrix()
     std::cout << badd << std::endl;
     std::cout << *tmp << std::endl;
 
-    Matrix waef({12, 32}, 1, 2);
+    Matrix waef({12, 32}, 1, 3);
 }

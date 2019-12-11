@@ -25,6 +25,8 @@ class Matrix: public Operand
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
+        Operand *dot(Operand const &lhs, Operand const & rhs); // ** or dot product
+
 //		void			setValues(std::vector<std::vector<double>> array);
 		const std::vector<double>	getValues() const;
 //		void			addValuesRow(std::vector<double> row);

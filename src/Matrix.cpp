@@ -112,6 +112,29 @@ Operand *Matrix::operator-(Operand const &rhs)
     return tmp;
 }
 
+Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
+{
+    Matrix *tmp;
+
+    if (lhs.getType() == MATRIX && rhs.getType() == MATRIX)
+    {
+        if (dynamic_cast<const Matrix *>(&lhs)->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getRows())
+        {
+            // TODO https://en.wikipedia.org/wiki/Matrix_multiplication implement this shit.
+        }
+        else
+        {
+            throw std::logic_error("lhs columns != rhs rows.");
+        }
+    }
+    else
+    {
+        throw std::invalid_argument("in 'Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)' can only apply this on Matrices.");
+    }
+
+    return tmp;
+}
+
 const std::vector<double> Matrix::getValues() const
 {
     return this->values_;

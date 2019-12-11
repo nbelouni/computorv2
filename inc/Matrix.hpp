@@ -36,6 +36,7 @@ class Matrix: public Operand
 		size_t			getRows() const;
 
 		Matrix			*solveAdd(const Matrix *a, const Matrix *b);
+		static Matrix			*solveAdd(const Matrix *a, double b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

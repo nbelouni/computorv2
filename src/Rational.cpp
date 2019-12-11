@@ -83,31 +83,35 @@ Operand *Rational::operator=(Operand const &rhs)
 
 Operand *Rational::operator+(Operand const &rhs)
 {
+    Operand *tmp;
+
     if (rhs.getType() == RATIONAL)
     {
-        Rational *tmp = new Rational(getValue() + dynamic_cast<const Rational *>(&rhs)->getValue());
-        return (tmp);
+        tmp = new Rational(getValue() + dynamic_cast<const Rational *>(&rhs)->getValue());
     }
     else if (rhs.getType() == COMPLEX)
     {
         // Complex can be -> Rational
         if (dynamic_cast<const Complex *>(&rhs)->getImaginaryPart() == 0.0)
         {
-            Rational *tmp = new Rational(getValue() + dynamic_cast<const Complex *>(&rhs)->getRationalPart());
-            return (tmp);
+            tmp = new Rational(getValue() + dynamic_cast<const Complex *>(&rhs)->getRationalPart());
         }
             // Must stay Complex
         else
         {
-            Complex *tmp = new Complex(getValue() + dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
-                                       dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
-            return (tmp);
+            tmp = new Complex(getValue() + dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
+                              dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
         }
+    }
+    else if (rhs.getType() == MATRIX)
+    {
+        tmp = Matrix::solveAdd(dynamic_cast<const Matrix *>(&rhs), this->getValue());
     }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator+(Operand const &rhs)' rhs is Invalid.");
     }
+    return (tmp);
 }
 
 Operand *Rational::operator-(Operand const &rhs)

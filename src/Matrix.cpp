@@ -73,9 +73,7 @@ Operand *Matrix::operator+(Operand const &rhs)
     }
     else if (rhs.getType() == RATIONAL)
     {
-        tmp = new Matrix(this);
-        for (int i = 0; i < tmp->getValues().size(); i++)
-            tmp->values_[i] += dynamic_cast<const Rational *>(&rhs)->getValue();
+        tmp = solveAdd(this, dynamic_cast<const Rational *>(&rhs)->getValue());
     }
     else
     {
@@ -125,6 +123,15 @@ Matrix *Matrix::solveAdd(const Matrix *a, const Matrix *b)
 
     for (int i = 0; i < b->getValues().size(); i++)
         tmp->values_[i] += b->getValues()[i];
+    return tmp;
+}
+
+Matrix *Matrix::solveAdd(const Matrix *a, double b)
+{
+    auto *tmp = new Matrix(a);
+
+    for (int i = 0; i < tmp->getValues().size(); i++)
+        tmp->values_[i] += b;
     return tmp;
 }
 

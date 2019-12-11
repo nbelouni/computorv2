@@ -71,6 +71,12 @@ Operand *Matrix::operator+(Operand const &rhs)
                     "in 'Operand *Matrix::operator+(Operand const &rhs)' rhs is a Matrix with different size.");
         }
     }
+    else if (rhs.getType() == RATIONAL)
+    {
+        tmp = new Matrix(this);
+        for (int i = 0; i < tmp->getValues().size(); i++)
+            tmp->values_[i] += dynamic_cast<const Rational *>(&rhs)->getValue();
+    }
     else
     {
         throw std::invalid_argument(

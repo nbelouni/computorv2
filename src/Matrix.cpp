@@ -83,6 +83,35 @@ Operand *Matrix::operator+(Operand const &rhs)
     return tmp;
 }
 
+Operand *Matrix::operator-(Operand const &rhs)
+{
+    Matrix *tmp;
+
+    if (rhs.getType() == MATRIX)
+    {
+        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
+            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        {
+            tmp = solveSub(this, dynamic_cast<const Matrix *>(&rhs));
+        }
+        else
+        {
+            throw std::logic_error(
+                    "in 'Operand *Matrix::operator-(Operand const &rhs)' rhs is a Matrix with different size.");
+        }
+    }
+    else if (rhs.getType() == RATIONAL)
+    {
+        tmp = solveSub(this, dynamic_cast<const Rational *>(&rhs)->getValue());
+    }
+    else
+    {
+        throw std::invalid_argument(
+                "in 'Operand *Matrix::operator-(Operand const &rhs)' rhs is not Matrix or Rational.");
+    }
+    return tmp;
+}
+
 const std::vector<double> Matrix::getValues() const
 {
     return this->values_;
@@ -132,6 +161,24 @@ Matrix *Matrix::solveAdd(const Matrix *a, double b)
 
     for (int i = 0; i < tmp->getValues().size(); i++)
         tmp->values_[i] += b;
+    return tmp;
+}
+
+Matrix *Matrix::solveSub(const Matrix *a, const Matrix *b)
+{
+    auto *tmp = new Matrix(a);
+
+    for (int i = 0; i < b->getValues().size(); i++)
+        tmp->values_[i] -= b->getValues()[i];
+    return tmp;
+}
+
+Matrix *Matrix::solveSub(const Matrix *a, double b)
+{
+    auto *tmp = new Matrix(a);
+
+    for (int i = 0; i < tmp->getValues().size(); i++)
+        tmp->values_[i] -= b;
     return tmp;
 }
 

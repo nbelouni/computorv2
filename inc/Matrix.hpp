@@ -20,7 +20,7 @@ class Matrix: public Operand
 
 		Operand * operator=( Operand const & rhs ); // Equal
 		Operand * operator+( Operand const & rhs ); // Sum
-//		Operand const * operator-( Operand const & rhs ); // Difference
+		Operand * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo
@@ -36,7 +36,9 @@ class Matrix: public Operand
 		size_t			getRows() const;
 
 		Matrix			*solveAdd(const Matrix *a, const Matrix *b);
-		static Matrix			*solveAdd(const Matrix *a, double b);
+		Matrix			*solveAdd(const Matrix *a, double b);
+		Matrix			*solveSub(const Matrix *a, const Matrix *b);
+		Matrix			*solveSub(const Matrix *a, double b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

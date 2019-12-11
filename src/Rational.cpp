@@ -105,7 +105,7 @@ Operand *Rational::operator+(Operand const &rhs)
     }
     else if (rhs.getType() == MATRIX)
     {
-        tmp = Matrix::solveAdd(dynamic_cast<const Matrix *>(&rhs), this->getValue());
+        throw std::logic_error("in 'Operand *Rational::operator-(Operand const &rhs)' cannot add a matrix to a rational, did you want to add a rational to a matrix instead?");
     }
     else
     {
@@ -135,6 +135,10 @@ Operand *Rational::operator-(Operand const &rhs)
             tmp = new Complex(getValue() - dynamic_cast<const Complex *>(&rhs)->getRationalPart(),
                               dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
         }
+    }
+    else if (rhs.getType() == MATRIX)
+    {
+        throw std::logic_error("in 'Operand *Rational::operator-(Operand const &rhs)' cannot subtract a matrix to a rational, did you want to subtract a rational to a matrix instead?");
     }
     else
     {

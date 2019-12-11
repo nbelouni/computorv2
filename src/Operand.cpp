@@ -49,7 +49,7 @@ std::ostream &operator<<(std::ostream &o, Operand const &i)
     else if (type == COMPLEX)
         Complex::print(o , i);
     else if (type == MATRIX)
-        o << "MATRIX";
+        Matrix::print(o, i);
     o << "}";
     return (o);
 }

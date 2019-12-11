@@ -15,10 +15,11 @@ class Matrix: public Operand
 		Matrix();
 		Matrix(std::vector<double> values, size_t columns, size_t rows);
 		Matrix(Matrix &matrix);
+		Matrix(const Matrix *matrix);
 		~Matrix();
 
-//		Operand const * operator=( Operand const & rhs ); // Sum
-//		Operand const * operator+( Operand const & rhs ); // Sum
+		Operand * operator=( Operand const & rhs ); // Equal
+		Operand * operator+( Operand const & rhs ); // Sum
 //		Operand const * operator-( Operand const & rhs ); // Difference
 //		Operand const * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient
@@ -33,6 +34,8 @@ class Matrix: public Operand
 		size_t			getColumns() const;
 //		void			setRows(size_t rows);
 		size_t			getRows() const;
+
+		Matrix			*solveAdd(const Matrix *a, const Matrix *b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

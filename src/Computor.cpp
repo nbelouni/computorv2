@@ -161,14 +161,28 @@ void Computor::testRational()
 
 void Computor::testMatrix()
 {
-    Matrix *tmp;
+    Operand *tmp;
 
     std::vector<double> pouet = {1, 2, 3, 4, 5, 6};
     Matrix yo(pouet, 2, 3);
+    std::cout << yo << std::endl;
 
     Matrix tak({1, 2, 3, 4, 5, 6}, 2, 3);
-
-    std::cout << yo << std::endl;
     std::cout << tak << std::endl;
 
+    Matrix eafwj({1, 2, 3, 4, 5, 6, 7, 8, 9}, 3, 3);
+    std::cout << eafwj << std::endl;
+
+    tak = eafwj;
+    std::cout << tak << std::endl;
+
+    Matrix aadd({1, 2, 3, 4}, 2, 2);
+    Matrix badd({10, 20, 30, 40}, 2, 2);
+
+    tmp = aadd + badd;
+    std::cout << aadd << std::endl;
+    std::cout << badd << std::endl;
+    std::cout << *tmp << std::endl;
+
+    Matrix waef({12, 32}, 1, 2);
 }

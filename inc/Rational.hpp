@@ -31,7 +31,6 @@ class Rational: public Operand
 		void		setValue(double value);
 		double		getValue() const;
 
-        bool const  isInteger() const;
         static std::ostream &print(std::ostream &o, Operand const &i);
 };
 

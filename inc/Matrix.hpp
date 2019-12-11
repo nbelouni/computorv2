@@ -23,7 +23,7 @@ class Matrix: public Operand
 		Operand * operator-( Operand const & rhs ); // Difference
 		Operand * operator*( Operand const & rhs ); // Product
 		Operand * operator/( Operand const & rhs ); // Quotient
-//		Operand const * operator%( Operand const & rhs ); // Modulo
+		Operand * operator%( Operand const & rhs ); // Modulo
 
         Operand *dot(Operand const &lhs, Operand const & rhs); // ** or dot product
 
@@ -45,6 +45,8 @@ class Matrix: public Operand
 		Matrix			*solveMul(const Matrix *a, double b);
 		Matrix			*solveDiv(const Matrix *a, const Matrix *b);
 		Matrix			*solveDiv(const Matrix *a, double b);
+//		Matrix			*solveMod(const Matrix *a, const Matrix *b);
+//		Matrix			*solveMod(const Matrix *a, double b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

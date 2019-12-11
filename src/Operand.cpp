@@ -36,6 +36,11 @@ const Operand * Operand::getSelf() const
     return this;
 }
 
+bool const Operand::isInteger(double d) const
+{
+    return floor(d) == d;
+}
+
 std::ostream &operator<<(std::ostream &o, Operand const &i)
 {
     t_op type;

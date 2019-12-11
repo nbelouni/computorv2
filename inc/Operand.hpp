@@ -28,6 +28,8 @@ class Operand
 		const t_op      getType() const;
         const Operand * getSelf() const;
 
+        bool const  isInteger(double d) const;
+
 //		virtual Operand const * operator=( Operand const & rhs ) const = 0; // Equal
 //		virtual Operand const * operator+( Operand const & rhs ) const = 0; // Sum
 //		virtual Operand const * operator-( Operand const & rhs ) const = 0; // Difference

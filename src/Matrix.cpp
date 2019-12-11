@@ -169,6 +169,35 @@ Operand *Matrix::operator/(Operand const &rhs)
     }
     return tmp;
 }
+//
+//Operand *Matrix::operator%(Operand const &rhs)
+//{
+//    Matrix *tmp;
+//
+//    if (rhs.getType() == MATRIX)
+//    {
+//        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
+//            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+//        {
+//            tmp = solveMod(this, dynamic_cast<const Matrix *>(&rhs));
+//        }
+//        else
+//        {
+//            throw std::logic_error(
+//                    "in 'Operand *Matrix::operator%(Operand const &rhs)' rhs is a Matrix with different size.");
+//        }
+//    }
+//    else if (rhs.getType() == RATIONAL)
+//    {
+//        tmp = solveMod(this, dynamic_cast<const Rational *>(&rhs)->getValue());
+//    }
+//    else
+//    {
+//        throw std::invalid_argument(
+//                "in 'Operand *Matrix::operator%(Operand const &rhs)' rhs is not Matrix or Rational.");
+//    }
+//    return tmp;
+//}
 
 Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
 {
@@ -316,6 +345,26 @@ Matrix *Matrix::solveDiv(const Matrix *a, double b)
     }
     return tmp;
 }
+/*
+
+Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)
+{
+    auto *tmp = new Matrix(a);
+
+    for (int i = 0; i < b->getValues().size(); i++)
+    {
+        if (b->getValues()[i] != 0.0)
+        {
+            tmp->values_[i] % b->getValues()[i];
+        }
+        else
+        {
+            throw std::logic_error("in 'Matrix *Matrix::solveDiv(const Matrix *a, const Matrix *b)' one of b values is 0.0, cannot divide by 0");
+        }
+    }
+    return tmp;
+}
+*/
 
 std::ostream &operator<<(std::ostream &o, Matrix const &i)
 {

@@ -149,8 +149,12 @@ void Computor::testRational()
     std::cout << "ab / cd = " << ab << " / " << cd << " = " << *res << std::endl;
     std::cout << std::endl;
 
-    res = ab % cd;
-    std::cout << "ab % cd = " << ab << " % " << cd << " = " << *res << std::endl;
+//    res = ab % cd;
+//    std::cout << "ab % cd = " << ab << " % " << cd << " = " << *res << std::endl;
+//    std::cout << std::endl;
+
+    res = r_a % r_f;
+    std::cout << "r_a / r_f = " << r_a << " / " << r_f << " = " << *res << std::endl;
     std::cout << std::endl;
 
     res = r_a / r_f;

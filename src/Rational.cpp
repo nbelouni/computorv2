@@ -105,7 +105,8 @@ Operand *Rational::operator+(Operand const &rhs)
     }
     else if (rhs.getType() == MATRIX)
     {
-        throw std::logic_error("in 'Operand *Rational::operator-(Operand const &rhs)' cannot add a matrix to a rational, did you mean to add a rational to a matrix instead?");
+        throw std::logic_error(
+                "in 'Operand *Rational::operator-(Operand const &rhs)' cannot add a matrix to a rational, did you mean to add a rational to a matrix instead?");
     }
     else
     {
@@ -138,7 +139,8 @@ Operand *Rational::operator-(Operand const &rhs)
     }
     else if (rhs.getType() == MATRIX)
     {
-        throw std::logic_error("in 'Operand *Rational::operator-(Operand const &rhs)' cannot subtract a matrix to a rational, did you mean to subtract a rational to a matrix instead?");
+        throw std::logic_error(
+                "in 'Operand *Rational::operator-(Operand const &rhs)' cannot subtract a matrix to a rational, did you mean to subtract a rational to a matrix instead?");
     }
     else
     {
@@ -171,7 +173,8 @@ Operand *Rational::operator*(Operand const &rhs)
     }
     else if (rhs.getType() == MATRIX)
     {
-        throw std::logic_error("in 'Operand *Rational::operator*(Operand const &rhs)' cannot multiply a matrix to a rational, did you mean to multiply a rational to a matrix instead?");
+        throw std::logic_error(
+                "in 'Operand *Rational::operator*(Operand const &rhs)' cannot multiply a matrix to a rational, did you mean to multiply a rational to a matrix instead?");
     }
     else
     {
@@ -221,7 +224,8 @@ Operand *Rational::operator/(Operand const &rhs)
     }
     else if (rhs.getType() == MATRIX)
     {
-        throw std::logic_error("in 'Operand *Rational::operator/(Operand const &rhs)' cannot divide a matrix to a rational, did you mean to divide a rational to a matrix instead?");
+        throw std::logic_error(
+                "in 'Operand *Rational::operator/(Operand const &rhs)' cannot divide a matrix to a rational, did you mean to divide a rational to a matrix instead?");
     }
     else
     {
@@ -232,15 +236,16 @@ Operand *Rational::operator/(Operand const &rhs)
 
 Operand *Rational::operator%(Operand const &rhs)
 {
+    Operand *tmp;
+
     if (rhs.getType() == RATIONAL)
     {
         if (dynamic_cast<const Rational *>(&rhs)->getValue() != 0.0)
         {
-            if (isInteger() && dynamic_cast<const Rational *>(&rhs)->isInteger())
+            if (isInteger(this->getValue()) && isInteger(dynamic_cast<const Rational *>(&rhs)->getValue()))
             {
-                Operand *tmp = new Rational(
-                        static_cast<int>(value_) % static_cast<int>(dynamic_cast<const Rational *>(&rhs)->value_));
-                return (tmp);
+                tmp = new Rational(
+                        static_cast<int>(this->getValue()) % static_cast<int>(dynamic_cast<const Rational *>(&rhs)->getValue()));
             }
             else
             {
@@ -250,18 +255,14 @@ Operand *Rational::operator%(Operand const &rhs)
         }
         else
         {
-            throw std::logic_error("in 'Operand *Rational::operator/(Operand const &rhs)' rhs is 0.0.");
+            throw std::logic_error("in 'Operand *Rational::operator%(Operand const &rhs)' rhs is 0.0.");
         }
     }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator%(Operand const &rhs)' rhs is not Rational.");
     }
-}
-
-bool const Rational::isInteger() const
-{
-    return floor(value_) == value_;
+    return (tmp);
 }
 
 std::ostream &Rational::print(std::ostream &o, Operand const &i)

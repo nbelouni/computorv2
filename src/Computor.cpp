@@ -206,4 +206,13 @@ void Computor::testMatrix()
 
 //    tmp = ra - mat;
 //    std::cout << *tmp << std::endl;
+
+    tmp = mat * mat;
+    std::cout << *tmp << std::endl;
+
+    tmp = mat * ra;
+    std::cout << *tmp << std::endl;
+
+//    tmp = ra * mat;
+//    std::cout << *tmp << std::endl;
 }

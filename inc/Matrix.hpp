@@ -21,7 +21,7 @@ class Matrix: public Operand
 		Operand * operator=( Operand const & rhs ); // Equal
 		Operand * operator+( Operand const & rhs ); // Sum
 		Operand * operator-( Operand const & rhs ); // Difference
-//		Operand const * operator*( Operand const & rhs ); // Product
+		Operand * operator*( Operand const & rhs ); // Product
 //		Operand const * operator/( Operand const & rhs ); // Quotient
 //		Operand const * operator%( Operand const & rhs ); // Modulo
 
@@ -41,6 +41,8 @@ class Matrix: public Operand
 		Matrix			*solveAdd(const Matrix *a, double b);
 		Matrix			*solveSub(const Matrix *a, const Matrix *b);
 		Matrix			*solveSub(const Matrix *a, double b);
+		Matrix			*solveMul(const Matrix *a, const Matrix *b);
+		Matrix			*solveMul(const Matrix *a, double b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

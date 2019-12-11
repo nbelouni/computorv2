@@ -196,7 +196,7 @@ void Computor::testMatrix()
 
     Matrix waef({12, 32}, 1, 3);
 */
-    Rational ra(42.42);
+    Rational ra(2);
     Matrix mat({1, 2, 3, 4, 5, 6, 7, 8, 9}, 3, 3);
 /*
 
@@ -230,5 +230,12 @@ void Computor::testMatrix()
 //    tmp = ra / mat;
 //    std::cout << *tmp << std::endl;
 */
+
+    tmp = mat % mat;
+    std::cout << *tmp << std::endl;
+    tmp = mat % ra;
+    std::cout << *tmp << std::endl;
+    tmp = ra % mat;
+    std::cout << *tmp << std::endl;
 
 }

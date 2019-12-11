@@ -258,6 +258,11 @@ Operand *Rational::operator%(Operand const &rhs)
             throw std::logic_error("in 'Operand *Rational::operator%(Operand const &rhs)' rhs is 0.0.");
         }
     }
+    else if (rhs.getType() == MATRIX)
+    {
+        throw std::logic_error(
+                "in 'Operand *Rational::operator%(Operand const &rhs)' cannot modulo a matrix to a rational, did you mean to modulo a rational to a matrix instead?");
+    }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator%(Operand const &rhs)' rhs is not Rational.");

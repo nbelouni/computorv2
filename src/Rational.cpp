@@ -219,6 +219,10 @@ Operand *Rational::operator/(Operand const &rhs)
                                     dynamic_cast<const Complex *>(&rhs)->getImaginaryPart());
         }
     }
+    else if (rhs.getType() == MATRIX)
+    {
+        throw std::logic_error("in 'Operand *Rational::operator/(Operand const &rhs)' cannot divide a matrix to a rational, did you mean to divide a rational to a matrix instead?");
+    }
     else
     {
         throw std::invalid_argument("in 'Operand *Rational::operator/(Operand const &rhs)' rhs is Invalid.");

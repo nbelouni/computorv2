@@ -194,25 +194,37 @@ void Computor::testMatrix()
 */
     Rational ra(42.42);
     Matrix mat({1, 2, 3, 4, 5, 6, 7, 8, 9}, 3, 3);
+/*
 
     tmp = mat + ra;
     std::cout << *tmp << std::endl;
-
 //    tmp = ra + mat;
 //    std::cout << *tmp << std::endl;
+*/
 
+/*
     tmp = mat - ra;
     std::cout << *tmp << std::endl;
-
 //    tmp = ra - mat;
 //    std::cout << *tmp << std::endl;
+*/
 
+/*
     tmp = mat * mat;
     std::cout << *tmp << std::endl;
-
     tmp = mat * ra;
     std::cout << *tmp << std::endl;
-
 //    tmp = ra * mat;
 //    std::cout << *tmp << std::endl;
+*/
+
+/*
+    tmp = mat / mat;
+    std::cout << *tmp << std::endl;
+    tmp = mat / ra;
+    std::cout << *tmp << std::endl;
+//    tmp = ra / mat;
+//    std::cout << *tmp << std::endl;
+*/
+
 }

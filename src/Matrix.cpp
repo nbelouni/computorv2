@@ -455,6 +455,17 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
     return tmp;
 }
 
+double Matrix::computeDotLine(std::vector<double> a, std::vector<double> b) const
+{
+    double res = 0.0;
+
+    for (int i = 0; i < a.size(); i++)
+    {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+
 Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
 {
     // col a == row b
@@ -465,7 +476,7 @@ Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
     {
         for (int iter_x = 0; iter_x < tmp->getColumnsCount(); iter_x++)
         {
-            tmp->values_.push_back(1.0);
+            tmp->values_.push_back(computeDotLine(a->getRow(iter_y), b->getColumn(iter_x)));
         }
     }
     return tmp;

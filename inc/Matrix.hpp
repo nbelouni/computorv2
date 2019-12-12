@@ -33,9 +33,11 @@ class Matrix: public Operand
 //		void			assignValue(double value, size_t y, size_t x);
 
 //		void			setColumns(size_t col);
-		size_t			getColumns() const;
+		size_t			getColumnsCount() const;
 //		void			setRows(size_t rows);
-		size_t			getRows() const;
+		size_t			getRowsCount() const;
+
+		const std::vector<double>	getColumn(int col_index) const;
 
 		Matrix			*solveAdd(const Matrix *a, const Matrix *b);
 		Matrix			*solveAdd(const Matrix *a, double b);
@@ -47,6 +49,7 @@ class Matrix: public Operand
 		Matrix			*solveDiv(const Matrix *a, double b);
 		Matrix			*solveMod(const Matrix *a, const Matrix *b);
 		Matrix			*solveMod(const Matrix *a, double b);
+		Matrix			*solveDot(const Matrix *a, const Matrix *b);
 
 static std::ostream &print(std::ostream &o, Operand const &i);
 

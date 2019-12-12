@@ -231,11 +231,28 @@ void Computor::testMatrix()
 //    std::cout << *tmp << std::endl;
 */
 
+/*
     tmp = mat % mat;
     std::cout << *tmp << std::endl;
     tmp = mat % ra;
     std::cout << *tmp << std::endl;
-    tmp = ra % mat;
-    std::cout << *tmp << std::endl;
+//    tmp = ra % mat;
+  //  std::cout << *tmp << std::endl;
+*/
+
+    Matrix mata({11, 12, 21, 22}, 2, 2);
+    Matrix matb({5, 6, 7, 8}, 2, 2);
+    std::vector<double> pouet;
+
+    // Bon c'est degeux mais je vais voir plus tard.
+//    tmp = mata.dot(mata, matb);
+//    std::cout << *tmp << std::endl;
+    std::cout << mata << std::endl;
+    pouet = mata.getColumn(1);
+    for (int i = 0; i < pouet.size(); i++)
+    {
+        std::cout << " " << pouet[i];
+    }
+    std::cout << std::endl;
 
 }

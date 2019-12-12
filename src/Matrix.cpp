@@ -43,8 +43,8 @@ Operand *Matrix::operator=(Operand const &rhs)
         if (rhs.getType() == MATRIX)
         {
             values_ = dynamic_cast<const Matrix *>(&rhs)->getValues();
-            columns_ = dynamic_cast<const Matrix *>(&rhs)->getColumns();
-            rows_ = dynamic_cast<const Matrix *>(&rhs)->getRows();
+            columns_ = dynamic_cast<const Matrix *>(&rhs)->getColumnsCount();
+            rows_ = dynamic_cast<const Matrix *>(&rhs)->getRowsCount();
         }
         else
         {
@@ -60,8 +60,8 @@ Operand *Matrix::operator+(Operand const &rhs)
 
     if (rhs.getType() == MATRIX)
     {
-        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
-            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
+                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveAdd(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -89,8 +89,8 @@ Operand *Matrix::operator-(Operand const &rhs)
 
     if (rhs.getType() == MATRIX)
     {
-        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
-            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
+                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveSub(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -118,8 +118,8 @@ Operand *Matrix::operator*(Operand const &rhs)
 
     if (rhs.getType() == MATRIX)
     {
-        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
-            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
+                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveMul(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -147,8 +147,8 @@ Operand *Matrix::operator/(Operand const &rhs)
 
     if (rhs.getType() == MATRIX)
     {
-        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
-            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
+                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveDiv(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -176,8 +176,8 @@ Operand *Matrix::operator%(Operand const &rhs)
 
     if (rhs.getType() == MATRIX)
     {
-        if (this->getRows() == dynamic_cast<const Matrix *>(&rhs)->getRows() &&
-            this->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getColumns())
+        if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
+                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveMod(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -205,9 +205,10 @@ Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
 
     if (lhs.getType() == MATRIX && rhs.getType() == MATRIX)
     {
-        if (dynamic_cast<const Matrix *>(&lhs)->getColumns() == dynamic_cast<const Matrix *>(&rhs)->getRows())
+        if (dynamic_cast<const Matrix *>(&lhs)->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount())
         {
             // TODO https://en.wikipedia.org/wiki/Matrix_multiplication implement this shit.
+            tmp = solveDot(this, dynamic_cast<const Matrix *>(&rhs));
         }
         else
         {
@@ -227,21 +228,46 @@ const std::vector<double> Matrix::getValues() const
     return this->values_;
 }
 
-size_t Matrix::getColumns() const
+size_t Matrix::getColumnsCount() const
 {
     return this->columns_;
 }
 
-size_t Matrix::getRows() const
+size_t Matrix::getRowsCount() const
 {
     return this->rows_;
+}
+
+const std::vector<double> Matrix::getColumn(int col_index) const
+{
+    std::vector<double> vals;
+
+    if (col_index < 0)
+    {
+        throw std::invalid_argument("Column access < 0.");
+    }
+    if (col_index >= this->getColumnsCount())
+    {
+        throw std::invalid_argument("Column access > than columns count.");
+    }
+    for (int iter_y = 0; iter_y < this->getColumnsCount(); iter_y++)
+    {
+        for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
+        {
+            if (iter_x == col_index)
+            {
+                vals.push_back(this->getValues()[this->getRowsCount() * iter_y + iter_x]);
+            }
+        }
+    }
+    return vals;
 }
 
 std::ostream &Matrix::print(std::ostream &o, Operand const &i)
 {
     const auto *tmp = dynamic_cast<const Matrix *>(&i);
-    size_t col = tmp->getColumns();
-    size_t row = tmp->getRows();
+    size_t col = tmp->getColumnsCount();
+    size_t row = tmp->getRowsCount();
     std::vector<double> val = tmp->getValues();
 
     o << "[MATRIX (" << col << ", " << row << ") | " << i.getSelf() << " | " << std::endl;
@@ -390,6 +416,13 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
         }
     }
     return tmp;
+}
+
+Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
+{
+    auto *tmp = new Matrix(a);
+
+
 }
 
 std::ostream &operator<<(std::ostream &o, Matrix const &i)

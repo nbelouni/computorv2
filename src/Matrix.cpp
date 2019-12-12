@@ -218,7 +218,7 @@ Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
 
     if (lhs.getType() == MATRIX && rhs.getType() == MATRIX)
     {
-        if (dynamic_cast<const Matrix *>(&lhs)->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+        if (dynamic_cast<const Matrix *>(&lhs)->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount())
         {
             // TODO https://en.wikipedia.org/wiki/Matrix_multiplication implement this shit.
             tmp = solveDot(this, dynamic_cast<const Matrix *>(&rhs));
@@ -304,16 +304,16 @@ const std::vector<double> Matrix::getRow(int row_index) const
 std::ostream &Matrix::print(std::ostream &o, Operand const &i)
 {
     const auto *tmp = dynamic_cast<const Matrix *>(&i);
-    size_t col = tmp->getColumnsCount();
     size_t row = tmp->getRowsCount();
+    size_t col = tmp->getColumnsCount();
     std::vector<double> val = tmp->getValues();
 
-    o << "[MATRIX (" << col << ", " << row << ") | " << i.getSelf() << " | " << std::endl;
-    for (int iter_y = 0; iter_y < col; iter_y++)
+    o << "[MATRIX (" << row << ", " << col << ") | " << i.getSelf() << " | " << std::endl;
+    for (int iter_y = 0; iter_y < row; iter_y++)
     {
-        for (int iter_x = 0; iter_x < row; iter_x++)
+        for (int iter_x = 0; iter_x < col; iter_x++)
         {
-            o << "[" << val[row * iter_y + iter_x] << "]";
+            o << "[" << val[col * iter_y + iter_x] << "]";
         }
         o << std::endl;
     }

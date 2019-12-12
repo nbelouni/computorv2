@@ -18,6 +18,18 @@ Matrix::Matrix(std::vector<double> values, size_t columns, size_t rows) : values
     }
 }
 
+Matrix::Matrix(size_t columns, size_t rows)
+{
+    this->setType(MATRIX);
+    this->values_.reserve(columns * rows);
+    this->columns_ = columns;
+    this->rows_ = rows;
+    for (int i = 0; i < columns * rows; i++)
+    {
+        this->values_.push_back(0.0);
+    }
+}
+
 Matrix::Matrix(Matrix &matrix)
 {
     this->setType(MATRIX);
@@ -445,9 +457,11 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
 
 Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
 {
-    auto *tmp = new Matrix(a);
+    // columns a == rows b
+    // size ==> rows a * columns b
+    auto *tmp = new Matrix(a->getRowsCount(), b->getColumnsCount());
 
-
+    return tmp;
 }
 
 std::ostream &operator<<(std::ostream &o, Matrix const &i)

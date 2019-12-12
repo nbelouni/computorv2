@@ -14,6 +14,7 @@ class Matrix: public Operand
 	public:
 		Matrix();
 		Matrix(std::vector<double> values, size_t columns, size_t rows);
+		Matrix(size_t columns, size_t rows);
 		Matrix(Matrix &matrix);
 		Matrix(const Matrix *matrix);
 		~Matrix();

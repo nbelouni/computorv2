@@ -263,7 +263,7 @@ const std::vector<double> Matrix::getColumn(int col_index) const
     {
         for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
         {
-            if (iter_x == col_index)
+            if (iter_y == col_index)
             {
                 vals.push_back(this->getValues()[this->getRowsCount() * iter_y + iter_x]);
             }
@@ -288,7 +288,7 @@ const std::vector<double> Matrix::getRow(int row_index) const
     {
         for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
         {
-            if (iter_y == row_index)
+            if (iter_x == row_index)
             {
                 vals.push_back(this->getValues()[this->getRowsCount() * iter_y + iter_x]);
             }

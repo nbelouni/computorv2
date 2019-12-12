@@ -458,9 +458,9 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
 
 Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
 {
-    // rows a == columns b
-    // size ==> columns a * rows b
-    auto *tmp = new Matrix(a->getColumnsCount(), b->getRowsCount());
+    // col a == row b
+    // size ==> row a * col b
+    auto *tmp = new Matrix(a->getRowsCount(), b->getColumnsCount());
 
     return tmp;
 }

@@ -246,17 +246,10 @@ void Computor::testMatrix()
     std::cout << mata << std::endl;
     std::cout << matb << std::endl;
     // Bon c'est degeux mais je vais voir plus tard.
-    tmp = mata.dot(mata, matb);
-    std::cout << *tmp << std::endl;
+//    tmp = mata.dot(mata, matb);
+//    std::cout << *tmp << std::endl;
 
-/*
     std::vector<double> pouet;
-    pouet = mata.getColumn(0);
-    for (int i = 0; i < pouet.size(); i++)
-    {
-        std::cout << " " << pouet[i];
-    }
-    std::cout << std::endl;
 
 //    pouet = mata.getColumn(2);
 //    for (int i = 0; i < pouet.size(); i++)
@@ -265,7 +258,17 @@ void Computor::testMatrix()
 //    }
 //    std::cout << std::endl;
 
+    pouet = mata.getColumn(0);
+    std::cout << "col 0: ";
+    for (int i = 0; i < pouet.size(); i++)
+    {
+        std::cout << " " << pouet[i];
+    }
+    std::cout << std::endl;
+
+/*
     pouet = mata.getColumn(1);
+    std::cout << "col 1: ";
     for (int i = 0; i < pouet.size(); i++)
     {
         std::cout << " " << pouet[i];
@@ -273,6 +276,7 @@ void Computor::testMatrix()
     std::cout << std::endl;
 
     pouet = mata.getRow(0);
+    std::cout << "row 0: ";
     for (int i = 0; i < pouet.size(); i++)
     {
         std::cout << " " << pouet[i];
@@ -280,11 +284,13 @@ void Computor::testMatrix()
     std::cout << std::endl;
 
     pouet = mata.getRow(1);
+    std::cout << "row 1: ";
     for (int i = 0; i < pouet.size(); i++)
     {
         std::cout << " " << pouet[i];
     }
     std::cout << std::endl;
+*/
 
 //    pouet = mata.getRow(-1);
 //    for (int i = 0; i < pouet.size(); i++)
@@ -292,6 +298,5 @@ void Computor::testMatrix()
 //        std::cout << " " << pouet[i];
 //    }
 //    std::cout << std::endl;
-*/
 
 }

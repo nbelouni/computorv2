@@ -40,7 +40,7 @@ class Matrix: public Operand
 		size_t			getRowsCount() const;
 
 		const std::vector<double>	getColumn(int col_index) const;
-		const std::vector<double>	getRow(int row_index) const;
+		const std::vector<double>	getRow(int y) const;
 
 		Matrix			*solveAdd(const Matrix *a, const Matrix *b);
 		Matrix			*solveAdd(const Matrix *a, double b);

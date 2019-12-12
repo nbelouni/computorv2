@@ -248,11 +248,47 @@ void Computor::testMatrix()
 //    tmp = mata.dot(mata, matb);
 //    std::cout << *tmp << std::endl;
     std::cout << mata << std::endl;
+
+    pouet = mata.getColumn(0);
+    for (int i = 0; i < pouet.size(); i++)
+    {
+        std::cout << " " << pouet[i];
+    }
+    std::cout << std::endl;
+
+//    pouet = mata.getColumn(2);
+//    for (int i = 0; i < pouet.size(); i++)
+//    {
+//        std::cout << " " << pouet[i];
+//    }
+//    std::cout << std::endl;
+
     pouet = mata.getColumn(1);
     for (int i = 0; i < pouet.size(); i++)
     {
         std::cout << " " << pouet[i];
     }
     std::cout << std::endl;
+
+    pouet = mata.getRow(0);
+    for (int i = 0; i < pouet.size(); i++)
+    {
+        std::cout << " " << pouet[i];
+    }
+    std::cout << std::endl;
+
+    pouet = mata.getRow(1);
+    for (int i = 0; i < pouet.size(); i++)
+    {
+        std::cout << " " << pouet[i];
+    }
+    std::cout << std::endl;
+
+//    pouet = mata.getRow(-1);
+//    for (int i = 0; i < pouet.size(); i++)
+//    {
+//        std::cout << " " << pouet[i];
+//    }
+//    std::cout << std::endl;
 
 }

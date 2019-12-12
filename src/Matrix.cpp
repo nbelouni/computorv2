@@ -263,6 +263,31 @@ const std::vector<double> Matrix::getColumn(int col_index) const
     return vals;
 }
 
+const std::vector<double> Matrix::getRow(int row_index) const
+{
+    std::vector<double> vals;
+
+    if (row_index < 0)
+    {
+        throw std::invalid_argument("Column access < 0.");
+    }
+    if (row_index >= this->getRowsCount())
+    {
+        throw std::invalid_argument("Column access > than columns count.");
+    }
+    for (int iter_y = 0; iter_y < this->getColumnsCount(); iter_y++)
+    {
+        for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
+        {
+            if (iter_y == row_index)
+            {
+                vals.push_back(this->getValues()[this->getRowsCount() * iter_y + iter_x]);
+            }
+        }
+    }
+    return vals;
+}
+
 std::ostream &Matrix::print(std::ostream &o, Operand const &i)
 {
     const auto *tmp = dynamic_cast<const Matrix *>(&i);

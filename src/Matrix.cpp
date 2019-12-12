@@ -25,10 +25,6 @@ Matrix::Matrix(size_t rows, size_t columns)
     this->values_.reserve(rows * columns);
     this->rows_ = rows;
     this->columns_ = columns;
-    for (int i = 0; i < rows * columns; i++)
-    {
-        this->values_.push_back(0.0);
-    }
 }
 
 Matrix::Matrix(Matrix &matrix)
@@ -309,13 +305,16 @@ std::ostream &Matrix::print(std::ostream &o, Operand const &i)
     std::vector<double> val = tmp->getValues();
 
     o << "[MATRIX (" << row << ", " << col << ") | " << i.getSelf() << " | " << std::endl;
-    for (int iter_y = 0; iter_y < row; iter_y++)
+    if (!val.empty())
     {
-        for (int iter_x = 0; iter_x < col; iter_x++)
+        for (int iter_y = 0; iter_y < row; iter_y++)
         {
-            o << "[" << val[col * iter_y + iter_x] << "]";
+            for (int iter_x = 0; iter_x < col; iter_x++)
+            {
+                o << "[" << val[col * iter_y + iter_x] << "]";
+            }
+            o << std::endl;
         }
-        o << std::endl;
     }
     return (o);
 }
@@ -462,6 +461,13 @@ Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
     // size ==> row a * col b
     auto *tmp = new Matrix(a->getRowsCount(), b->getColumnsCount());
 
+    for (int iter_y = 0; iter_y < tmp->getRowsCount(); iter_y++)
+    {
+        for (int iter_x = 0; iter_x < tmp->getColumnsCount(); iter_x++)
+        {
+            tmp->values_.push_back(1.0);
+        }
+    }
     return tmp;
 }
 

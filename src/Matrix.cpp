@@ -7,9 +7,9 @@ Matrix::Matrix()
     rows_ = 0;
 }
 
-Matrix::Matrix(std::vector<double> values, size_t rows, size_t columns) :   values_(std::move(values)),
-                                                                            rows_(rows),
-                                                                            columns_(columns)
+Matrix::Matrix(std::vector<double> values, size_t rows, size_t columns) : values_(std::move(values)),
+                                                                          rows_(rows),
+                                                                          columns_(columns)
 {
     this->setType(MATRIX);
     if (columns_ * rows_ != values_.size())
@@ -70,7 +70,7 @@ Operand *Matrix::operator+(Operand const &rhs)
     if (rhs.getType() == MATRIX)
     {
         if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
-                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+            this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveAdd(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -99,7 +99,7 @@ Operand *Matrix::operator-(Operand const &rhs)
     if (rhs.getType() == MATRIX)
     {
         if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
-                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+            this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveSub(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -128,7 +128,7 @@ Operand *Matrix::operator*(Operand const &rhs)
     if (rhs.getType() == MATRIX)
     {
         if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
-                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+            this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveMul(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -157,7 +157,7 @@ Operand *Matrix::operator/(Operand const &rhs)
     if (rhs.getType() == MATRIX)
     {
         if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
-                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+            this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveDiv(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -186,7 +186,7 @@ Operand *Matrix::operator%(Operand const &rhs)
     if (rhs.getType() == MATRIX)
     {
         if (this->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount() &&
-                this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
+            this->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             tmp = solveMod(this, dynamic_cast<const Matrix *>(&rhs));
         }
@@ -226,7 +226,8 @@ Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
     }
     else
     {
-        throw std::invalid_argument("in 'Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)' can only apply this on Matrices.");
+        throw std::invalid_argument(
+                "in 'Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)' can only apply this on Matrices.");
     }
 
     return tmp;
@@ -268,11 +269,15 @@ const std::vector<double> Matrix::getColumn(int col_index) const
     {
         for (int iter_y = 0; iter_y < this->getColumnsCount(); iter_y++)
         {
-        std::cout << "[" << iter_x << "," << iter_y << "] " << this->getValues()[iter_x * this->getColumnsCount() + iter_y] << " ";
+            if (iter_y == col_index)
+            {
+                vals.push_back(this->getValues()[iter_x * this->getColumnsCount() + iter_y]);
+            }
+            std::cout << "[" << iter_x << "," << iter_y << "] "
+                      << this->getValues()[iter_x * this->getColumnsCount() + iter_y] << " ";
         }
     }
     std::cout << std::endl;
-//                vals.push_back(this->getValues()[this->getRowsCount() * col_index + iter_x]);
     return vals;
 }
 
@@ -311,11 +316,11 @@ std::ostream &Matrix::print(std::ostream &o, Operand const &i)
     o << "[MATRIX (" << row << ", " << col << ") | " << i.getSelf() << " | " << std::endl;
     if (!val.empty())
     {
-        for (int iter_y = 0; iter_y < row; iter_y++)
+        for (int iter_x = 0; iter_x < row; iter_x++)
         {
-            for (int iter_x = 0; iter_x < col; iter_x++)
+            for (int iter_y = 0; iter_y < col; iter_y++)
             {
-                o << "[" << val[col * iter_y + iter_x] << "]";
+                o << "[" << val[col * iter_x + iter_y] << "]";
             }
             o << std::endl;
         }
@@ -389,7 +394,8 @@ Matrix *Matrix::solveDiv(const Matrix *a, const Matrix *b)
         }
         else
         {
-            throw std::logic_error("in 'Matrix *Matrix::solveDiv(const Matrix *a, const Matrix *b)' one of b values is 0.0, cannot divide by 0");
+            throw std::logic_error(
+                    "in 'Matrix *Matrix::solveDiv(const Matrix *a, const Matrix *b)' one of b values is 0.0, cannot divide by 0");
         }
     }
     return tmp;
@@ -407,7 +413,8 @@ Matrix *Matrix::solveDiv(const Matrix *a, double b)
         }
         else
         {
-            throw std::logic_error("in 'Matrix *Matrix::solveDiv(const Matrix *a, double b)' b == 0.0, cannot divide by 0");
+            throw std::logic_error(
+                    "in 'Matrix *Matrix::solveDiv(const Matrix *a, double b)' b == 0.0, cannot divide by 0");
         }
     }
     return tmp;
@@ -423,16 +430,19 @@ Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)
         {
             if (isInteger(b->getValues()[i]))
             {
-                tmp->values_[i] = static_cast<double>(static_cast<int>(tmp->values_[i] ) % static_cast<int>(b->getValues()[i]));
+                tmp->values_[i] = static_cast<double>(static_cast<int>(tmp->values_[i] ) %
+                                                      static_cast<int>(b->getValues()[i]));
             }
             else
             {
-                throw std::logic_error("in 'Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)' one of b values not an integer.");
+                throw std::logic_error(
+                        "in 'Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)' one of b values not an integer.");
             }
         }
         else
         {
-            throw std::logic_error("in 'Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)' one of b values is 0.0, cannot modulo by 0");
+            throw std::logic_error(
+                    "in 'Matrix *Matrix::solveMod(const Matrix *a, const Matrix *b)' one of b values is 0.0, cannot modulo by 0");
         }
     }
     return tmp;
@@ -453,7 +463,8 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
         }
         else
         {
-            throw std::logic_error("in 'Matrix *Matrix::solveMod(const Matrix *a, double b)' b == 0.0, cannot modulo by 0");
+            throw std::logic_error(
+                    "in 'Matrix *Matrix::solveMod(const Matrix *a, double b)' b == 0.0, cannot modulo by 0");
         }
     }
     return tmp;
@@ -476,11 +487,11 @@ Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
     // size ==> row a * col b
     auto *tmp = new Matrix(a->getRowsCount(), b->getColumnsCount());
 
-    for (int iter_y = 0; iter_y < tmp->getRowsCount(); iter_y++)
+    for (int iter_x = 0; iter_x < tmp->getRowsCount(); iter_x++)
     {
-        for (int iter_x = 0; iter_x < tmp->getColumnsCount(); iter_x++)
+        for (int iter_y = 0; iter_y < tmp->getColumnsCount(); iter_y++)
         {
-            tmp->values_.push_back(computeDotLine(a->getRow(iter_y), b->getColumn(iter_x)));
+            tmp->values_.push_back(computeDotLine(a->getRow(iter_x), b->getColumn(iter_y)));
         }
     }
     return tmp;

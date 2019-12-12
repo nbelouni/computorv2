@@ -266,7 +266,6 @@ void Computor::testMatrix()
     }
     std::cout << std::endl;
 
-/*
     pouet = mata.getColumn(1);
     std::cout << "col 1: ";
     for (int i = 0; i < pouet.size(); i++)
@@ -290,7 +289,6 @@ void Computor::testMatrix()
         std::cout << " " << pouet[i];
     }
     std::cout << std::endl;
-*/
 
 //    pouet = mata.getRow(-1);
 //    for (int i = 0; i < pouet.size(); i++)

@@ -217,7 +217,7 @@ Operand *Matrix::dot(Operand const &lhs, Operand const &rhs)
 
     if (lhs.getType() == MATRIX && rhs.getType() == MATRIX)
     {
-        if (dynamic_cast<const Matrix *>(&lhs)->getColumnsCount() == dynamic_cast<const Matrix *>(&rhs)->getRowsCount())
+        if (dynamic_cast<const Matrix *>(&lhs)->getRowsCount() == dynamic_cast<const Matrix *>(&rhs)->getColumnsCount())
         {
             // TODO https://en.wikipedia.org/wiki/Matrix_multiplication implement this shit.
             tmp = solveDot(this, dynamic_cast<const Matrix *>(&rhs));
@@ -457,9 +457,9 @@ Matrix *Matrix::solveMod(const Matrix *a, double b)
 
 Matrix *Matrix::solveDot(const Matrix *a, const Matrix *b)
 {
-    // columns a == rows b
-    // size ==> rows a * columns b
-    auto *tmp = new Matrix(a->getRowsCount(), b->getColumnsCount());
+    // rows a == columns b
+    // size ==> columns a * rows b
+    auto *tmp = new Matrix(a->getColumnsCount(), b->getRowsCount());
 
     return tmp;
 }

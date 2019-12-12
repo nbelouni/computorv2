@@ -8,13 +8,13 @@ class Matrix: public Operand
 {
 	private:
 	    std::vector<double>     values_;
-		size_t                  columns_;
 		size_t                  rows_;
+		size_t                  columns_;
 
 	public:
 		Matrix();
-		Matrix(std::vector<double> values, size_t columns, size_t rows);
-		Matrix(size_t columns, size_t rows);
+		Matrix(std::vector<double> values, size_t rows, size_t columns);
+		Matrix(size_t rows, size_t columns);
 		Matrix(Matrix &matrix);
 		Matrix(const Matrix *matrix);
 		~Matrix();

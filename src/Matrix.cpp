@@ -7,24 +7,25 @@ Matrix::Matrix()
     rows_ = 0;
 }
 
-Matrix::Matrix(std::vector<double> values, size_t columns, size_t rows) : values_(std::move(values)), columns_(columns),
-                                                                          rows_(rows)
+Matrix::Matrix(std::vector<double> values, size_t rows, size_t columns) :   values_(std::move(values)),
+                                                                            rows_(rows),
+                                                                            columns_(columns)
 {
     this->setType(MATRIX);
     if (columns_ * rows_ != values_.size())
     {
         throw std::logic_error(
-                "in 'Matrix(std::vector<double> values, size_t columns, size_t rows)' number of values does not match columns * rows.");
+                "in 'Matrix(std::vector<double> values, size_t columns, size_t rows)' number of values does not match rows * columns.");
     }
 }
 
-Matrix::Matrix(size_t columns, size_t rows)
+Matrix::Matrix(size_t rows, size_t columns)
 {
     this->setType(MATRIX);
-    this->values_.reserve(columns * rows);
-    this->columns_ = columns;
+    this->values_.reserve(rows * columns);
     this->rows_ = rows;
-    for (int i = 0; i < columns * rows; i++)
+    this->columns_ = columns;
+    for (int i = 0; i < rows * columns; i++)
     {
         this->values_.push_back(0.0);
     }

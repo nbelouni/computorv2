@@ -246,8 +246,9 @@ void Computor::testMatrix()
     std::cout << mata << std::endl;
     std::cout << matb << std::endl;
     // Bon c'est degeux mais je vais voir plus tard.
-//    tmp = mata.dot(mata, matb);
-//    std::cout << *tmp << std::endl;
+    tmp = mata.dot(mata, matb);
+    std::cout << *tmp << std::endl;
+/*
 
     std::vector<double> pouet;
 
@@ -296,5 +297,6 @@ void Computor::testMatrix()
 //        std::cout << " " << pouet[i];
 //    }
 //    std::cout << std::endl;
+*/
 
 }

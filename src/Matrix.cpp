@@ -260,11 +260,6 @@ const std::vector<double> Matrix::getColumn(int col_index) const
     {
         throw std::invalid_argument("Column access > than columns count.");
     }
-    for (int i = 0; i < this->getValues().size(); i++)
-    {
-        std::cout << this->getValues()[i] << " ";
-    }
-    std::cout << std::endl;
     for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
     {
         for (int iter_y = 0; iter_y < this->getColumnsCount(); iter_y++)
@@ -273,11 +268,8 @@ const std::vector<double> Matrix::getColumn(int col_index) const
             {
                 vals.push_back(this->getValues()[iter_x * this->getColumnsCount() + iter_y]);
             }
-            std::cout << "[" << iter_x << "," << iter_y << "] "
-                      << this->getValues()[iter_x * this->getColumnsCount() + iter_y] << " ";
         }
     }
-    std::cout << std::endl;
     return vals;
 }
 
@@ -293,11 +285,6 @@ const std::vector<double> Matrix::getRow(int row_index) const
     {
         throw std::invalid_argument("Column access > than columns count.");
     }
-    for (int i = 0; i < this->getValues().size(); i++)
-    {
-        std::cout << this->getValues()[i] << " ";
-    }
-    std::cout << std::endl;
     for (int iter_x = 0; iter_x < this->getRowsCount(); iter_x++)
     {
         for (int iter_y = 0; iter_y < this->getColumnsCount(); iter_y++)
@@ -306,11 +293,8 @@ const std::vector<double> Matrix::getRow(int row_index) const
             {
                 vals.push_back(this->getValues()[iter_x * this->getColumnsCount() + iter_y]);
             }
-            std::cout << "[" << iter_x << "," << iter_y << "] "
-                      << this->getValues()[iter_x * this->getColumnsCount() + iter_y] << " ";
         }
     }
-    std::cout << std::endl;
     return vals;
 }
 

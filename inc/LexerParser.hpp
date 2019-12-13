@@ -3,7 +3,7 @@
 
 #include "Computorv2.hpp"
 #include "Variable.hpp"
-#include "Real.hpp"
+#include "Rational.hpp"
 #include "Complex.hpp"
 #include "Matrix.hpp"
 
@@ -174,6 +174,7 @@ class LexerParser
 	
 		Token					*newUnknown();
 		Token					*newComplex();
+		Token					*newMatrix();
 
 		class	InvalidLineException : public std::exception
 		{

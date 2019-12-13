@@ -289,10 +289,7 @@ bool								LexerParser::nextIsEnd()
 }
 void								LexerParser::push()
 {
-	std::cout << "push it <3 : ";
-
 	stack_.push_back(&(*it_));
-	std::cout << stack_.back()->first << std::endl;
 }
 
 Token::t_type						LexerParser::lpTokenToTokenType(LexerParser::t_token_def t)
@@ -411,7 +408,7 @@ Token							*LexerParser::newComplex()
 		stack_.pop_back();
 	if (!stack_.empty() && isDigit(stack_.back()->second))
 	{
-		static_cast<Complex *>(tmp->getMonomial()->getOperand())->setComplexPart(std::stod(stack_.back()->first));
+		static_cast<Complex *>(tmp->getMonomial()->getOperand())->setImaginaryPart(std::stod(stack_.back()->first));
 	}
 	else if (!stack_.empty() && !isDigit(stack_.back()->second))
 	{
@@ -422,12 +419,42 @@ Token							*LexerParser::newComplex()
 	return tmp;
 }
 
+Token							*LexerParser::newMatrix()
+{
+	std::vector<double>	new_row;
+	size_t row_size = 0;
+	size_t tmp_row_size = 0;
+	size_t col_size = 0;
+	
+	for (std::list<t_token *>::iterator it = stack_.begin(); it != stack_.end(); ++it)
+	{
+		std::cout << ". current : " << (*it)->first;
+		if ((*it)->second == SEMICOL || (*it)->second == C_BRACKET)
+		{
+			if (row_size == 0)
+				row_size = tmp_row_size;
+			if (tmp_row_size != row_size)
+			{
+				std::cout << "ERROR fill() -> MATRIX -> ROW SIZE" << std::endl;
+				return NULL;
+			}
+			++col_size;
+			tmp_row_size = 0;
+		}
+		else
+		{
+			new_row.push_back(std::stod((*it)->first));
+			++tmp_row_size;
+		}
+	}
+
+	return new Token(lpTokenToTokenType(state_), new Monomial(new Matrix(new_row, row_size, col_size)));
+}
+
 void								LexerParser::fill()
 {
-	std::cout << "fill it <3 : ";
 	if (stack_.empty())
 		return;
-	std::cout << tokenToString(state_) << std::endl;
 	if (state_ == UNKNOWN)
 	{
 		eq_tokens_.push_back(newUnknown());
@@ -440,14 +467,16 @@ void								LexerParser::fill()
 	{
 		if (state_ == REAL)
 		{
-			eq_tokens_.push_back(new Token(lpTokenToTokenType(state_), new Monomial(new Real(std::stod(stack_.back()->first)))));
+			eq_tokens_.push_back(new Token(lpTokenToTokenType(state_), new Monomial(new Rational(std::stod(stack_.back()->first)))));
 		}
 		else if (state_ == COMPLEX)
 		{
 			eq_tokens_.push_back(newComplex());
 		}
-		else
-			std::cout << "state_ : " << tokenToString(state_) << std::endl;
+		else if (state_ == MATRIX)
+		{
+			eq_tokens_.push_back(newMatrix());
+		}
 	}
 		
 		std::cout << std::endl << "___________Token list " << std::endl;;
@@ -465,19 +494,36 @@ void								LexerParser::fill()
 		}
 		if (eq_tokens_[i]->getType() == Token::MONOMIAL)
 		{
-			std::cout << eq_tokens_[i]->getMonomial()->getOperand()->getType();
-			if (eq_tokens_[i]->getMonomial()->getOperand()->getType() == t_op::REAL)
-				std::cout << std::to_string(static_cast<Real *>(eq_tokens_[i]->getMonomial()->getOperand())->getValue());
+			if (eq_tokens_[i]->getMonomial()->getOperand()->getType() == t_op::RATIONAL)
+				std::cout << std::to_string(static_cast<Rational *>(eq_tokens_[i]->getMonomial()->getOperand())->getValue());
 			else if (eq_tokens_[i]->getMonomial()->getOperand()->getType() == t_op::COMPLEX)
 			{
-				std::cout << std::to_string(static_cast<Complex *>(eq_tokens_[i]->getMonomial()->getOperand())->getRealPart()) << " + ";
-				std::cout << std::to_string(static_cast<Complex *>(eq_tokens_[i]->getMonomial()->getOperand())->getComplexPart()) << " * i";
+				std::cout << "(";
+				std::cout << std::to_string(static_cast<Complex *>(eq_tokens_[i]->getMonomial()->getOperand())->getRationalPart()) << " + ";
+				std::cout << std::to_string(static_cast<Complex *>(eq_tokens_[i]->getMonomial()->getOperand())->getImaginaryPart()) << " * i) ^ ";
+				std::cout << eq_tokens_[i]->getMonomial()->getPower();
+			}
+			else if (eq_tokens_[i]->getMonomial()->getOperand()->getType() == t_op::MATRIX)
+			{
+			 std::vector<double> tmp = static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getValues();
+				std::cout << "Matrix " << static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getColumnsCount() << " * ";
+				std::cout << static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getRowsCount() << " : ";
+				std::cout << " [ ";
+				for (int i = 0; i < static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getColumnsCount(); ++i)
+				{
+					std::cout << " [ ";
+					for (int j = 0; j < static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getRowsCount(); ++j)
+					{
+						std::cout << tmp[static_cast<Matrix *>(eq_tokens_[i]->getMonomial()->getOperand())->getRowsCount() * i + j] << ", ";
+					}
+					std::cout << " ] ";
+				}
+				std::cout << " ] " << std::endl;
 			}
 		}
 		std::cout << std::endl;
 	}
 		std::cout << std::endl << "___________" << std::endl;;
-	std::cout << "pop"  << std::endl;
 	while (!stack_.empty())
 	{
 		stack_.pop_back();
@@ -487,8 +533,6 @@ void								LexerParser::fill()
 
 void								LexerParser::findNext()
 {
-	std::cout << "find next <3 " << std::endl;
-	
 	++it_;
 	if (it_ != tokens_.end())
 	{
@@ -497,7 +541,6 @@ void								LexerParser::findNext()
 		else
 		{
 			state_ = NONE;
-			std::cout << tokenToString(it_->second) << " not implemented yet." << std::endl;
 		}
 	}
 	else
@@ -522,7 +565,7 @@ bool								LexerParser::isOperator(LexerParser::t_token_def t)
 bool								LexerParser::isOperand(LexerParser::t_token_def t)
 {
 	if (t == INT_NUMBER || t == DEC_NUMBER || t == VAR ||
-		 state_ == REAL || state_ == UNKNOWN ||  state_ == COMPLEX || state_ == MONOMIAL)
+		 state_ == REAL || state_ == UNKNOWN ||  state_ == COMPLEX ||  state_ == MATRIX || state_ == MONOMIAL)
 		return true;
 	return false;
 }
@@ -536,7 +579,6 @@ bool								LexerParser::isPar(LexerParser::t_token_def t)
 
 void								LexerParser::oBracketAndNext()
 {
-	std::cout << "oBracketAndNext()" << std::endl;
 	brackets_++;
 	try
 	{
@@ -569,11 +611,9 @@ void								LexerParser::oBracketAndNext()
 
 void								LexerParser::cBracketAndNext()
 {
-	std::cout << "cBracketAndNext()" << std::endl;
 	brackets_--;
 	try
 	{
-		std::cout << "state_ : " << tokenToString(state_) << std::endl;
 		if (brackets_ < 0)
 			throw InvalidLineException("CA MARCHE PAS");
 		if (state_ == MATRIX_ROW)
@@ -590,14 +630,12 @@ void								LexerParser::cBracketAndNext()
 			else
 				throw InvalidLineException("CA MARCHE PAS");
 		}
-			std::cout << "______4" << std::endl;
 		if (state_ == MATRIX)
 		{
-			std::cout << "______5" << std::endl;
+			push();
 			fill();
 			return;
 		}
-			std::cout << "______6" << std::endl;
 		throw InvalidLineException("CA MARCHE PAS");
 	}
 	catch(std::exception &e)
@@ -609,7 +647,6 @@ void								LexerParser::cBracketAndNext()
 
 void								LexerParser::oParAndNext()
 {
-	std::cout << "oParAndNext()" << std::endl;
 	par_++;
 	try
 	{
@@ -634,7 +671,6 @@ void								LexerParser::oParAndNext()
 
 void								LexerParser::cParAndNext()
 {
-	std::cout << "cParAndNext()" << std::endl;
 	try
 	{
 		par_--;
@@ -654,7 +690,6 @@ void								LexerParser::cParAndNext()
 
 void								LexerParser::mulAndNext()
 {
-	std::cout << "mulAndNext()" << std::endl;
 	try
 	{
 		if (!nextIsEnd())
@@ -689,7 +724,6 @@ void								LexerParser::mulAndNext()
 
 void								LexerParser::literalOperatorAndNext()
 {
-	std::cout << "literalAndNext()" << std::endl;
 	try
 	{
 		push();
@@ -713,7 +747,6 @@ void								LexerParser::literalOperatorAndNext()
 
 void								LexerParser::powAndNext()
 {
-	std::cout << "powAndNext()" << std::endl;
 	try
 	{
 		if (!nextIsEnd())
@@ -744,7 +777,6 @@ void								LexerParser::powAndNext()
 
 void								LexerParser::varAndNext()
 {
-	std::cout << "varAndNext()" << std::endl;
 	try
 	{
 		push();
@@ -778,7 +810,6 @@ void								LexerParser::varAndNext()
 
 void								LexerParser::negAndNext()
 {
-	std::cout << "negAndNext()" << std::endl;
 	try
 	{
 		push();
@@ -799,7 +830,6 @@ void								LexerParser::negAndNext()
 
 void								LexerParser::semicolAndNext()
 {
-	std::cout << "semicolAndNext()" << std::endl;
 	try
 	{
 		push();
@@ -822,7 +852,6 @@ void								LexerParser::semicolAndNext()
 
 void								LexerParser::commaAndNext()
 {
-	std::cout << "commaAndNext()" << std::endl;
 	try
 	{
 		if (!nextIsEnd() && state_ == MATRIX_ROW)
@@ -845,10 +874,8 @@ void								LexerParser::commaAndNext()
 
 void								LexerParser::realAndNext()
 {
-	std::cout << "realAndNext()" << std::endl;
 	try
 	{
-		std::cout << tokenToString(state_) << std::endl;
 		push();
 		if (state_ == MATRIX_ROW)
 		{
@@ -894,7 +921,6 @@ Variable							LexerParser::parse()
 		}
 		while (it_ != tokens_.end())
 		{
-			std::cout << "parse()" << std::endl;
 			findNext();
 		}
 	}
@@ -1068,6 +1094,7 @@ void								LexerParser::printToken(LexerParser::t_token t)
 	std::cout << "type : " << tokenToString(t.second);
 	std::cout << std::endl;
 }
+
 void								LexerParser::printTokens()
 {
 	for (int i = 0; i < tokens_.size(); ++i)

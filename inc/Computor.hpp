@@ -6,6 +6,7 @@
 #define COMPUTERV2_COMPUTOR_HPP
 
 #include "Computorv2.hpp"
+#include "Operand.hpp"
 
 class Computor
 {
@@ -13,6 +14,10 @@ public:
     Computor();
 
     ~Computor();
+
+    void testRational();
+    void testComplex();
+    void testMatrix();
 };
 
 #endif //COMPUTERV2_COMPUTOR_HPP

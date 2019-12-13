@@ -240,6 +240,7 @@ void Computor::testMatrix()
   //  std::cout << *tmp << std::endl;
 */
 
+/*
     Matrix mata({11, 12, 21, 22, 31, 32, 41, 42}, 4, 2);
     Matrix matb({11, 12, 13, 21, 22, 23}, 2, 3);
 
@@ -248,6 +249,27 @@ void Computor::testMatrix()
     // Bon c'est degeux mais je vais voir plus tard.
     tmp = mata.dot(mata, matb);
     std::cout << *tmp << std::endl;
+*/
+
+    Matrix mata({11, 12, 13}, 1, 3);
+    Matrix matb({11, 21, 31}, 3, 1);
+
+    std::cout << mata << std::endl;
+    std::cout << matb << std::endl;
+    // Bon c'est degeux mais je vais voir plus tard.
+    tmp = mata.dot(mata, matb);
+    std::cout << *tmp << std::endl;
+
+/*
+    Matrix mata({11, 12, 13, 21, 22, 23, 31, 32, 33}, 3, 3);
+    Matrix matb({110, 120, 130, 210, 220, 230, 310, 320, 330}, 3, 3);
+
+    std::cout << mata << std::endl;
+    std::cout << matb << std::endl;
+    // Bon c'est degeux mais je vais voir plus tard.
+    tmp = mata.dot(mata, matb);
+    std::cout << *tmp << std::endl;
+*/
 /*
 
     std::vector<double> pouet;

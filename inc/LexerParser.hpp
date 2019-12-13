@@ -3,6 +3,9 @@
 
 #include "Computorv2.hpp"
 #include "Variable.hpp"
+#include "Real.hpp"
+#include "Complex.hpp"
+#include "Matrix.hpp"
 
 class LexerParser
 {
@@ -53,7 +56,7 @@ class LexerParser
 	//	NAN
 
 		NEG,		//	-	OK
-		POWER,		//	POW INT_NUMBER
+//		POWER,		//	POW INT_NUMBER
 		MATRIX_ROW,	//	O_BRACKET REAL (COMMA REAL)* C_BRACKET
 		O_BRACKET,	//	[	OK
 		C_BRACKET,	//	]	OK
@@ -71,7 +74,7 @@ class LexerParser
 
 	//	MONOMIAL
 
-		UNKNOWN,	//	(SUB)? VAR (POWER)?	OK
+		UNKNOWN,	//	(NEG)? VAR (POWER)?	OK
 		MONOMIAL,	//	[OPERAND UNKNOWN]
 
 	//	OTHERS
@@ -83,7 +86,6 @@ class LexerParser
 
 		EQUATION,	//	(O_PAR)? OPERAND (C_PAR)? ((OPERATOR)? EQUATION)? (C_PAR if O_PAR == true)
 		NONE,
-		BEGIN,
 		ERROR
 	}				t_token_def;
 
@@ -112,7 +114,8 @@ class LexerParser
 		int						brackets_;
 		int						par_;
 		std::vector<LexerParser::t_token>::iterator it_;
-		std::stack<t_token *>	fill_it_;
+		std::list<t_token *>	stack_;
+		std::vector<Token *>	eq_tokens_;
 		
 		LexerParser(LexerParser &lp);
 		
@@ -146,20 +149,31 @@ class LexerParser
 		bool					isLogicSequence(t_token_def first, t_token_def next);
 
 		Variable				parse();
+		bool					isDigit(t_token_def t);
 		bool					isOperator(t_token_def t);
 		bool					isOperand(t_token_def t);
+		bool					isPar(LexerParser::t_token_def t);
 
 		bool					nextIsEnd();
 		void					push();
+		Token::t_type			lpTokenToTokenType(t_token_def t);
 		void					fill();
 		void					findNext();
-		void					subAndNext();
-		void					modAndNext();
-		void					divAndNext();
-		void					sumAndNext();
 		void					powAndNext();
 		void					varAndNext();
 		void					realAndNext();
+		void					negAndNext();
+		void					mulAndNext();
+		void					literalOperatorAndNext();
+		void					oParAndNext();
+		void					cParAndNext();
+		void					oBracketAndNext();
+		void					cBracketAndNext();
+		void					commaAndNext();
+		void					semicolAndNext();
+	
+		Token					*newUnknown();
+		Token					*newComplex();
 
 		class	InvalidLineException : public std::exception
 		{

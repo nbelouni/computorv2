@@ -11,8 +11,8 @@
 class Complex: public Operand
 {
 	private:
-	    double  _real_part;
-	    double	_complex_part;
+	    double  real_part_;
+	    double	complex_part_;
 
 	public:
 		Complex();

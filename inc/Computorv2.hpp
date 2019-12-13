@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <regex>
 
 typedef std::vector<std::vector<double>> t_matrix;
 /*

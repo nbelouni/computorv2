@@ -4,15 +4,15 @@ Variable::Variable()
 {
 }
 
-Variable::Variable(Equation e): equation_(e)
+Variable::Variable(Variable::t_type t, Equation e): type_(t), equation_(e)
 {
 }
 
-Variable::Variable(Equation e, std::string n): equation_(e), name_(n)
+Variable::Variable(Variable::t_type t, Equation e, std::string n): type_(t),  equation_(e), name_(n)
 {
 }
 
-Variable::Variable(Equation e, std::string n, std::vector<std::string> a): equation_(e), name_(n), args_(a)
+Variable::Variable(Variable::t_type t, Equation e, std::string n, std::vector<std::string> a): type_(t),  equation_(e), name_(n), args_(a)
 {
 }
 
@@ -30,6 +30,15 @@ void						Variable::clear()
 Equation					Variable::getEquation()
 {
 	return equation_;
+}
+
+void						Variable::setType(Variable::t_type s)
+{
+	type_ = s;
+}
+Variable::t_type			Variable::getType()
+{
+	return type_;
 }
 
 void						Variable::setName(std::string s)

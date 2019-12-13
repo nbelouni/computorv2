@@ -11,12 +11,13 @@ class Monomial
 		double		coef_;
 		Operand		*operand_;
 		size_t		power_;
+		bool		neg_;
 
 	public:
-		Monomial(std::string name);
+		Monomial(std::string name, bool neg);
 		Monomial(Operand *op);
 		Monomial(double coef, Operand *op);
-		Monomial(double coef, size_t pow, std::string name);
+		Monomial(double coef, size_t pow, std::string name, bool neg);
 		Monomial(double coef, Operand *op, size_t pow);
 		~Monomial();
 
@@ -31,6 +32,9 @@ class Monomial
 
 		void		setPower(size_t pow);
 		size_t		getPower();
+
+		void		setNeg(bool n);
+		bool		isNeg();
 };
 
 #endif

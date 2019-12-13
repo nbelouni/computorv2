@@ -8,11 +8,21 @@ class Monomial;
 
 class Token
 {
-	typedef enum		e_type
-	{
-		OPERATOR,
-		MONOMIAL
-	}					t_type;
+	public:
+		typedef enum		e_type
+		{
+			O_PAR,		//	(	OK
+			C_PAR,		//	)	OK
+			MUL,		//	*	OK
+			POW,		//	^	OK
+			SUM,		//	+	OK
+			DIV,		//	/	OK
+			SUB,		//	-	OK
+			MOD,		//	%	OK
+			DOUBLE_MUL,	//	**	OK
+			MONOMIAL,
+			UNKNOWN
+		}					t_type;
 
 	private:
 		t_type			type_;
